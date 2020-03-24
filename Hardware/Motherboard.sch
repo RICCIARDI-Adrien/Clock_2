@@ -1,0 +1,45 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 3
+Title "Clock 2 motherboard"
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L PIC18F23K22:PIC18F23K22 U?
+U 1 1 5E7A8D16
+P 6300 3950
+F 0 "U?" H 6300 5320 50  0000 C CNN
+F 1 "PIC18F23K22" H 6300 5229 50  0000 C CNN
+F 2 "" H 6300 3950 50  0001 C CNN
+F 3 "" H 6300 3950 50  0001 C CNN
+	1    6300 3950
+	1    0    0    -1  
+$EndComp
+$Sheet
+S 1000 3000 1500 1500
+U 5E7AB2A0
+F0 "FTDI" 50
+F1 "FTDI.sch" 50
+$EndSheet
+$Sheet
+S 4650 1000 1300 1000
+U 5E7ACE5B
+F0 "Sensors_RTC" 50
+F1 "Sensors_RTC.sch" 50
+F2 "RTC_SCL" I R 5950 1250 50 
+F3 "RTC_SDA" B R 5950 1350 50 
+F4 "BME680_SCK" I R 5950 1550 50 
+F5 "BME680_SDO" O R 5950 1650 50 
+F6 "BME680_SDI" I R 5950 1750 50 
+F7 "BME680_CS" I R 5950 1850 50 
+$EndSheet
+$EndSCHEMATC
