@@ -1,6 +1,18 @@
 EESchema-LIBRARY Version 2.4
 #encoding utf-8
 #
+# Adafruit_BME680_Adafruit_BME680
+#
+DEF Adafruit_BME680_Adafruit_BME680 U 0 40 Y Y 1 F N
+F0 "U" -200 -250 50 H V C CNN
+F1 "Adafruit_BME680_Adafruit_BME680" 100 -350 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+DRAW
+S -400 200 400 -200 0 1 0 N
+ENDDRAW
+ENDDEF
+#
 # Connector_Conn_01x07_Male
 #
 DEF Connector_Conn_01x07_Male J 0 40 Y N 1 F N
@@ -33,6 +45,31 @@ X Pin_4 4 200 0 150 L 50 50 1 1 P
 X Pin_5 5 200 -100 150 L 50 50 1 1 P
 X Pin_6 6 200 -200 150 L 50 50 1 1 P
 X Pin_7 7 200 -300 150 L 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# Device_Battery
+#
+DEF Device_Battery BT 0 0 N N 1 F N
+F0 "BT" 100 100 50 H V L CNN
+F1 "Device_Battery" 100 0 50 H V L CNN
+F2 "" 0 60 50 V I C CNN
+F3 "" 0 60 50 V I C CNN
+DRAW
+S -80 -55 80 -65 0 1 0 F
+S -80 70 80 60 0 1 0 F
+S -52 -78 50 -98 0 1 0 F
+S -52 47 50 27 0 1 0 F
+P 2 0 1 0 0 -60 0 -50 N
+P 2 0 1 0 0 -40 0 -30 N
+P 2 0 1 0 0 -20 0 -10 N
+P 2 0 1 0 0 0 0 10 N
+P 2 0 1 0 0 20 0 30 N
+P 2 0 1 0 0 70 0 100 N
+P 2 0 1 10 10 105 50 105 N
+P 2 0 1 10 30 125 30 85 N
+X + 1 0 200 100 D 50 50 1 1 P
+X - 2 0 -200 100 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
