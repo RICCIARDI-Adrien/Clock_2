@@ -19,7 +19,7 @@ L Connector:Conn_01x06_Male J3
 U 1 1 5E7D0A45
 P 4500 2950
 F 0 "J3" H 4608 3331 50  0000 C CNN
-F 1 "Conn_01x06_Male" H 4608 3240 50  0000 C CNN
+F 1 "Display_1" H 4608 3240 50  0000 C CNN
 F 2 "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical" H 4500 2950 50  0001 C CNN
 F 3 "~" H 4500 2950 50  0001 C CNN
 	1    4500 2950
@@ -50,7 +50,7 @@ L Connector:Conn_01x10_Male J4
 U 1 1 5E7D7996
 P 4500 4050
 F 0 "J4" H 4608 4631 50  0000 C CNN
-F 1 "Conn_01x10_Male" H 4608 4540 50  0000 C CNN
+F 1 "Display_2" H 4608 4540 50  0000 C CNN
 F 2 "Connector_PinHeader_2.54mm:PinHeader_1x10_P2.54mm_Vertical" H 4500 4050 50  0001 C CNN
 F 3 "~" H 4500 4050 50  0001 C CNN
 	1    4500 4050
