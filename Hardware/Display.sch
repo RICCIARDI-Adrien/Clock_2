@@ -15,21 +15,10 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L Transistor_BJT:BD135 Q?
-U 1 1 5E7D0088
-P 5750 5350
-F 0 "Q?" H 5941 5396 50  0000 L CNN
-F 1 "BD135" H 5941 5305 50  0000 L CNN
-F 2 "Package_TO_SOT_THT:TO-126-3_Vertical" H 5950 5275 50  0001 L CIN
-F 3 "http://www.st.com/internet/com/TECHNICAL_RESOURCES/TECHNICAL_LITERATURE/DATASHEET/CD00001225.pdf" H 5750 5350 50  0001 L CNN
-	1    5750 5350
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Connector:Conn_01x06_Male J?
+L Connector:Conn_01x06_Male J3
 U 1 1 5E7D0A45
 P 4500 2950
-F 0 "J?" H 4608 3331 50  0000 C CNN
+F 0 "J3" H 4608 3331 50  0000 C CNN
 F 1 "Conn_01x06_Male" H 4608 3240 50  0000 C CNN
 F 2 "" H 4500 2950 50  0001 C CNN
 F 3 "~" H 4500 2950 50  0001 C CNN
@@ -57,10 +46,10 @@ VSS
 Text Notes 4200 2900 0    50   ~ 0
 VDD
 $Comp
-L Connector:Conn_01x10_Male J?
+L Connector:Conn_01x10_Male J4
 U 1 1 5E7D7996
 P 4500 4050
-F 0 "J?" H 4608 4631 50  0000 C CNN
+F 0 "J4" H 4608 4631 50  0000 C CNN
 F 1 "Conn_01x10_Male" H 4608 4540 50  0000 C CNN
 F 2 "" H 4500 4050 50  0001 C CNN
 F 3 "~" H 4500 4050 50  0001 C CNN
@@ -80,10 +69,10 @@ LED-
 Text Notes 4200 4600 0    50   ~ 0
 LED+
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0119
 U 1 1 5E7DC996
 P 5800 2400
-F 0 "#PWR?" H 5800 2150 50  0001 C CNN
+F 0 "#PWR0119" H 5800 2150 50  0001 C CNN
 F 1 "GND" H 5805 2227 50  0000 C CNN
 F 2 "" H 5800 2400 50  0001 C CNN
 F 3 "" H 5800 2400 50  0001 C CNN
@@ -95,8 +84,8 @@ L Device:C C?
 U 1 1 5E7E4239
 P 5300 2650
 AR Path="/5E7E4239" Ref="C?"  Part="1" 
-AR Path="/5E7CFAFC/5E7E4239" Ref="C?"  Part="1" 
-F 0 "C?" H 5415 2787 50  0000 L CNN
+AR Path="/5E7CFAFC/5E7E4239" Ref="C7"  Part="1" 
+F 0 "C7" H 5415 2787 50  0000 L CNN
 F 1 "100n" H 5415 2696 50  0000 L CNN
 F 2 "Capacitor_SMD:C_1206_3216Metric_Pad1.42x1.75mm_HandSolder" H 5338 2500 50  0001 C CNN
 F 3 "~" H 5300 2650 50  0001 C CNN
@@ -106,10 +95,10 @@ F 5 "X7R" H 5415 2514 50  0000 L CNN "Champ5"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R_POT_TRIM 10K
+L Device:R_POT_TRIM 10K1
 U 1 1 5E7DEAB7
 P 6950 2650
-F 0 "10K" H 6880 2696 50  0000 R CNN
+F 0 "10K1" H 6880 2696 50  0000 R CNN
 F 1 "R_POT_TRIM" H 7450 2850 50  0000 R CNN
 F 2 "" H 6950 2650 50  0001 C CNN
 F 3 "~" H 6950 2650 50  0001 C CNN
@@ -121,8 +110,8 @@ L Device:C C?
 U 1 1 5E7EC9B4
 P 5800 2650
 AR Path="/5E7EC9B4" Ref="C?"  Part="1" 
-AR Path="/5E7CFAFC/5E7EC9B4" Ref="C?"  Part="1" 
-F 0 "C?" H 5915 2787 50  0000 L CNN
+AR Path="/5E7CFAFC/5E7EC9B4" Ref="C8"  Part="1" 
+F 0 "C8" H 5915 2787 50  0000 L CNN
 F 1 "470n" H 5915 2696 50  0000 L CNN
 F 2 "Capacitor_SMD:C_1206_3216Metric_Pad1.42x1.75mm_HandSolder" H 5838 2500 50  0001 C CNN
 F 3 "~" H 5800 2650 50  0001 C CNN
@@ -132,10 +121,10 @@ F 5 "X7R" H 5915 2514 50  0000 L CNN "Champ5"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:CP C?
+L Device:CP C9
 U 1 1 5E7EE2A7
 P 6300 2650
-F 0 "C?" H 6182 2559 50  0000 R CNN
+F 0 "C9" H 6182 2559 50  0000 R CNN
 F 1 "220u" H 6182 2650 50  0000 R CNN
 F 2 "" H 6338 2500 50  0001 C CNN
 F 3 "~" H 6300 2650 50  0001 C CNN
@@ -197,10 +186,10 @@ Wire Wire Line
 Wire Wire Line
 	7100 2850 6950 2850
 $Comp
-L power:+5V #PWR?
+L power:+5V #PWR0120
 U 1 1 5E7DD692
 P 7100 2850
-F 0 "#PWR?" H 7100 2700 50  0001 C CNN
+F 0 "#PWR0120" H 7100 2700 50  0001 C CNN
 F 1 "+5V" V 7115 2978 50  0000 L CNN
 F 2 "" H 7100 2850 50  0001 C CNN
 F 3 "" H 7100 2850 50  0001 C CNN
@@ -254,10 +243,10 @@ DISPLAY_DB6
 Text HLabel 5050 4350 2    50   BiDi ~ 0
 DISPLAY_DB7
 $Comp
-L power:+5V #PWR?
+L power:+5V #PWR0121
 U 1 1 5E821DC4
 P 4850 4550
-F 0 "#PWR?" H 4850 4400 50  0001 C CNN
+F 0 "#PWR0121" H 4850 4400 50  0001 C CNN
 F 1 "+5V" V 4865 4678 50  0000 L CNN
 F 2 "" H 4850 4550 50  0001 C CNN
 F 3 "" H 4850 4550 50  0001 C CNN
@@ -270,57 +259,51 @@ U 1 1 5E82967A
 P 5500 4850
 AR Path="/5E7ACE5B/5E82967A" Ref="R?"  Part="1" 
 AR Path="/5E82967A" Ref="R?"  Part="1" 
-AR Path="/5E7CFAFC/5E82967A" Ref="R?"  Part="1" 
-F 0 "R?" H 5430 4804 50  0000 R CNN
+AR Path="/5E7CFAFC/5E82967A" Ref="R6"  Part="1" 
+F 0 "R6" H 5430 4804 50  0000 R CNN
 F 1 "12" H 5430 4895 50  0000 R CNN
 F 2 "Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder" V 5430 4850 50  0001 C CNN
 F 3 "~" H 5500 4850 50  0001 C CNN
 	1    5500 4850
 	-1   0    0    1   
 $EndComp
-Wire Wire Line
-	5650 5050 5650 5150
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0122
 U 1 1 5E82B8E8
-P 5650 5650
-F 0 "#PWR?" H 5650 5400 50  0001 C CNN
-F 1 "GND" H 5655 5477 50  0000 C CNN
-F 2 "" H 5650 5650 50  0001 C CNN
-F 3 "" H 5650 5650 50  0001 C CNN
-	1    5650 5650
+P 5650 5850
+F 0 "#PWR0122" H 5650 5600 50  0001 C CNN
+F 1 "GND" H 5655 5677 50  0000 C CNN
+F 2 "" H 5650 5850 50  0001 C CNN
+F 3 "" H 5650 5850 50  0001 C CNN
+	1    5650 5850
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:R R?
 U 1 1 5E82D0F5
-P 6200 5350
+P 6150 5600
 AR Path="/5E7ACE5B/5E82D0F5" Ref="R?"  Part="1" 
 AR Path="/5E82D0F5" Ref="R?"  Part="1" 
-AR Path="/5E7CFAFC/5E82D0F5" Ref="R?"  Part="1" 
-F 0 "R?" V 6407 5350 50  0000 C CNN
-F 1 "1K" V 6316 5350 50  0000 C CNN
-F 2 "Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder" V 6130 5350 50  0001 C CNN
-F 3 "~" H 6200 5350 50  0001 C CNN
-	1    6200 5350
-	0    -1   -1   0   
+AR Path="/5E7CFAFC/5E82D0F5" Ref="R8"  Part="1" 
+F 0 "R8" H 6220 5646 50  0000 L CNN
+F 1 "10K" H 6220 5555 50  0000 L CNN
+F 2 "Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder" V 6080 5600 50  0001 C CNN
+F 3 "~" H 6150 5600 50  0001 C CNN
+	1    6150 5600
+	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	5950 5350 6050 5350
-Text HLabel 6500 5350 2    50   Input ~ 0
+Text HLabel 6500 5400 2    50   Input ~ 0
 DISPLAY_BACKLIGHT
 Wire Wire Line
-	6350 5350 6500 5350
-Wire Wire Line
-	5650 5550 5650 5650
+	5650 5600 5650 5800
 $Comp
 L Device:R R?
 U 1 1 5E836C01
 P 5800 4850
 AR Path="/5E7ACE5B/5E836C01" Ref="R?"  Part="1" 
 AR Path="/5E836C01" Ref="R?"  Part="1" 
-AR Path="/5E7CFAFC/5E836C01" Ref="R?"  Part="1" 
-F 0 "R?" H 5730 4804 50  0000 R CNN
+AR Path="/5E7CFAFC/5E836C01" Ref="R7"  Part="1" 
+F 0 "R7" H 5730 4804 50  0000 R CNN
 F 1 "12" H 5730 4895 50  0000 R CNN
 F 2 "Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder" V 5730 4850 50  0001 C CNN
 F 3 "~" H 5800 4850 50  0001 C CNN
@@ -351,4 +334,31 @@ Wire Wire Line
 	5650 5050 5800 5050
 Text Notes 6400 4950 0    50   ~ 0
 Backlight leds forward voltage is about 4 to 4.5V.\nBacklight leds maximum current is 200mA.\nWith 6 ohm resistor, maximum current will be\nbetween (5-4)/6 = 166mA and (5-4.5)/6 = 83mA.\nResistors dissipated power is between\n(5-4)²/6 = 166mW and (5-4.5)²/6 = 42mW,\nso allow up to 500mW to be dissipated to be sure.
+$Comp
+L Transistor_FET:DMG3414U Q1
+U 1 1 5E7C7532
+P 5750 5400
+F 0 "Q1" H 5956 5446 50  0000 L CNN
+F 1 "DMG3414U" H 5956 5355 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 5950 5325 50  0001 L CIN
+F 3 "http://www.diodes.com/assets/Datasheets/ds31739.pdf" H 5750 5400 50  0001 L CNN
+	1    5750 5400
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	5650 5800 6150 5800
+Wire Wire Line
+	6150 5800 6150 5750
+Connection ~ 5650 5800
+Wire Wire Line
+	5650 5800 5650 5850
+Wire Wire Line
+	5950 5400 6150 5400
+Wire Wire Line
+	6150 5400 6150 5450
+Wire Wire Line
+	6150 5400 6500 5400
+Connection ~ 6150 5400
+Wire Wire Line
+	5650 5050 5650 5200
 $EndSCHEMATC
