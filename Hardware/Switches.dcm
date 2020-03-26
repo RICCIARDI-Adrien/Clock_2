@@ -1,0 +1,11 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP Inverter_8013
+F https://www.gotronic.fr/art-inverseur-unipolaire-8013-4172.htm
+$ENDCMP
+#
+$CMP Push_Button_R1500
+F https://www.gotronic.fr/art-bp-de-securite-r1500-4191.htm
+$ENDCMP
+#
+#End Doc Library
