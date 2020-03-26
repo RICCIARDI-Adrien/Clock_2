@@ -31,14 +31,14 @@ $Comp
 L Connector:Conn_01x05_Male J2
 U 1 1 5E7B1C5C
 P 9100 4850
-F 0 "J2" H 9300 5150 50  0000 R CNN
-F 1 "Conn_01x05_Male" H 9300 5250 50  0000 R CNN
+F 0 "J2" H 9072 4874 50  0000 R CNN
+F 1 "JTAG" H 9072 4783 50  0000 R CNN
 F 2 "Connector_PinHeader_2.54mm:PinHeader_1x05_P2.54mm_Horizontal" H 9100 4850 50  0001 C CNN
 F 3 "~" H 9100 4850 50  0001 C CNN
 	1    9100 4850
-	-1   0    0    1   
+	-1   0    0    -1  
 $EndComp
-Text Notes 9150 4900 0    50   ~ 0
+Text Notes 9200 4700 0    50   ~ 0
 PICkit 3 standard pinout\nwithout LVP pin
 $Comp
 L Device:C C4
@@ -472,23 +472,23 @@ Connection ~ 8100 1250
 $Comp
 L Mechanical:MountingHole_Pad H3
 U 1 1 5E7D4D02
-P 2950 6100
-F 0 "H3" H 3050 6149 50  0000 L CNN
-F 1 "MountingHole_Pad" H 3050 6058 50  0000 L CNN
-F 2 "MountingHole:MountingHole_4.5mm_Pad" H 2950 6100 50  0001 C CNN
-F 3 "~" H 2950 6100 50  0001 C CNN
-	1    2950 6100
+P 1050 6400
+F 0 "H3" H 1150 6449 50  0000 L CNN
+F 1 "MountingHole_Pad" H 1150 6358 50  0000 L CNN
+F 2 "MountingHole:MountingHole_4.5mm_Pad" H 1050 6400 50  0001 C CNN
+F 3 "~" H 1050 6400 50  0001 C CNN
+	1    1050 6400
 	1    0    0    -1  
 $EndComp
 $Comp
 L Mechanical:MountingHole_Pad H4
 U 1 1 5E7D5632
-P 3900 6100
-F 0 "H4" H 4000 6149 50  0000 L CNN
-F 1 "MountingHole_Pad" H 4000 6058 50  0000 L CNN
-F 2 "MountingHole:MountingHole_4.5mm_Pad" H 3900 6100 50  0001 C CNN
-F 3 "~" H 3900 6100 50  0001 C CNN
-	1    3900 6100
+P 2000 6400
+F 0 "H4" H 2100 6449 50  0000 L CNN
+F 1 "MountingHole_Pad" H 2100 6358 50  0000 L CNN
+F 2 "MountingHole:MountingHole_4.5mm_Pad" H 2000 6400 50  0001 C CNN
+F 3 "~" H 2000 6400 50  0001 C CNN
+	1    2000 6400
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -552,4 +552,38 @@ Text Label 3750 1500 2    50   ~ 0
 MINUS_BUTTON
 Text Label 3750 1800 2    50   ~ 0
 SETTINGS_BUTTON
+NoConn ~ 4550 2500
+NoConn ~ 4550 2600
+$Comp
+L power:GND #PWR0123
+U 1 1 5E7E3802
+P 2500 6600
+F 0 "#PWR0123" H 2500 6350 50  0001 C CNN
+F 1 "GND" H 2505 6427 50  0000 C CNN
+F 2 "" H 2500 6600 50  0001 C CNN
+F 3 "" H 2500 6600 50  0001 C CNN
+	1    2500 6600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1050 6500 1050 6550
+Wire Wire Line
+	1050 6550 2000 6550
+Wire Wire Line
+	2000 6550 2000 6500
+Wire Wire Line
+	2000 6550 2500 6550
+Wire Wire Line
+	2950 6550 2950 6500
+Connection ~ 2000 6550
+Wire Wire Line
+	3900 6550 3900 6500
+Wire Wire Line
+	2500 6600 2500 6550
+Connection ~ 2500 6550
+Wire Wire Line
+	2500 6550 2950 6550
+Wire Wire Line
+	2950 6550 3900 6550
+Connection ~ 2950 6550
 $EndSCHEMATC
