@@ -358,7 +358,7 @@ U 1 1 5E7A3D1F
 P 8600 1250
 F 0 "U3" H 9028 1296 50  0000 L CNN
 F 1 "Adafruit_BME680" H 9028 1205 50  0000 L CNN
-F 2 "Symbol:Symbol_Attention_CopperTop_Small" H 8600 1250 50  0001 C CNN
+F 2 "Empty_Footprint:Empty_Footprint" H 8600 1250 50  0001 C CNN
 F 3 "" H 8600 1250 50  0001 C CNN
 	1    8600 1250
 	1    0    0    -1  
