@@ -363,4 +363,15 @@ Wire Wire Line
 Connection ~ 6150 5400
 Wire Wire Line
 	5650 5050 5650 5200
+$Comp
+L LCD_Display:DEM20485SYH-LY U4
+U 1 1 5E7D0A49
+P 2450 3600
+F 0 "U4" H 2878 3646 50  0000 L CNN
+F 1 "DEM20485SYH-LY" H 2878 3555 50  0000 L CNN
+F 2 "Empty_Footprint:Empty_Footprint" H 2450 3600 50  0001 C CNN
+F 3 "" H 2450 3600 50  0001 C CNN
+	1    2450 3600
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
