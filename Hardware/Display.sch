@@ -4,7 +4,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 3 3
+Sheet 3 4
 Title "4 lines x 20 characters LCD display"
 Date ""
 Rev ""
@@ -102,7 +102,7 @@ F 0 "RV1" H 6881 2741 50  0000 R CNN
 F 1 "10K" H 6881 2650 50  0000 R CNN
 F 2 "Potentiometer_SMD:Potentiometer_Bourns_3314J_Vertical" H 6950 2650 50  0001 C CNN
 F 3 "~" H 6950 2650 50  0001 C CNN
-F 4 "Bourns 3314J-1-103E" H 7900 2800 50  0000 R CNN "Champ4"
+F 4 "Bourns 3314J-1-103E" H 7900 2800 50  0000 R CNN "Champ6"
 	1    6950 2650
 	1    0    0    -1  
 $EndComp
@@ -130,6 +130,7 @@ F 1 "220u" H 6182 2650 50  0000 R CNN
 F 2 "Capacitor_SMD:CP_Elec_8x10.5" H 6338 2500 50  0001 C CNN
 F 3 "~" H 6300 2650 50  0001 C CNN
 F 4 "25V" H 6182 2741 50  0000 R CNN "Champ4"
+F 5 "Panasonic EEEFK1E221P" H 6300 2650 50  0001 C CNN "Champ6"
 	1    6300 2650
 	-1   0    0    1   
 $EndComp

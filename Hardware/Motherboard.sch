@@ -4,7 +4,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 1 3
+Sheet 1 4
 Title "Clock 2 motherboard"
 Date ""
 Rev ""
@@ -355,7 +355,7 @@ $Comp
 L Device:Buzzer BZ1
 U 1 1 5E7EB9A5
 P 3700 3650
-F 0 "BZ1" H 3705 3325 50  0000 C CNN
+F 0 "BZ1" H 3800 3850 50  0000 C CNN
 F 1 "ABI-009-RC or SV12-5" H 3450 3400 50  0000 C CNN
 F 2 "Buzzer_Beeper:MagneticBuzzer_ProSignal_ABI-009-RC" V 3675 3750 50  0001 C CNN
 F 3 "~" V 3675 3750 50  0001 C CNN
@@ -381,38 +381,6 @@ Wire Wire Line
 	3950 3900 4550 3900
 Wire Wire Line
 	3900 3550 3800 3550
-$Comp
-L Connector:Conn_01x04_Male J5
-U 1 1 5E7FF0BA
-P 5600 6450
-F 0 "J5" H 5700 6650 50  0000 R CNN
-F 1 "Buttons" H 5700 6750 50  0000 R CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical" H 5600 6450 50  0001 C CNN
-F 3 "~" H 5600 6450 50  0001 C CNN
-	1    5600 6450
-	-1   0    0    1   
-$EndComp
-$Comp
-L power:+5V #PWR06
-U 1 1 5E808271
-P 4700 5750
-F 0 "#PWR06" H 4700 5600 50  0001 C CNN
-F 1 "+5V" H 4715 5923 50  0000 C CNN
-F 2 "" H 4700 5750 50  0001 C CNN
-F 3 "" H 4700 5750 50  0001 C CNN
-	1    4700 5750
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	5350 6550 5400 6550
-Wire Wire Line
-	5400 6350 5350 6350
-Wire Wire Line
-	5350 6350 5350 6550
-Text Notes 5650 6350 0    50   ~ 0
-Alarm button
-Text Notes 5650 6550 0    50   ~ 0
-Backlight button
 Wire Wire Line
 	7250 3800 8150 3800
 Text Label 8150 3800 2    50   ~ 0
@@ -425,373 +393,12 @@ Wire Wire Line
 	7250 4000 8150 4000
 Text Label 8150 4000 2    50   ~ 0
 SETTINGS_BUTTON
-Text Label 3550 6250 0    50   ~ 0
-ALARM_BUTTON
-Text Label 3550 6450 0    50   ~ 0
-BACKLIGHT_BUTTON
-$Comp
-L Switch:SW_Push SW2
-U 1 1 5E86087F
-P 2550 1700
-F 0 "SW2" V 2504 1848 50  0000 L CNN
-F 1 "Button_Minus" V 2595 1848 50  0000 L CNN
-F 2 "Button_Switch_THT:SW_Tactile_SKHH_Angled" H 2550 1900 50  0001 C CNN
-F 3 "~" H 2550 1900 50  0001 C CNN
-	1    2550 1700
-	0    1    1    0   
-$EndComp
-$Comp
-L Switch:SW_Push SW1
-U 1 1 5E864585
-P 1850 1700
-F 0 "SW1" V 1804 1848 50  0000 L CNN
-F 1 "Button_Plus" V 1895 1848 50  0000 L CNN
-F 2 "Button_Switch_THT:SW_Tactile_SKHH_Angled" H 1850 1900 50  0001 C CNN
-F 3 "~" H 1850 1900 50  0001 C CNN
-	1    1850 1700
-	0    1    1    0   
-$EndComp
-$Comp
-L Switch:SW_Push SW3
-U 1 1 5E864A28
-P 2200 6300
-F 0 "SW3" V 2246 6448 50  0000 L CNN
-F 1 "Button_Settings" V 2155 6448 50  0000 L CNN
-F 2 "Button_Switch_THT:SW_Tactile_SKHH_Angled" H 2200 6500 50  0001 C CNN
-F 3 "~" H 2200 6500 50  0001 C CNN
-	1    2200 6300
-	0    1    -1   0   
-$EndComp
-Wire Wire Line
-	2550 2500 4000 2500
-Wire Wire Line
-	4550 2600 3600 2600
-Wire Wire Line
-	2550 1500 2550 1450
-Wire Wire Line
-	2550 1450 1850 1450
-Wire Wire Line
-	1850 1450 1850 1500
-$Comp
-L Device:C C10
-U 1 1 5E878B9C
-P 1850 2850
-F 0 "C10" H 1965 2713 50  0000 L CNN
-F 1 "100n" H 1965 2804 50  0000 L CNN
-F 2 "Capacitor_SMD:C_1206_3216Metric_Pad1.42x1.75mm_HandSolder" H 1888 2700 50  0001 C CNN
-F 3 "~" H 1850 2850 50  0001 C CNN
-F 4 "25V" H 1965 2895 50  0000 L CNN "Champ4"
-F 5 "X7R" H 1965 2986 50  0000 L CNN "Champ5"
-	1    1850 2850
-	-1   0    0    1   
-$EndComp
-$Comp
-L Device:R R?
-U 1 1 5E89F073
-P 4000 2150
-AR Path="/5E7ACE5B/5E89F073" Ref="R?"  Part="1" 
-AR Path="/5E89F073" Ref="R12"  Part="1" 
-F 0 "R12" H 3930 2104 50  0000 R CNN
-F 1 "10K" H 3930 2195 50  0000 R CNN
-F 2 "Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder" V 3930 2150 50  0001 C CNN
-F 3 "~" H 4000 2150 50  0001 C CNN
-	1    4000 2150
-	-1   0    0    1   
-$EndComp
-$Comp
-L power:+5V #PWR02
-U 1 1 5E8A45F6
-P 3800 1900
-F 0 "#PWR02" H 3800 1750 50  0001 C CNN
-F 1 "+5V" H 3815 2073 50  0000 C CNN
-F 2 "" H 3800 1900 50  0001 C CNN
-F 3 "" H 3800 1900 50  0001 C CNN
-	1    3800 1900
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R R?
-U 1 1 5E8A5283
-P 3600 2150
-AR Path="/5E7ACE5B/5E8A5283" Ref="R?"  Part="1" 
-AR Path="/5E8A5283" Ref="R11"  Part="1" 
-F 0 "R11" H 3530 2104 50  0000 R CNN
-F 1 "10K" H 3530 2195 50  0000 R CNN
-F 2 "Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder" V 3530 2150 50  0001 C CNN
-F 3 "~" H 3600 2150 50  0001 C CNN
-	1    3600 2150
-	-1   0    0    1   
-$EndComp
-$Comp
-L Device:C C11
-U 1 1 5E8AB83D
-P 2550 2850
-F 0 "C11" H 2435 2713 50  0000 R CNN
-F 1 "100n" H 2435 2804 50  0000 R CNN
-F 2 "Capacitor_SMD:C_1206_3216Metric_Pad1.42x1.75mm_HandSolder" H 2588 2700 50  0001 C CNN
-F 3 "~" H 2550 2850 50  0001 C CNN
-F 4 "25V" H 2435 2895 50  0000 R CNN "Champ4"
-F 5 "X7R" H 2435 2986 50  0000 R CNN "Champ5"
-	1    2550 2850
-	-1   0    0    1   
-$EndComp
-$Comp
-L power:GND #PWR03
-U 1 1 5E8AE348
-P 2200 3150
-F 0 "#PWR03" H 2200 2900 50  0001 C CNN
-F 1 "GND" H 2205 2977 50  0000 C CNN
-F 2 "" H 2200 3150 50  0001 C CNN
-F 3 "" H 2200 3150 50  0001 C CNN
-	1    2200 3150
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	1850 3000 1850 3100
-Wire Wire Line
-	2550 3100 2550 3000
-$Comp
-L power:GND #PWR01
-U 1 1 5E8C0C95
-P 1600 1550
-F 0 "#PWR01" H 1600 1300 50  0001 C CNN
-F 1 "GND" H 1605 1377 50  0000 C CNN
-F 2 "" H 1600 1550 50  0001 C CNN
-F 3 "" H 1600 1550 50  0001 C CNN
-	1    1600 1550
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	1600 1550 1600 1450
-Wire Wire Line
-	2550 1900 2550 2500
-Wire Wire Line
-	2550 2500 2550 2700
-Connection ~ 2550 2500
-Wire Wire Line
-	1850 2700 1850 2600
-Wire Wire Line
-	1850 2600 1850 1900
-Connection ~ 1850 2600
-Wire Wire Line
-	3600 2600 3600 2300
-Connection ~ 3600 2600
-Wire Wire Line
-	3600 2600 1850 2600
-Wire Wire Line
-	4000 2300 4000 2500
-Connection ~ 4000 2500
-Wire Wire Line
-	4000 2500 4550 2500
-Wire Wire Line
-	3600 2000 3600 1950
-Wire Wire Line
-	3600 1950 3800 1950
-Wire Wire Line
-	3800 1950 3800 1900
-Wire Wire Line
-	3800 1950 4000 1950
-Wire Wire Line
-	4000 1950 4000 2000
-Connection ~ 3800 1950
-NoConn ~ 4550 4500
 NoConn ~ 4550 3800
 NoConn ~ 4550 3600
 NoConn ~ 4550 3500
 NoConn ~ 4550 3400
 NoConn ~ 4550 2700
-NoConn ~ 4550 3300
 NoConn ~ 4550 3200
-Wire Wire Line
-	1850 3100 2200 3100
-Wire Wire Line
-	1600 1450 1850 1450
-Connection ~ 1850 1450
-Wire Wire Line
-	2200 3150 2200 3100
-Connection ~ 2200 3100
-Wire Wire Line
-	2200 3100 2550 3100
-$Comp
-L Device:R R?
-U 1 1 5E9659F4
-P 1650 5800
-AR Path="/5E7ACE5B/5E9659F4" Ref="R?"  Part="1" 
-AR Path="/5E9659F4" Ref="R15"  Part="1" 
-F 0 "R15" H 1580 5754 50  0000 R CNN
-F 1 "10K" H 1580 5845 50  0000 R CNN
-F 2 "Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder" V 1580 5800 50  0001 C CNN
-F 3 "~" H 1650 5800 50  0001 C CNN
-	1    1650 5800
-	-1   0    0    1   
-$EndComp
-$Comp
-L power:GND #PWR07
-U 1 1 5E969D37
-P 1950 6600
-F 0 "#PWR07" H 1950 6350 50  0001 C CNN
-F 1 "GND" H 1955 6427 50  0000 C CNN
-F 2 "" H 1950 6600 50  0001 C CNN
-F 3 "" H 1950 6600 50  0001 C CNN
-	1    1950 6600
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR05
-U 1 1 5E96A12C
-P 1650 5600
-F 0 "#PWR05" H 1650 5450 50  0001 C CNN
-F 1 "+5V" H 1665 5773 50  0000 C CNN
-F 2 "" H 1650 5600 50  0001 C CNN
-F 3 "" H 1650 5600 50  0001 C CNN
-	1    1650 5600
-	1    0    0    -1  
-$EndComp
-Text Label 750  6050 0    50   ~ 0
-SETTINGS_BUTTON
-$Comp
-L Device:C C12
-U 1 1 5E7D4835
-P 1650 6300
-F 0 "C12" H 1535 6163 50  0000 R CNN
-F 1 "100n" H 1535 6254 50  0000 R CNN
-F 2 "Capacitor_SMD:C_1206_3216Metric_Pad1.42x1.75mm_HandSolder" H 1688 6150 50  0001 C CNN
-F 3 "~" H 1650 6300 50  0001 C CNN
-F 4 "25V" H 1535 6345 50  0000 R CNN "Champ4"
-F 5 "X7R" H 1535 6436 50  0000 R CNN "Champ5"
-	1    1650 6300
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	1650 6450 1650 6550
-Wire Wire Line
-	1650 6550 1950 6550
-Wire Wire Line
-	1950 6550 1950 6600
-Wire Wire Line
-	1950 6550 2200 6550
-Wire Wire Line
-	2200 6550 2200 6500
-Connection ~ 1950 6550
-Wire Wire Line
-	2200 6050 2200 6100
-Wire Wire Line
-	750  6050 1650 6050
-Wire Wire Line
-	1650 5950 1650 6050
-Connection ~ 1650 6050
-Wire Wire Line
-	1650 6050 2200 6050
-Wire Wire Line
-	1650 6050 1650 6150
-Wire Wire Line
-	1650 5600 1650 5650
-Wire Wire Line
-	3550 6250 4450 6250
-Wire Wire Line
-	3550 6450 4950 6450
-$Comp
-L power:GND #PWR08
-U 1 1 5E80D7F0
-P 4950 7000
-F 0 "#PWR08" H 4950 6750 50  0001 C CNN
-F 1 "GND" H 4955 6827 50  0000 C CNN
-F 2 "" H 4950 7000 50  0001 C CNN
-F 3 "" H 4950 7000 50  0001 C CNN
-	1    4950 7000
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R R?
-U 1 1 5E8041E1
-P 4450 6000
-AR Path="/5E7ACE5B/5E8041E1" Ref="R?"  Part="1" 
-AR Path="/5E8041E1" Ref="R13"  Part="1" 
-F 0 "R13" H 4380 5954 50  0000 R CNN
-F 1 "10K" H 4380 6045 50  0000 R CNN
-F 2 "Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder" V 4380 6000 50  0001 C CNN
-F 3 "~" H 4450 6000 50  0001 C CNN
-	1    4450 6000
-	-1   0    0    1   
-$EndComp
-$Comp
-L Device:R R?
-U 1 1 5E8018E4
-P 4950 6000
-AR Path="/5E7ACE5B/5E8018E4" Ref="R?"  Part="1" 
-AR Path="/5E8018E4" Ref="R14"  Part="1" 
-F 0 "R14" H 4880 5954 50  0000 R CNN
-F 1 "10K" H 4880 6045 50  0000 R CNN
-F 2 "Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder" V 4880 6000 50  0001 C CNN
-F 3 "~" H 4950 6000 50  0001 C CNN
-	1    4950 6000
-	-1   0    0    1   
-$EndComp
-$Comp
-L Device:C C14
-U 1 1 5E7FE585
-P 4950 6700
-F 0 "C14" H 4835 6563 50  0000 R CNN
-F 1 "100n" H 4835 6654 50  0000 R CNN
-F 2 "Capacitor_SMD:C_1206_3216Metric_Pad1.42x1.75mm_HandSolder" H 4988 6550 50  0001 C CNN
-F 3 "~" H 4950 6700 50  0001 C CNN
-F 4 "25V" H 4835 6745 50  0000 R CNN "Champ4"
-F 5 "X7R" H 4835 6836 50  0000 R CNN "Champ5"
-	1    4950 6700
-	-1   0    0    1   
-$EndComp
-$Comp
-L Device:C C13
-U 1 1 5E7FF03B
-P 4450 6700
-F 0 "C13" H 4335 6563 50  0000 R CNN
-F 1 "100n" H 4335 6654 50  0000 R CNN
-F 2 "Capacitor_SMD:C_1206_3216Metric_Pad1.42x1.75mm_HandSolder" H 4488 6550 50  0001 C CNN
-F 3 "~" H 4450 6700 50  0001 C CNN
-F 4 "25V" H 4335 6745 50  0000 R CNN "Champ4"
-F 5 "X7R" H 4335 6836 50  0000 R CNN "Champ5"
-	1    4450 6700
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	4450 6150 4450 6250
-Connection ~ 4450 6250
-Wire Wire Line
-	4450 6250 5400 6250
-Wire Wire Line
-	4450 6250 4450 6550
-Wire Wire Line
-	4950 6150 4950 6450
-Connection ~ 4950 6450
-Wire Wire Line
-	4950 6450 5400 6450
-Wire Wire Line
-	4950 6550 4950 6450
-Wire Wire Line
-	4450 6850 4450 6950
-Wire Wire Line
-	4450 6950 4950 6950
-Wire Wire Line
-	4950 6950 4950 6850
-Wire Wire Line
-	5350 6950 5350 6550
-Connection ~ 5350 6550
-Wire Wire Line
-	4950 6950 5350 6950
-Connection ~ 4950 6950
-Wire Wire Line
-	4950 7000 4950 6950
-Wire Wire Line
-	4450 5850 4450 5800
-Wire Wire Line
-	4450 5800 4700 5800
-Wire Wire Line
-	4700 5800 4700 5750
-Wire Wire Line
-	4700 5800 4950 5800
-Wire Wire Line
-	4950 5800 4950 5850
-Connection ~ 4700 5800
 $Comp
 L Connector:Conn_01x02_Male J6
 U 1 1 5E84D5D2
@@ -862,4 +469,87 @@ Wire Wire Line
 Wire Wire Line
 	8100 1250 8100 1300
 Connection ~ 8100 1250
+$Comp
+L Mechanical:MountingHole_Pad H3
+U 1 1 5E7D4D02
+P 2950 6100
+F 0 "H3" H 3050 6149 50  0000 L CNN
+F 1 "MountingHole_Pad" H 3050 6058 50  0000 L CNN
+F 2 "MountingHole:MountingHole_4.5mm_Pad" H 2950 6100 50  0001 C CNN
+F 3 "~" H 2950 6100 50  0001 C CNN
+	1    2950 6100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole_Pad H4
+U 1 1 5E7D5632
+P 3900 6100
+F 0 "H4" H 4000 6149 50  0000 L CNN
+F 1 "MountingHole_Pad" H 4000 6058 50  0000 L CNN
+F 2 "MountingHole:MountingHole_4.5mm_Pad" H 3900 6100 50  0001 C CNN
+F 3 "~" H 3900 6100 50  0001 C CNN
+	1    3900 6100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole_Pad H5
+U 1 1 5E7D5F44
+P 2950 6400
+F 0 "H5" H 3050 6449 50  0000 L CNN
+F 1 "MountingHole_Pad" H 3050 6358 50  0000 L CNN
+F 2 "MountingHole:MountingHole_4.5mm_Pad" H 2950 6400 50  0001 C CNN
+F 3 "~" H 2950 6400 50  0001 C CNN
+	1    2950 6400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole_Pad H6
+U 1 1 5E7D621E
+P 3900 6400
+F 0 "H6" H 4000 6449 50  0000 L CNN
+F 1 "MountingHole_Pad" H 4000 6358 50  0000 L CNN
+F 2 "MountingHole:MountingHole_4.5mm_Pad" H 3900 6400 50  0001 C CNN
+F 3 "~" H 3900 6400 50  0001 C CNN
+	1    3900 6400
+	1    0    0    -1  
+$EndComp
+$Sheet
+S 1450 1050 1300 900 
+U 5E7CE147
+F0 "Buttons" 50
+F1 "Buttons.sch" 50
+F2 "BUTTON_ALARM" O R 2750 1200 50 
+F3 "BUTTON_BACKLIGHT" O R 2750 1350 50 
+F4 "BUTTON_MINUS" O R 2750 1500 50 
+F5 "BUTTON_PLUS" O R 2750 1650 50 
+F6 "BUTTON_SETTINGS" O R 2750 1800 50 
+$EndSheet
+Wire Wire Line
+	4550 4500 3750 4500
+Text Label 3750 4500 0    50   ~ 0
+PLUS_BUTTON
+Wire Wire Line
+	2750 1650 3750 1650
+Text Label 3750 1650 2    50   ~ 0
+PLUS_BUTTON
+Wire Wire Line
+	4550 3300 3750 3300
+Text Label 3750 3300 0    50   ~ 0
+MINUS_BUTTON
+Wire Wire Line
+	2750 1500 3750 1500
+Wire Wire Line
+	2750 1350 3750 1350
+Wire Wire Line
+	2750 1200 3750 1200
+Wire Wire Line
+	2750 1800 3750 1800
+Text Label 3750 1200 2    50   ~ 0
+ALARM_BUTTON
+Text Label 3750 1350 2    50   ~ 0
+BACKLIGHT_BUTTON
+Text Label 3750 1500 2    50   ~ 0
+MINUS_BUTTON
+Text Label 3750 1800 2    50   ~ 0
+SETTINGS_BUTTON
 $EndSCHEMATC
