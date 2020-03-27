@@ -335,7 +335,7 @@
     (fp_text reference U4 (at -3.81 6.35) (layer Eco1.User)
       (effects (font (size 1 1) (thickness 0.15)))
     )
-    (fp_text value DEM20485SYH-LY (at 0 8.89) (layer Eco1.User)
+    (fp_text value DEM20485SYH-LY_Supply (at 0 8.89) (layer Eco1.User)
       (effects (font (size 1 1) (thickness 0.15)))
     )
     (fp_line (start 7.62 -3.81) (end -7.62 -3.81) (layer Eco1.User) (width 0.12))
