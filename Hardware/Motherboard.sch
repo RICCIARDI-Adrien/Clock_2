@@ -586,4 +586,15 @@ Wire Wire Line
 Wire Wire Line
 	2950 6550 3900 6550
 Connection ~ 2950 6550
+$Comp
+L USB_Connector_MUSBD111M0:MUSBD111M0_Supply J7
+U 1 1 5E7EC2F9
+P 5050 7150
+F 0 "J7" H 5428 7196 50  0000 L CNN
+F 1 "MUSBD111M0_Supply" H 5428 7105 50  0000 L CNN
+F 2 "Empty_Footprint:Empty_Footprint" H 5050 7150 50  0001 C CNN
+F 3 "" H 5050 7150 50  0001 C CNN
+	1    5050 7150
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

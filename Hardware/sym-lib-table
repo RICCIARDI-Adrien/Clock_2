@@ -2,4 +2,5 @@
   (lib (name Adafruit_BME680)(type Legacy)(uri ${KIPRJMOD}/Adafruit_BME680.lib)(options "")(descr ""))
   (lib (name LCD_Display)(type Legacy)(uri ${KIPRJMOD}/LCD_Display.lib)(options "")(descr ""))
   (lib (name Switches)(type Legacy)(uri ${KIPRJMOD}/Switches.lib)(options "")(descr ""))
+  (lib (name USB_Connector_MUSBD111M0)(type Legacy)(uri ${KIPRJMOD}/USB_Connector_MUSBD111M0.lib)(options "")(descr ""))
 )
