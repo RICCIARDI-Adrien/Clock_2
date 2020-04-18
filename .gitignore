@@ -1,6 +1,7 @@
 *.as
 *.autosave
 *.b#*
+*.bck
 *.cmf
 *.cof
 *.d
@@ -24,4 +25,6 @@
 *.sdb
 *.sym
 *-bak
+_autosave-*
 fp-info-cache
+Hardware/*.xml
