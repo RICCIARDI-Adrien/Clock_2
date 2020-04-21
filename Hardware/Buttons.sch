@@ -4,7 +4,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 4 4
+Sheet 4 5
 Title "All user interface buttons"
 Date ""
 Rev ""
@@ -446,26 +446,4 @@ Wire Wire Line
 	5450 3900 5450 3950
 Text HLabel 4900 4350 0    50   Output ~ 0
 BUTTON_SETTINGS
-$Comp
-L Switches:Inverter_8013 SW4
-U 1 1 5E7FA0CA
-P 1850 5100
-F 0 "SW4" H 2328 5146 50  0000 L CNN
-F 1 "Inverter_8013" H 2328 5055 50  0000 L CNN
-F 2 "Empty_Footprint:Empty_Footprint" H 1850 5100 50  0001 C CNN
-F 3 "https://www.gotronic.fr/art-inverseur-unipolaire-8013-4172.htm" H 1850 5100 50  0001 C CNN
-	1    1850 5100
-	1    0    0    -1  
-$EndComp
-$Comp
-L Switches:Push_Button_R1500 SW5
-U 1 1 5E7FA7B1
-P 1900 5850
-F 0 "SW5" H 2328 5896 50  0000 L CNN
-F 1 "Push_Button_R1500" H 2328 5805 50  0000 L CNN
-F 2 "Empty_Footprint:Empty_Footprint" H 1900 5850 50  0001 C CNN
-F 3 "https://www.gotronic.fr/art-bp-de-securite-r1500-4191.htm" H 1900 5850 50  0001 C CNN
-	1    1900 5850
-	1    0    0    -1  
-$EndComp
 $EndSCHEMATC

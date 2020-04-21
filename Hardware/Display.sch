@@ -4,7 +4,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 3 4
+Sheet 3 5
 Title "4 lines x 20 characters LCD display"
 Date ""
 Rev ""
@@ -363,15 +363,4 @@ Wire Wire Line
 Connection ~ 6150 5400
 Wire Wire Line
 	5650 5050 5650 5200
-$Comp
-L LCD_Display:DEM20485SYH-LY_Supply U4
-U 1 1 5E7D0A49
-P 1850 3550
-F 0 "U4" H 2278 3596 50  0000 L CNN
-F 1 "DEM20485SYH-LY_Supply" H 2278 3505 50  0000 L CNN
-F 2 "Empty_Footprint:Empty_Footprint" H 1850 3550 50  0001 C CNN
-F 3 "" H 1850 3550 50  0001 C CNN
-	1    1850 3550
-	1    0    0    -1  
-$EndComp
 $EndSCHEMATC

@@ -4,7 +4,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 2 4
+Sheet 2 5
 Title "Sensors and real-time clock"
 Date ""
 Rev ""
@@ -352,17 +352,6 @@ Text HLabel 7700 4550 0    50   Input ~ 0
 BME680_SDI
 Text HLabel 7700 4650 0    50   Input ~ 0
 BME680_CS
-$Comp
-L Adafruit_BME680:Adafruit_BME680 U3
-U 1 1 5E7A3D1F
-P 8600 1250
-F 0 "U3" H 9028 1296 50  0000 L CNN
-F 1 "Adafruit_BME680" H 9028 1205 50  0000 L CNN
-F 2 "Empty_Footprint:Empty_Footprint" H 8600 1250 50  0001 C CNN
-F 3 "" H 8600 1250 50  0001 C CNN
-	1    8600 1250
-	1    0    0    -1  
-$EndComp
 $Comp
 L Device:Battery BT1
 U 1 1 5E7A7D04

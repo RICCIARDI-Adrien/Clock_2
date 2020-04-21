@@ -4,7 +4,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 1 4
+Sheet 1 5
 Title "Clock 2 motherboard"
 Date ""
 Rev ""
@@ -586,15 +586,10 @@ Wire Wire Line
 Wire Wire Line
 	2950 6550 3900 6550
 Connection ~ 2950 6550
-$Comp
-L USB_Connector_MUSBD111M0:MUSBD111M0_Supply J7
-U 1 1 5E7EC2F9
-P 5050 7150
-F 0 "J7" H 5428 7196 50  0000 L CNN
-F 1 "MUSBD111M0_Supply" H 5428 7105 50  0000 L CNN
-F 2 "Empty_Footprint:Empty_Footprint" H 5050 7150 50  0001 C CNN
-F 3 "" H 5050 7150 50  0001 C CNN
-	1    5050 7150
-	1    0    0    -1  
-$EndComp
+$Sheet
+S 5050 6900 1000 500 
+U 5EA3776E
+F0 "Supplies" 50
+F1 "Supplies.sch" 50
+$EndSheet
 $EndSCHEMATC
