@@ -2,6 +2,7 @@
  * Clock entry point and main loop.
  * @author Adrien RICCIARDI
  */
+#include <Display.h>
 #include <xc.h>
 
 //-------------------------------------------------------------------------------------------------
@@ -41,13 +42,8 @@ void main(void)
 	OSCCON2 = 0x04; // Turn off secondary oscillator, enable primary oscillator drive circuit
 	OSCTUNEbits.PLLEN = 1; // Enable 4x PLL
 	
-	// TEST make display backlight blink
-	ANSELCbits.ANSC2 = 0;
-	LATCbits.LATC2 = 0;
-	TRISCbits.TRISC2 = 0;
-	while (1)
-	{
-		LATCbits.LATC2 = !LATCbits.LATC2;
-		__delay_ms(500);
-	}
+	// Initialize modules
+	DisplayInitialize();
+	
+	while (1);
 }
