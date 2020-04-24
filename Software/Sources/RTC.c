@@ -48,6 +48,9 @@ void RTCInitialize(void)
 	SSP2CON2 = 0; // Reset communication flags
 	SSP2CON3 = 0; // Disable interrupts generation on specific I2C events
 	SSP2CON1 = 0x38; // Enable I2C module, enable I2C clock generation, set I2C master mode
+	
+	// Enable 1Hz signal generation
+	RTCWriteByte(0x0E, 0x18); // Set default boot values and enable 1Hz square-wave
 }
 
 void RTCSetReadAddress(unsigned char Address)
@@ -100,4 +103,30 @@ unsigned char RTCReadByte(void)
 	RTC_I2C_WAIT_OPERATION_END();
 	
 	return Byte;
+}
+
+void RTCWriteByte(unsigned char Address, unsigned char Byte)
+{
+	// Send an I2C START
+	RTC_I2C_SEND_START();
+	RTC_I2C_WAIT_OPERATION_END();
+	
+	// Send the RTC I2C address
+	SSP2BUF = RTC_I2C_ADDRESS | RTC_I2C_ADDRESS_READ_WRITE_BIT_WRITE;
+	RTC_I2C_WAIT_OPERATION_END();
+	
+	// Send the byte address
+	SSP2BUF = Address;
+	RTC_I2C_WAIT_OPERATION_END();
+	
+	// Send the byte value
+	SSP2BUF = Byte;
+	RTC_I2C_WAIT_OPERATION_END();
+	
+	// Send an I2C STOP
+	RTC_I2C_SEND_STOP();
+	RTC_I2C_WAIT_OPERATION_END();
+	
+	// The minimum bus free time between a STOP and a START must be at least 1.3µs
+	__delay_us(3);
 }

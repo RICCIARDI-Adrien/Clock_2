@@ -75,6 +75,8 @@ void main(void)
 		DisplayWriteCharacter(Tens_Characters);
 		DisplayWriteCharacter(Units_Characters);
 		
-		__delay_ms(1000);
+		//__delay_ms(1000);
+		while (RTC_TICK_PIN == 1);
+		while (RTC_TICK_PIN == 0);
 	}
 }

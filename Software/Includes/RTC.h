@@ -5,6 +5,14 @@
 #ifndef H_RTC_H
 #define H_RTC_H
 
+#include <xc.h>
+
+//--------------------------------------------------------------------------------------------------
+// Constants
+//--------------------------------------------------------------------------------------------------
+/** The RTC 1Hz signal pin state. */
+#define RTC_TICK_PIN PORTDbits.RD2
+
 //--------------------------------------------------------------------------------------------------
 // Functions
 //--------------------------------------------------------------------------------------------------
@@ -15,5 +23,11 @@ void RTCInitialize(void);
 void RTCSetReadAddress(unsigned char Address);
 // TEST
 unsigned char RTCReadByte(void);
+
+/** Write a byte of data to the RTC memory.
+ * @param Address The register address.
+ * @param Byte The byte to write.
+ */
+void RTCWriteByte(unsigned char Address, unsigned char Byte);
 
 #endif
