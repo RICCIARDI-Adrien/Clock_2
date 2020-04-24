@@ -3,6 +3,7 @@
  * @author Adrien RICCIARDI
  */
 #include <Display.h>
+#include <RTC.h>
 #include <xc.h>
 
 //-------------------------------------------------------------------------------------------------
@@ -31,11 +32,20 @@
 // CONFIG7H register
 #pragma config EBTRB = OFF // Disable boot block table read protection
 
+// TEST
+inline void MainConvertBCDToASCII(unsigned char BCD_Number, unsigned char *Pointer_Tens_Character, unsigned char *Pointer_Units_Character)
+{
+	*Pointer_Tens_Character = (BCD_Number >> 4) + '0';
+	*Pointer_Units_Character = (BCD_Number & 0x0F) + '0';
+}
+
 //-------------------------------------------------------------------------------------------------
 // Entry point
 //-------------------------------------------------------------------------------------------------
 void main(void)
 {
+	unsigned char Byte, Tens_Characters, Units_Characters;
+	
 	// Set oscillator frequency to 64MHz
 	OSCCON = 0x78; // Core enters sleep mode when issuing a SLEEP instruction, select 16MHz frequency for high frequency internal oscillator, device is running from primary clock (set as "internal oscillator" in configuration registers)
 	while (!OSCCONbits.HFIOFS); // Wait for the internal oscillator to stabilize
@@ -44,6 +54,7 @@ void main(void)
 	
 	// Initialize modules
 	DisplayInitialize();
+	RTCInitialize();
 	
 	// TEST
 	DisplaySetCursorLocation(0x13);
@@ -55,5 +66,15 @@ void main(void)
 	DisplaySetCursorLocation(0x67);
 	DisplayWriteCharacter('t');
 	
-	while (1);
+	while (1)
+	{
+		RTCSetReadAddress(0);
+		Byte = RTCReadByte();
+		MainConvertBCDToASCII(Byte, &Tens_Characters, &Units_Characters);
+		DisplaySetCursorLocation(0);
+		DisplayWriteCharacter(Tens_Characters);
+		DisplayWriteCharacter(Units_Characters);
+		
+		__delay_ms(1000);
+	}
 }
