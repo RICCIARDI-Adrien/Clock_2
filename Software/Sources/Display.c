@@ -36,7 +36,7 @@ inline void DisplayWrite(unsigned char Byte, unsigned char Is_Data)
 	DISPLAY_SIGNAL_E = 1;
 	_delay(8); // Wait 500ns (datasheet requires at least 230ns)
 	DISPLAY_SIGNAL_E = 0;
-	_delay(8); // Wait 500ns (datasheet requires at least 230ns)
+	__delay_us(50); // Write to RAM command needs 43us to complete, so take a bit of margin
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -76,15 +76,15 @@ void DisplayInitialize(void)
 	// Send entry mode set command
 	DisplayWrite(0x06, 0); // Enable increment mode, disable entire shift feature
 	__delay_ms(1); // Datasheet does not recommends to wait some time, but wait anyway to be sure
-	
-	// TEST
-	LATCbits.LATC2 = 1;
-	DisplayWrite('T', 1);
-	__delay_ms(1);
-	DisplayWrite('e', 1);
-	__delay_ms(1);
-	DisplayWrite('s', 1);
-	__delay_ms(1);
-	DisplayWrite('t', 1);
-	__delay_ms(1);
+}
+
+void DisplayWriteCharacter(unsigned char Character)
+{
+	DisplayWrite(Character, 1);
+}
+
+void DisplaySetCursorLocation(unsigned char Location)
+{
+	Location |= 0x80; // Bit 7 is always set for this command
+	DisplayWrite(Location, 0);
 }

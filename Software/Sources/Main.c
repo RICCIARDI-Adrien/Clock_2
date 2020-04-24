@@ -45,5 +45,15 @@ void main(void)
 	// Initialize modules
 	DisplayInitialize();
 	
+	// TEST
+	DisplaySetCursorLocation(0x13);
+	DisplayWriteCharacter('T');
+	DisplaySetCursorLocation(0x53);
+	DisplayWriteCharacter('e');
+	DisplaySetCursorLocation(0x27);
+	DisplayWriteCharacter('s');
+	DisplaySetCursorLocation(0x67);
+	DisplayWriteCharacter('t');
+	
 	while (1);
 }

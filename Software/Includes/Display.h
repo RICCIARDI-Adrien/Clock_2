@@ -16,4 +16,9 @@ void DisplayInitialize(void);
  */
 void DisplayWriteCharacter(unsigned char Character);
 
+/** Set the cursor location.
+ * @param Location The new cursor location. Line 1 character locations are in range [0; 0x13], line 2 character locations are in range [0x40; 0x53], line 3 character locations are in range [0x14; 0x27], line 4 character locations are in range [0x54; 0x67].
+ */
+void DisplaySetCursorLocation(unsigned char Location);
+
 #endif
