@@ -33,11 +33,45 @@
 // CONFIG7H register
 #pragma config EBTRB = OFF // Disable boot block table read protection
 
-// TEST
-inline void MainConvertBCDToASCII(unsigned char BCD_Number, unsigned char *Pointer_Tens_Character, unsigned char *Pointer_Units_Character)
+//-------------------------------------------------------------------------------------------------
+// Private functions
+//-------------------------------------------------------------------------------------------------
+/** Convert a one-byte Binary Coded Decimal number to two ASCII characters.
+ * @param BCD_Number The BCD number to convert.
+ * @param Pointer_Tens_Character On output, contain the binary value of the number's tens.
+ * @param Pointer_Units_Character On output, contain the binary value of the number's units.
+ */
+static inline void MainConvertBCDToASCII(unsigned char BCD_Number, unsigned char *Pointer_Tens_Character, unsigned char *Pointer_Units_Character)
 {
 	*Pointer_Tens_Character = (BCD_Number >> 4) + '0';
 	*Pointer_Units_Character = (BCD_Number & 0x0F) + '0';
+}
+
+/** Default view, displays time, date and sensors measures. */
+static inline void MainShowDefaultView(void)
+{
+	TRTCTime Time;
+	unsigned char Tens_Character, Units_Character;
+	
+	RTCGetTime(&Time);
+	
+	// Display time
+	// Display hours
+	MainConvertBCDToASCII(Time.Hours, &Tens_Character, &Units_Character);
+	if (Tens_Character == '0') Tens_Character = ' '; // Do not display the leading zero
+	DisplaySetCursorLocation(6); // Center time on the first line
+	DisplayWriteCharacter(Tens_Character);
+	DisplayWriteCharacter(Units_Character);
+	DisplayWriteCharacter(':');
+	// Display minutes
+	MainConvertBCDToASCII(Time.Minutes, &Tens_Character, &Units_Character);
+	DisplayWriteCharacter(Tens_Character);
+	DisplayWriteCharacter(Units_Character);
+	DisplayWriteCharacter(':');
+	// Display seconds
+	MainConvertBCDToASCII(Time.Seconds, &Tens_Character, &Units_Character);
+	DisplayWriteCharacter(Tens_Character);
+	DisplayWriteCharacter(Units_Character);
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -58,27 +92,14 @@ void main(void)
 	RTCInitialize();
 	SensorsInitialize();
 	
-	// TEST
-	DisplaySetCursorLocation(0x13);
-	DisplayWriteCharacter('T');
-	DisplaySetCursorLocation(0x53);
-	DisplayWriteCharacter('e');
-	DisplaySetCursorLocation(0x27);
-	DisplayWriteCharacter('s');
-	DisplaySetCursorLocation(0x67);
-	DisplayWriteCharacter('t');
-	
 	while (1)
 	{
-		RTCSetReadAddress(0);
-		Byte = RTCReadByte();
-		MainConvertBCDToASCII(Byte, &Tens_Characters, &Units_Characters);
-		DisplaySetCursorLocation(0);
-		DisplayWriteCharacter(Tens_Characters);
-		DisplayWriteCharacter(Units_Characters);
-		
-		//__delay_ms(1000);
-		while (RTC_TICK_PIN == 1);
+		// Wait for a new tick to begin
 		while (RTC_TICK_PIN == 0);
+		
+		MainShowDefaultView();
+		
+		// Wait for tick end
+		while (RTC_TICK_PIN == 1);
 	}
 }

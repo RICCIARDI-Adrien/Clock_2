@@ -34,6 +34,71 @@
 }
 
 //--------------------------------------------------------------------------------------------------
+// Private functions
+//--------------------------------------------------------------------------------------------------
+/** Set the RTC internal address counter to allow reading from that address.
+ * @param Address The address to set. Make sure it is valid, or the behaviour will be unpredictable.
+ */
+static void RTCSetReadAddress(unsigned char Address)
+{
+	// Set the byte address to read doing a fake write
+	// Send an I2C START
+	RTC_I2C_SEND_START();
+	RTC_I2C_WAIT_OPERATION_END();
+	
+	// Send the RTC I2C address
+	SSP2BUF= RTC_I2C_ADDRESS | RTC_I2C_ADDRESS_READ_WRITE_BIT_WRITE;
+	RTC_I2C_WAIT_OPERATION_END();
+	
+	// Send the byte address
+	SSP2BUF = Address;
+	RTC_I2C_WAIT_OPERATION_END();
+	
+	// Send an I2C STOP
+	RTC_I2C_SEND_STOP();
+	RTC_I2C_WAIT_OPERATION_END();
+}
+
+/** Read as many bytes as requested, starting from the RTC current register address.
+ * @param Pointer_Buffer On output, contain the read data. Make sure it is large enough to contain all data.
+ * @param Bytes_Count How many consecutive bytes to read from RTC.
+ */
+static void RTCReadBuffer(unsigned char *Pointer_Buffer, unsigned char Bytes_Count)
+{
+	unsigned char Byte;
+	
+	// Send an I2C START
+	RTC_I2C_SEND_START();
+	RTC_I2C_WAIT_OPERATION_END();
+	
+	// Send the RTC I2C address
+	SSP2BUF = RTC_I2C_ADDRESS | RTC_I2C_ADDRESS_READ_WRITE_BIT_READ;
+	RTC_I2C_WAIT_OPERATION_END();
+	
+	// Read each requested byte
+	while (Bytes_Count > 0)
+	{
+		// Receive the next byte from the device
+		SSP2CON2bits.RCEN = 1;
+		RTC_I2C_WAIT_OPERATION_END();
+		*Pointer_Buffer = SSP2BUF;
+		
+		// Acknowledge the received byte
+		if (Bytes_Count > 1) SSP2CON2bits.ACKDT = 0; // Send an I2C ACK because more bytes must be read
+		else SSP2CON2bits.ACKDT = 1; // Send an I2C NACK indicating that no more byte will be read
+		SSP2CON2bits.ACKEN = 1;
+		RTC_I2C_WAIT_OPERATION_END();
+		
+		Bytes_Count--;
+		Pointer_Buffer++;
+	}
+		
+	// Send an I2C STOP
+	RTC_I2C_SEND_STOP();
+	RTC_I2C_WAIT_OPERATION_END();
+}
+
+//--------------------------------------------------------------------------------------------------
 // Public functions
 //--------------------------------------------------------------------------------------------------
 void RTCInitialize(void)
@@ -53,56 +118,13 @@ void RTCInitialize(void)
 	RTCWriteByte(0x0E, 0x18); // Set default boot values and enable 1Hz square-wave
 }
 
-void RTCSetReadAddress(unsigned char Address)
+void RTCGetTime(TRTCTime *Pointer_Time)
 {
-	// Do nothing if the address is bad
-	//if (Address >= RTC_MEMORY_SIZE) return;
+	// Set first time register address
+	RTCSetReadAddress(0);
 	
-	// Set the byte address to read doing a fake write
-	// Send an I2C START
-	RTC_I2C_SEND_START();
-	RTC_I2C_WAIT_OPERATION_END();
-	
-	// Send the RTC I2C address
-	SSP2BUF= RTC_I2C_ADDRESS | RTC_I2C_ADDRESS_READ_WRITE_BIT_WRITE;
-	RTC_I2C_WAIT_OPERATION_END();
-	
-	// Send the byte address
-	SSP2BUF = Address;
-	RTC_I2C_WAIT_OPERATION_END();
-	
-	// Send an I2C STOP
-	RTC_I2C_SEND_STOP();
-	RTC_I2C_WAIT_OPERATION_END();
-}
-
-unsigned char RTCReadByte(void)
-{
-	unsigned char Byte;
-	
-	// Send an I2C START
-	RTC_I2C_SEND_START();
-	RTC_I2C_WAIT_OPERATION_END();
-	
-	// Send the RTC I2C address
-	SSP2BUF = RTC_I2C_ADDRESS | RTC_I2C_ADDRESS_READ_WRITE_BIT_READ;
-	RTC_I2C_WAIT_OPERATION_END();
-	
-	// Receive the byte from the device
-	SSP2CON2bits.RCEN = 1;
-	RTC_I2C_WAIT_OPERATION_END();
-	Byte = SSP2BUF;
-	
-	// Send an I2C NACK to the device
-	SSP2CON2bits.ACKDT = 1; // Send an I2C NACK indicating that no more byte will be read
-	SSP2CON2bits.ACKEN = 1;
-	RTC_I2C_WAIT_OPERATION_END();
-	
-	// Send an I2C STOP
-	RTC_I2C_SEND_STOP();
-	RTC_I2C_WAIT_OPERATION_END();
-	
-	return Byte;
+	// Read all needed registers, the TRTCTime fields are in the same order than the RTC registers
+	RTCReadBuffer((unsigned char *) Pointer_Time, 3);
 }
 
 void RTCWriteByte(unsigned char Address, unsigned char Byte)
