@@ -3,6 +3,7 @@
  * @author Adrien RICCIARDI
  */
 #include <Display.h>
+#include <stdio.h>
 #include <xc.h>
 
 //--------------------------------------------------------------------------------------------------
@@ -81,6 +82,17 @@ void DisplayInitialize(void)
 void DisplayWriteCharacter(unsigned char Character)
 {
 	DisplayWrite(Character, 1);
+}
+
+void DisplayWriteNumber(signed short Number)
+{
+	unsigned char i, Length, String_Number[12]; // One minus sign + 10 digits + terminating zero
+	
+	// Convert number to a displayable string
+	Length = sprintf(String_Number, "%d", Number);
+	
+	// Display it
+	for (i = 0; i < Length; i++) DisplayWrite(String_Number[i], 1);
 }
 
 void DisplaySetCursorLocation(unsigned char Location)
