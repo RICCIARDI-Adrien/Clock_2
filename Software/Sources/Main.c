@@ -4,6 +4,7 @@
  */
 #include <Display.h>
 #include <RTC.h>
+#include <Sensors.h>
 #include <xc.h>
 
 //-------------------------------------------------------------------------------------------------
@@ -55,6 +56,7 @@ void main(void)
 	// Initialize modules
 	DisplayInitialize();
 	RTCInitialize();
+	SensorsInitialize();
 	
 	// TEST
 	DisplaySetCursorLocation(0x13);
