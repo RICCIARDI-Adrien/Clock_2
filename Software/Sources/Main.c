@@ -181,8 +181,6 @@ static inline void MainShowDefaultView(void)
 	DisplayWriteNumber(Measures.Humidity);
 	DisplayWriteCharacter('%');
 	
-	// TEST
-	SensorsStartMeasurement();
 }
 
 /** Display a menu allowing to choose which clock parameter to configure. */
@@ -233,6 +231,8 @@ static void MainShowConfigurationMenu(void)
 //-------------------------------------------------------------------------------------------------
 void main(void)
 {
+	unsigned char Sensors_Measure_Seconds_Counter = 0;
+	
 	// Set oscillator frequency to 64MHz
 	OSCCON = 0x78; // Core enters sleep mode when issuing a SLEEP instruction, select 16MHz frequency for high frequency internal oscillator, device is running from primary clock (set as "internal oscillator" in configuration registers)
 	while (!OSCCONbits.HFIOFS); // Wait for the internal oscillator to stabilize
@@ -269,6 +269,14 @@ void main(void)
 		
 		// Always display time and date view, so they are immediately visible when exiting from configuration menu
 		MainShowDefaultView();
+		
+		// Trigger measures each 2 seconds
+		Sensors_Measure_Seconds_Counter++;
+		if (Sensors_Measure_Seconds_Counter == 2)
+		{
+			SensorsStartMeasurement();
+			Sensors_Measure_Seconds_Counter = 0;
+		}
 		
 		// Wait for tick end
 		while ((RTC_TICK_PIN == 1) && (MAIN_BUTTON_SET_PIN == MAIN_BUTTON_RELEASED_STATE)); // Also exit if "set" button is pressed

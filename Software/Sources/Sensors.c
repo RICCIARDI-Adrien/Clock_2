@@ -149,11 +149,9 @@ unsigned char SensorsInitialize(void)
 	Sensors_BME680_Device.tph_sett.os_temp = BME680_OS_2X; // Use 2x oversampling
 	// Configure low pass digital filter that is available for temperature and pressure data
 	Sensors_BME680_Device.tph_sett.filter = BME680_FILTER_SIZE_3; // Enable IIR filter with a coefficient of 3
-	// Configure gas sensor
-	Sensors_BME680_Device.gas_sett.run_gas = BME680_ENABLE_GAS_MEAS; // Enable it
-	Sensors_BME680_Device.gas_sett.heatr_temp = 320; // Heat at 320 degree Celsius
-	Sensors_BME680_Device.gas_sett.heatr_dur = 150; // Heat during 150 milliseconds
-
+	// Disable gas sensor for now
+	Sensors_BME680_Device.gas_sett.run_gas = BME680_DISABLE_GAS_MEAS; // Enable it
+	
 	// Turn sensor on (this must be set before writing the sensor configuration)
 	Sensors_BME680_Device.power_mode = BME680_FORCED_MODE;
 
