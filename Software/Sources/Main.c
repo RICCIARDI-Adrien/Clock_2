@@ -105,6 +105,7 @@ static inline void MainShowDefaultView(void)
 {
 	TRTCTime Time;
 	TRTCDate Date;
+	TSensorsMeasures Measures;
 	unsigned char Tens_Character, Units_Character;
 	
 	// Display time
@@ -149,8 +150,38 @@ static inline void MainShowDefaultView(void)
 	DisplayWriteCharacter(Tens_Character);
 	DisplayWriteCharacter(Units_Character);
 	
-	DisplaySetCursorLocation(DISPLAY_LOCATION_LINE_3);
-	DisplayWriteNumber(a());
+	// Retrieve sensors data
+	SensorsGetMeasures(&Measures);
+	
+	// Clear temperature field last characters in case the previously displayed string was longer than the current one
+	DisplaySetCursorLocation(DISPLAY_LOCATION_LINE_3 + 6);
+	DisplayWriteString("  ");
+	// Display temperature
+	DisplaySetCursorLocation(DISPLAY_LOCATION_LINE_3 + 1);
+	DisplayWriteString("T:");
+	DisplayWriteNumber(Measures.Temperature);
+	DisplayWriteCharacter(0xDF); // A japanese character that looks like "degree" sign (DisplayWriteString() was not used because XC8 is not able to recognize \337 sequence)
+	DisplayWriteCharacter('C');
+	
+	// Clear pressure field last characters in case the previously displayed string was longer than the current one
+	DisplaySetCursorLocation(DISPLAY_LOCATION_LINE_3 + 18);
+	DisplayWriteCharacter(' ');
+	// Display pressure
+	DisplaySetCursorLocation(DISPLAY_LOCATION_LINE_3 + 9);
+	DisplayWriteString("P:");
+	DisplayWriteNumber(Measures.Pressure);
+	DisplayWriteString("mbar");
+	
+	// Clear humidity field last character in case the previously displayed string was longer than the current one
+	DisplaySetCursorLocation(DISPLAY_LOCATION_LINE_4 + 6);
+	DisplayWriteString("  ");
+	// Display humidity
+	DisplaySetCursorLocation(DISPLAY_LOCATION_LINE_4 + 1);
+	DisplayWriteString("H:");
+	DisplayWriteNumber(Measures.Humidity);
+	DisplayWriteCharacter('%');
+	
+	// TEST
 	SensorsStartMeasurement();
 }
 
