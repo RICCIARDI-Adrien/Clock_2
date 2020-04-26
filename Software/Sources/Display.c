@@ -83,7 +83,7 @@ void DisplayWriteCharacter(unsigned char Character)
 	DisplayWrite(Character, 1);
 }
 
-void DisplayWriteString(const unsigned char *Pointer_String)
+void DisplayWriteString(char *Pointer_String)
 {
 	while (*Pointer_String != 0)
 	{
@@ -94,7 +94,8 @@ void DisplayWriteString(const unsigned char *Pointer_String)
 
 void DisplayWriteNumber(signed short Number)
 {
-	unsigned char i, Length, String_Number[12]; // One minus sign + 10 digits + terminating zero
+	unsigned char i, Length;
+	char String_Number[12]; // One minus sign + 10 digits + terminating zero
 	
 	// Convert number to a displayable string
 	Length = sprintf(String_Number, "%d", Number);

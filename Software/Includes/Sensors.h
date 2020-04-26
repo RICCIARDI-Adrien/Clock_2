@@ -9,6 +9,11 @@
 // Functions
 //--------------------------------------------------------------------------------------------------
 /** Initialize the SPI module used to communicate with the sensors. */
-void SensorsInitialize(void);
+unsigned char SensorsInitialize(void);
+
+// TEST
+signed char a(void);
+
+void SensorsStartMeasurement(void);
 
 #endif

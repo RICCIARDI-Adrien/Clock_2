@@ -61,7 +61,7 @@
 // Private variables
 //--------------------------------------------------------------------------------------------------
 /** The string corresponding to each day index. */
-static const unsigned char *Pointer_Main_String_Day_Names[] =
+static char *Pointer_Main_String_Day_Names[] =
 {
 	"", // Index 0 does not exist
 	"Dimanche",
@@ -148,6 +148,10 @@ static inline void MainShowDefaultView(void)
 	DisplayWriteCharacter('0');
 	DisplayWriteCharacter(Tens_Character);
 	DisplayWriteCharacter(Units_Character);
+	
+	DisplaySetCursorLocation(DISPLAY_LOCATION_LINE_3);
+	DisplayWriteNumber(a());
+	SensorsStartMeasurement();
 }
 
 /** Display a menu allowing to choose which clock parameter to configure. */
@@ -207,7 +211,13 @@ void main(void)
 	// Initialize modules
 	DisplayInitialize();
 	RTCInitialize();
-	SensorsInitialize();
+	if (SensorsInitialize() != 0)
+	{
+		DisplayWriteString("BME680 error.");
+		DisplaySetCursorLocation(DISPLAY_LOCATION_LINE_2);
+		DisplayWriteString("Please reboot.");
+		while (1);
+	}
 	MainConfigurationButtonsInitialize();
 	
 	while (1)
