@@ -33,6 +33,30 @@
 // CONFIG7H register
 #pragma config EBTRB = OFF // Disable boot block table read protection
 
+//-------------------------------------------------------------------------------------------------
+// Private constants and macros
+//-------------------------------------------------------------------------------------------------
+/** The pin the "set" button is connected to. This is an active-low button. */
+#define MAIN_BUTTON_SET_PIN PORTBbits.RB2
+/** The pin the "plus" button is connected to. This is an active-low button. */
+#define MAIN_BUTTON_PLUS_PIN PORTCbits.RC7
+/** The pin the "minus" button is connected to. This is an active-low button. */
+#define MAIN_BUTTON_MINUS_PIN PORTDbits.RD4
+
+/** The button pin value when it is pressed. */
+#define MAIN_BUTTON_PRESSED_STATE 0
+/** The button pin value when it is released. */
+#define MAIN_BUTTON_RELEASED_STATE 1
+
+/** Wait for a currently pressed button to be released.
+ * @param Button_Pin The pin the button is connected to.
+ */
+#define MAIN_WAIT_FOR_BUTTON_RELEASE(Button_Pin) \
+{ \
+	while (Button_Pin == MAIN_BUTTON_PRESSED_STATE); \
+	if (Button_Pin == MAIN_BUTTON_RELEASED_STATE) __delay_ms(10); \
+}
+
 //--------------------------------------------------------------------------------------------------
 // Private variables
 //--------------------------------------------------------------------------------------------------
@@ -52,6 +76,19 @@ static const unsigned char *Pointer_Main_String_Day_Names[] =
 //-------------------------------------------------------------------------------------------------
 // Private functions
 //-------------------------------------------------------------------------------------------------
+/** Initialize the three on-board switches used to configure the clock settings. */
+static void MainConfigurationButtonsInitialize(void)
+{
+	// Set pins as digital
+	ANSELBbits.ANSB2 = 0;
+	ANSELCbits.ANSC7 = 0;
+	ANSELDbits.ANSD4 = 0;
+	// Make sure pins are configured as inputs
+	TRISBbits.TRISB2 = 1;
+	TRISCbits.TRISC7 = 1;
+	TRISDbits.TRISD4 = 1;
+}
+
 /** Convert a one-byte Binary Coded Decimal number to two ASCII characters.
  * @param BCD_Number The BCD number to convert.
  * @param Pointer_Tens_Character On output, contain the binary value of the number's tens.
@@ -93,7 +130,7 @@ static inline void MainShowDefaultView(void)
 	RTCGetDate(&Date);
 	DisplaySetCursorLocation(DISPLAY_LOCATION_LINE_2);
 	// Display the day name (all names are padded with spaces to be sure to erase a previous name that was longer)
-	DisplayWriteString((unsigned char *) Pointer_Main_String_Day_Names[Date.Day_Of_Week]);
+	DisplayWriteString(Pointer_Main_String_Day_Names[Date.Day_Of_Week]);
 	DisplayWriteCharacter(' ');
 	// Display the day
 	MainConvertBCDToASCII(Date.Day, &Tens_Character, &Units_Character);
@@ -113,13 +150,54 @@ static inline void MainShowDefaultView(void)
 	DisplayWriteCharacter(Units_Character);
 }
 
+/** Display a menu allowing to choose which clock parameter to configure. */
+static void MainShowConfigurationMenu(void)
+{
+	unsigned char Selected_Menu_Index = 0;
+	
+	while (1)
+	{
+		// Display menu
+		DisplayClear();
+		// Set alarm
+		if (Selected_Menu_Index == 0) DisplayWriteString("-> ");
+		else DisplayWriteString("   ");
+		DisplayWriteString("R\001gler alarme");
+		// Set time
+		DisplaySetCursorLocation(DISPLAY_LOCATION_LINE_2);
+		if (Selected_Menu_Index == 1) DisplayWriteString("-> ");
+		else DisplayWriteString("   ");
+		DisplayWriteString("R\001gler heure");
+		// Set date
+		DisplaySetCursorLocation(DISPLAY_LOCATION_LINE_3);
+		if (Selected_Menu_Index == 2) DisplayWriteString("-> ");
+		else DisplayWriteString("   ");
+		DisplayWriteString("R\001gler date");
+		// Go back
+		DisplaySetCursorLocation(DISPLAY_LOCATION_LINE_4);
+		if (Selected_Menu_Index == 3) DisplayWriteString("-> ");
+		else DisplayWriteString("   ");
+		DisplayWriteString("   Retour");
+		
+		// Make sure all keys are released
+		MAIN_WAIT_FOR_BUTTON_RELEASE(MAIN_BUTTON_SET_PIN);
+		MAIN_WAIT_FOR_BUTTON_RELEASE(MAIN_BUTTON_PLUS_PIN);
+		MAIN_WAIT_FOR_BUTTON_RELEASE(MAIN_BUTTON_MINUS_PIN);
+		
+		// TEST
+		if (MAIN_BUTTON_SET_PIN == MAIN_BUTTON_PRESSED_STATE)
+		{
+			DisplayClear();
+			break;
+		}
+	}
+}
+
 //-------------------------------------------------------------------------------------------------
 // Entry point
 //-------------------------------------------------------------------------------------------------
 void main(void)
 {
-	unsigned char Byte, Tens_Characters, Units_Characters;
-	
 	// Set oscillator frequency to 64MHz
 	OSCCON = 0x78; // Core enters sleep mode when issuing a SLEEP instruction, select 16MHz frequency for high frequency internal oscillator, device is running from primary clock (set as "internal oscillator" in configuration registers)
 	while (!OSCCONbits.HFIOFS); // Wait for the internal oscillator to stabilize
@@ -130,15 +208,28 @@ void main(void)
 	DisplayInitialize();
 	RTCInitialize();
 	SensorsInitialize();
+	MainConfigurationButtonsInitialize();
 	
 	while (1)
 	{
 		// Wait for a new tick to begin
-		while (RTC_TICK_PIN == 0);
+		while ((RTC_TICK_PIN == 0) && (MAIN_BUTTON_SET_PIN == MAIN_BUTTON_RELEASED_STATE)); // Also exit if "set" button is pressed
 		
+		// Display configuration menu if "set" button is pressed
+		if (MAIN_BUTTON_SET_PIN == MAIN_BUTTON_PRESSED_STATE)
+		{
+			MainShowConfigurationMenu();
+
+			// Make sure all keys are released
+			MAIN_WAIT_FOR_BUTTON_RELEASE(MAIN_BUTTON_SET_PIN);
+			MAIN_WAIT_FOR_BUTTON_RELEASE(MAIN_BUTTON_PLUS_PIN);
+			MAIN_WAIT_FOR_BUTTON_RELEASE(MAIN_BUTTON_MINUS_PIN);
+		}
+		
+		// Always display time and date view, so they are immediately visible when exiting from configuration menu
 		MainShowDefaultView();
 		
 		// Wait for tick end
-		while (RTC_TICK_PIN == 1);
+		while ((RTC_TICK_PIN == 1) && (MAIN_BUTTON_SET_PIN == MAIN_BUTTON_RELEASED_STATE)); // Also exit if "set" button is pressed
 	}
 }

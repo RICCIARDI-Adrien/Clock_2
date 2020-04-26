@@ -70,13 +70,12 @@ void DisplayInitialize(void)
 	DisplayWrite(0x0C, 0); // Turn display on, disable cursor, disable blinking
 	__delay_ms(1); // Wait at least 39µs
 	
-	// Clear display
-	DisplayWrite(0x01, 0);
-	__delay_ms(5); // Wait at least 1.53ms
+	// Remove any displaying artifact that could remain in display data memory
+	DisplayClear();
 	
 	// Send entry mode set command
 	DisplayWrite(0x06, 0); // Enable increment mode, disable entire shift feature
-	__delay_ms(1); // Datasheet does not recommends to wait some time, but wait anyway to be sure
+	__delay_ms(1); // Datasheet does not recommend to wait some time, but wait anyway to be sure
 }
 
 void DisplayWriteCharacter(unsigned char Character)
@@ -84,7 +83,7 @@ void DisplayWriteCharacter(unsigned char Character)
 	DisplayWrite(Character, 1);
 }
 
-void DisplayWriteString(unsigned char *Pointer_String)
+void DisplayWriteString(const unsigned char *Pointer_String)
 {
 	while (*Pointer_String != 0)
 	{
@@ -108,4 +107,10 @@ void DisplaySetCursorLocation(unsigned char Location)
 {
 	Location |= 0x80; // Bit 7 is always set for this command
 	DisplayWrite(Location, 0);
+}
+
+void DisplayClear(void)
+{
+	DisplayWrite(0x01, 0);
+	__delay_ms(2); // Wait at least 1.53ms
 }
