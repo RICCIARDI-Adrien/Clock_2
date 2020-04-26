@@ -28,6 +28,11 @@ void DisplayInitialize(void);
  */
 void DisplayWriteCharacter(unsigned char Character);
 
+/** Display a zero-terminated string at the current cursor location.
+ * @param Pointer_String The string to display.
+ */
+void DisplayWriteString(unsigned char *Pointer_String);
+
 /** Display a decimal signed 16-bit number (with leading minus sign if needed) at the current cursor location.
  * @param Number The number to display.
  */

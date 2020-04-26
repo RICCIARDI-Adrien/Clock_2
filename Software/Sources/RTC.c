@@ -125,6 +125,18 @@ void RTCGetTime(TRTCTime *Pointer_Time)
 	
 	// Read all needed registers, the TRTCTime fields are in the same order than the RTC registers
 	RTCReadBuffer((unsigned char *) Pointer_Time, 3);
+	
+	// Discard control bits from hour value
+	Pointer_Time->Hours &= 0x3F;
+}
+
+void RTCGetDate(TRTCDate *Pointer_Date)
+{
+	// Set first date register address
+	RTCSetReadAddress(0x03);
+	
+	// Read all needed registers, the TRTCDate fields are in the same order than the RTC registers
+	RTCReadBuffer((unsigned char *) Pointer_Date, 4);
 }
 
 void RTCWriteByte(unsigned char Address, unsigned char Byte)

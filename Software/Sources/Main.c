@@ -33,6 +33,22 @@
 // CONFIG7H register
 #pragma config EBTRB = OFF // Disable boot block table read protection
 
+//--------------------------------------------------------------------------------------------------
+// Private variables
+//--------------------------------------------------------------------------------------------------
+/** The string corresponding to each day index. */
+static const unsigned char *Pointer_Main_String_Day_Names[] =
+{
+	"", // Index 0 does not exist
+	"Dimanche",
+	"Lundi   ",
+	"Mardi   ",
+	"Mercredi",
+	"Jeudi   ",
+	"Vendredi",
+	"Samedi  "
+};
+
 //-------------------------------------------------------------------------------------------------
 // Private functions
 //-------------------------------------------------------------------------------------------------
@@ -51,15 +67,15 @@ static inline void MainConvertBCDToASCII(unsigned char BCD_Number, unsigned char
 static inline void MainShowDefaultView(void)
 {
 	TRTCTime Time;
+	TRTCDate Date;
 	unsigned char Tens_Character, Units_Character;
 	
-	RTCGetTime(&Time);
-	
 	// Display time
+	RTCGetTime(&Time);
+	DisplaySetCursorLocation(6); // Center time on the first line
 	// Display hours
 	MainConvertBCDToASCII(Time.Hours, &Tens_Character, &Units_Character);
 	if (Tens_Character == '0') Tens_Character = ' '; // Do not display the leading zero
-	DisplaySetCursorLocation(6); // Center time on the first line
 	DisplayWriteCharacter(Tens_Character);
 	DisplayWriteCharacter(Units_Character);
 	DisplayWriteCharacter(':');
@@ -70,6 +86,29 @@ static inline void MainShowDefaultView(void)
 	DisplayWriteCharacter(':');
 	// Display seconds
 	MainConvertBCDToASCII(Time.Seconds, &Tens_Character, &Units_Character);
+	DisplayWriteCharacter(Tens_Character);
+	DisplayWriteCharacter(Units_Character);
+	
+	// Display date
+	RTCGetDate(&Date);
+	DisplaySetCursorLocation(DISPLAY_LOCATION_LINE_2);
+	// Display the day name (all names are padded with spaces to be sure to erase a previous name that was longer)
+	DisplayWriteString((unsigned char *) Pointer_Main_String_Day_Names[Date.Day_Of_Week]);
+	DisplayWriteCharacter(' ');
+	// Display the day
+	MainConvertBCDToASCII(Date.Day, &Tens_Character, &Units_Character);
+	DisplayWriteCharacter(Tens_Character);
+	DisplayWriteCharacter(Units_Character);
+	DisplayWriteCharacter('/');
+	// Display the month
+	MainConvertBCDToASCII(Date.Month, &Tens_Character, &Units_Character);
+	DisplayWriteCharacter(Tens_Character);
+	DisplayWriteCharacter(Units_Character);
+	DisplayWriteCharacter('/');
+	// Display the year
+	MainConvertBCDToASCII(Date.Year, &Tens_Character, &Units_Character);
+	DisplayWriteCharacter('2');
+	DisplayWriteCharacter('0');
 	DisplayWriteCharacter(Tens_Character);
 	DisplayWriteCharacter(Units_Character);
 }

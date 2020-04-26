@@ -84,6 +84,15 @@ void DisplayWriteCharacter(unsigned char Character)
 	DisplayWrite(Character, 1);
 }
 
+void DisplayWriteString(unsigned char *Pointer_String)
+{
+	while (*Pointer_String != 0)
+	{
+		DisplayWrite(*Pointer_String, 1);
+		Pointer_String++;
+	}
+}
+
 void DisplayWriteNumber(signed short Number)
 {
 	unsigned char i, Length, String_Number[12]; // One minus sign + 10 digits + terminating zero
