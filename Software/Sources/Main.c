@@ -58,6 +58,17 @@
 }
 
 //--------------------------------------------------------------------------------------------------
+// Private types
+//--------------------------------------------------------------------------------------------------
+/** All menu buttons. */
+typedef enum
+{
+	MAIN_MENU_BUTTON_ID_SET,
+	MAIN_MENU_BUTTON_ID_PLUS,
+	MAIN_MENU_BUTTON_ID_MINUS
+} TMainMenuButtonID;
+
+//--------------------------------------------------------------------------------------------------
 // Private variables
 //--------------------------------------------------------------------------------------------------
 /** The string corresponding to each day index. */
@@ -87,6 +98,51 @@ static void MainConfigurationButtonsInitialize(void)
 	TRISBbits.TRISB2 = 1;
 	TRISCbits.TRISC7 = 1;
 	TRISDbits.TRISD4 = 1;
+}
+
+/** Wait for a button to be pressed.
+ * @return The pressed button ID.
+ */
+static TMainMenuButtonID MainGetMenuButton(void)
+{
+	TMainMenuButtonID Pressed_Button;
+	
+	// Make sure all keys are released
+	MAIN_WAIT_FOR_BUTTON_RELEASE(MAIN_BUTTON_SET_PIN);
+	MAIN_WAIT_FOR_BUTTON_RELEASE(MAIN_BUTTON_PLUS_PIN);
+	MAIN_WAIT_FOR_BUTTON_RELEASE(MAIN_BUTTON_MINUS_PIN);
+	
+	while (1)
+	{
+		// Is "set" button pressed ?
+		if (MAIN_BUTTON_SET_PIN == MAIN_BUTTON_PRESSED_STATE)
+		{
+			Pressed_Button = MAIN_MENU_BUTTON_ID_SET;
+			break;
+		}
+		
+		// Is "plus" button pressed ?
+		if (MAIN_BUTTON_PLUS_PIN == MAIN_BUTTON_PRESSED_STATE)
+		{
+			Pressed_Button = MAIN_MENU_BUTTON_ID_PLUS;
+			break;
+		}
+		
+		// Is "minus" button pressed ?
+		if (MAIN_BUTTON_MINUS_PIN == MAIN_BUTTON_PRESSED_STATE)
+		{
+			Pressed_Button = MAIN_MENU_BUTTON_ID_MINUS;
+			break;
+		}
+		
+		// Wait some time to improve buttons debouncing
+		__delay_ms(20);
+	}
+	
+	// Add a bit of debouncing
+	__delay_ms(10);
+	
+	return Pressed_Button;
 }
 
 /** Convert a one-byte Binary Coded Decimal number to two ASCII characters.
@@ -180,7 +236,6 @@ static inline void MainShowDefaultView(void)
 	DisplayWriteString("H:");
 	DisplayWriteNumber(Measures.Humidity);
 	DisplayWriteCharacter('%');
-	
 }
 
 /** Display a menu allowing to choose which clock parameter to configure. */
@@ -210,18 +265,32 @@ static void MainShowConfigurationMenu(void)
 		DisplaySetCursorLocation(DISPLAY_LOCATION_LINE_4);
 		if (Selected_Menu_Index == 3) DisplayWriteString("-> ");
 		else DisplayWriteString("   ");
-		DisplayWriteString("   Retour");
+		DisplayWriteString("    Retour");
 		
-		// Make sure all keys are released
-		MAIN_WAIT_FOR_BUTTON_RELEASE(MAIN_BUTTON_SET_PIN);
-		MAIN_WAIT_FOR_BUTTON_RELEASE(MAIN_BUTTON_PLUS_PIN);
-		MAIN_WAIT_FOR_BUTTON_RELEASE(MAIN_BUTTON_MINUS_PIN);
-		
-		// TEST
-		if (MAIN_BUTTON_SET_PIN == MAIN_BUTTON_PRESSED_STATE)
+		// Handle buttons
+		switch (MainGetMenuButton())
 		{
-			DisplayClear();
-			break;
+			// Select previous menu entry
+			case MAIN_MENU_BUTTON_ID_MINUS:
+				if (Selected_Menu_Index == 0) Selected_Menu_Index = 3; // Loop to menu last entry
+				else Selected_Menu_Index--;
+				break;
+			
+			// Select next menu entry
+			case MAIN_MENU_BUTTON_ID_PLUS:
+				if (Selected_Menu_Index == 3) Selected_Menu_Index = 0; // Loop to menu first entry
+				else Selected_Menu_Index++;
+				break;
+				
+			case MAIN_MENU_BUTTON_ID_SET:
+				// TODO
+				// Exit configuration menu
+				if (Selected_Menu_Index == 3)
+				{
+					DisplayClear();
+					return;
+				}
+				break;
 		}
 	}
 }
