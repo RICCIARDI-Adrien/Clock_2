@@ -3,6 +3,7 @@
  * @author Adrien RICCIARDI
  */
 #include <Display.h>
+#include <Menu_Buttons.h>
 #include <RTC.h>
 #include <Sensors.h>
 #include <xc.h>
@@ -36,37 +37,6 @@
 //-------------------------------------------------------------------------------------------------
 // Private constants and macros
 //-------------------------------------------------------------------------------------------------
-/** The pin the "set" button is connected to. This is an active-low button. */
-#define MAIN_BUTTON_SET_PIN PORTBbits.RB2
-/** The pin the "plus" button is connected to. This is an active-low button. */
-#define MAIN_BUTTON_PLUS_PIN PORTCbits.RC7
-/** The pin the "minus" button is connected to. This is an active-low button. */
-#define MAIN_BUTTON_MINUS_PIN PORTDbits.RD4
-
-/** The button pin value when it is pressed. */
-#define MAIN_BUTTON_PRESSED_STATE 0
-/** The button pin value when it is released. */
-#define MAIN_BUTTON_RELEASED_STATE 1
-
-/** Wait for a currently pressed button to be released.
- * @param Button_Pin The pin the button is connected to.
- */
-#define MAIN_WAIT_FOR_BUTTON_RELEASE(Button_Pin) \
-{ \
-	while (Button_Pin == MAIN_BUTTON_PRESSED_STATE); \
-	if (Button_Pin == MAIN_BUTTON_RELEASED_STATE) __delay_ms(10); \
-}
-
-//--------------------------------------------------------------------------------------------------
-// Private types
-//--------------------------------------------------------------------------------------------------
-/** All menu buttons. */
-typedef enum
-{
-	MAIN_MENU_BUTTON_ID_SET,
-	MAIN_MENU_BUTTON_ID_PLUS,
-	MAIN_MENU_BUTTON_ID_MINUS
-} TMainMenuButtonID;
 
 //--------------------------------------------------------------------------------------------------
 // Private variables
@@ -87,64 +57,6 @@ static char *Pointer_Main_String_Day_Names[] =
 //-------------------------------------------------------------------------------------------------
 // Private functions
 //-------------------------------------------------------------------------------------------------
-/** Initialize the three on-board switches used to configure the clock settings. */
-static void MainConfigurationButtonsInitialize(void)
-{
-	// Set pins as digital
-	ANSELBbits.ANSB2 = 0;
-	ANSELCbits.ANSC7 = 0;
-	ANSELDbits.ANSD4 = 0;
-	// Make sure pins are configured as inputs
-	TRISBbits.TRISB2 = 1;
-	TRISCbits.TRISC7 = 1;
-	TRISDbits.TRISD4 = 1;
-}
-
-/** Wait for a button to be pressed.
- * @return The pressed button ID.
- */
-static TMainMenuButtonID MainGetMenuButton(void)
-{
-	TMainMenuButtonID Pressed_Button;
-	
-	// Make sure all keys are released
-	MAIN_WAIT_FOR_BUTTON_RELEASE(MAIN_BUTTON_SET_PIN);
-	MAIN_WAIT_FOR_BUTTON_RELEASE(MAIN_BUTTON_PLUS_PIN);
-	MAIN_WAIT_FOR_BUTTON_RELEASE(MAIN_BUTTON_MINUS_PIN);
-	
-	while (1)
-	{
-		// Is "set" button pressed ?
-		if (MAIN_BUTTON_SET_PIN == MAIN_BUTTON_PRESSED_STATE)
-		{
-			Pressed_Button = MAIN_MENU_BUTTON_ID_SET;
-			break;
-		}
-		
-		// Is "plus" button pressed ?
-		if (MAIN_BUTTON_PLUS_PIN == MAIN_BUTTON_PRESSED_STATE)
-		{
-			Pressed_Button = MAIN_MENU_BUTTON_ID_PLUS;
-			break;
-		}
-		
-		// Is "minus" button pressed ?
-		if (MAIN_BUTTON_MINUS_PIN == MAIN_BUTTON_PRESSED_STATE)
-		{
-			Pressed_Button = MAIN_MENU_BUTTON_ID_MINUS;
-			break;
-		}
-		
-		// Wait some time to improve buttons debouncing
-		__delay_ms(20);
-	}
-	
-	// Add a bit of debouncing
-	__delay_ms(10);
-	
-	return Pressed_Button;
-}
-
 /** Convert a one-byte Binary Coded Decimal number to two ASCII characters.
  * @param BCD_Number The BCD number to convert.
  * @param Pointer_Tens_Character On output, contain the binary value of the number's tens.
@@ -268,21 +180,21 @@ static void MainShowConfigurationMenu(void)
 		DisplayWriteString("    Retour");
 		
 		// Handle buttons
-		switch (MainGetMenuButton())
+		switch (MenuButtonsWaitButtonPress())
 		{
 			// Select previous menu entry
-			case MAIN_MENU_BUTTON_ID_MINUS:
+			case MENU_BUTTONS_ID_MINUS:
 				if (Selected_Menu_Index == 0) Selected_Menu_Index = 3; // Loop to menu last entry
 				else Selected_Menu_Index--;
 				break;
 			
 			// Select next menu entry
-			case MAIN_MENU_BUTTON_ID_PLUS:
+			case MENU_BUTTONS_ID_PLUS:
 				if (Selected_Menu_Index == 3) Selected_Menu_Index = 0; // Loop to menu first entry
 				else Selected_Menu_Index++;
 				break;
 				
-			case MAIN_MENU_BUTTON_ID_SET:
+			case MENU_BUTTONS_ID_SET:
 				// TODO
 				// Exit configuration menu
 				if (Selected_Menu_Index == 3)
@@ -318,22 +230,22 @@ void main(void)
 		DisplayWriteString("Please reboot.");
 		while (1);
 	}
-	MainConfigurationButtonsInitialize();
+	MenuButtonsInitialize();
 	
 	while (1)
 	{
 		// Wait for a new tick to begin
-		while ((RTC_TICK_PIN == 0) && (MAIN_BUTTON_SET_PIN == MAIN_BUTTON_RELEASED_STATE)); // Also exit if "set" button is pressed
+		while ((RTC_TICK_PIN == 0) && (MENU_BUTTONS_PIN_SET == MENU_BUTTONS_STATE_RELEASED)); // Also exit if "set" button is pressed
 		
 		// Display configuration menu if "set" button is pressed
-		if (MAIN_BUTTON_SET_PIN == MAIN_BUTTON_PRESSED_STATE)
+		if (MENU_BUTTONS_PIN_SET == MENU_BUTTONS_STATE_PRESSED)
 		{
 			MainShowConfigurationMenu();
 
 			// Make sure all keys are released
-			MAIN_WAIT_FOR_BUTTON_RELEASE(MAIN_BUTTON_SET_PIN);
-			MAIN_WAIT_FOR_BUTTON_RELEASE(MAIN_BUTTON_PLUS_PIN);
-			MAIN_WAIT_FOR_BUTTON_RELEASE(MAIN_BUTTON_MINUS_PIN);
+			MENU_BUTTONS_WAIT_FOR_BUTTON_RELEASE(MENU_BUTTONS_PIN_SET);
+			MENU_BUTTONS_WAIT_FOR_BUTTON_RELEASE(MENU_BUTTONS_PIN_PLUS);
+			MENU_BUTTONS_WAIT_FOR_BUTTON_RELEASE(MENU_BUTTONS_PIN_MINUS);
 		}
 		
 		// Always display time and date view, so they are immediately visible when exiting from configuration menu
@@ -348,6 +260,6 @@ void main(void)
 		}
 		
 		// Wait for tick end
-		while ((RTC_TICK_PIN == 1) && (MAIN_BUTTON_SET_PIN == MAIN_BUTTON_RELEASED_STATE)); // Also exit if "set" button is pressed
+		while ((RTC_TICK_PIN == 1) && (MENU_BUTTONS_PIN_SET == MENU_BUTTONS_STATE_RELEASED)); // Also exit if "set" button is pressed
 	}
 }
