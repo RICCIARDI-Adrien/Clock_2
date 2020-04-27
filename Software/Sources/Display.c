@@ -76,6 +76,20 @@ void DisplayInitialize(void)
 	// Send entry mode set command
 	DisplayWrite(0x06, 0); // Enable increment mode, disable entire shift feature
 	__delay_ms(1); // Datasheet does not recommend to wait some time, but wait anyway to be sure
+	
+	// Send special "e acute" character graphics
+	DisplayWrite(0x40 | 0x08, 0); // Set CGRAM address to character index 1
+	DisplayWrite(0x02, 1);
+	DisplayWrite(0x04, 1);
+	DisplayWrite(0x0E, 1);
+	DisplayWrite(0x11, 1);
+	DisplayWrite(0x1F, 1);
+	DisplayWrite(0x10, 1);
+	DisplayWrite(0x0E, 1);
+	DisplayWrite(0x00, 1);
+	
+	// Write to DDRAM address, so the next written data will be understood as a character code
+	DisplaySetCursorLocation(0);
 }
 
 void DisplayWriteCharacter(unsigned char Character)
