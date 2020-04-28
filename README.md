@@ -30,10 +30,10 @@ Press `Set` button to reach this view.
 
 ```
 +--------------------+
-|-> REGLER ALARME    |
-|   REGLER HEURE     |
-|   REGLER DATE      |
-|      RETOUR        |
+|-> Régler alarme    |
+|   Régler heure     |
+|   Régler date      |
+|       Retour       |
 +--------------------+
 ```
 Select a menu entry using `+` and `-` buttons, then press `Set` button.
@@ -43,7 +43,7 @@ Select a menu entry using `+` and `-` buttons, then press `Set` button.
 ```
 +--------------------+
 |--- HEURE ALARME ---|
-| Heure : 07         |
+| Heure : 7          |
 | + et - pour régler |
 | SET pour continuer |
 +--------------------+
@@ -53,7 +53,7 @@ Press `+` and `-` buttons to choose an hour, then press `Set` button to continue
 ```
 +--------------------+
 |-- MINUTES ALARME --|
-| Minutes : 34       |
+| Minutes : 30       |
 | + et - pour régler |
 | SET pour continuer |
 +--------------------+
@@ -80,7 +80,17 @@ Press `+` and `-` buttons to choose an hour, then press `Set` button to continue
 | SET pour continuer |
 +--------------------+
 ```
-Press `+` and `-` buttons to minutes value, then press `Set` button to return to settings menu.
+Press `+` and `-` buttons to choose minutes value, then press `Set` button to continue.
+
+```
++--------------------+
+|- REGLER SECONDES --|
+| Secondes : 47      |
+| + et - pour régler |
+| SET pour continuer |
++--------------------+
+```
+Press `+` and `-` buttons to choose seconds value, then press `Set` button to return to settings menu.
 
 ### Set date
 
@@ -97,7 +107,7 @@ Press `+` and `-` buttons to choose a day, then press `Set` button to continue.
 ```
 +--------------------+
 |--- REGLER MOIS ----|
-| Mois : 03          |
+| Mois : 3           |
 | + et - pour régler |
 | SET pour continuer |
 +--------------------+
