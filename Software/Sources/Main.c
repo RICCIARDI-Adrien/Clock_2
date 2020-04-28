@@ -85,6 +85,21 @@ static unsigned char MainConvertBinaryToBCD(unsigned char Number)
 	return (Tens << 4) | Units;
 }
 
+/** Convert a BCD-encoded number into its binary representation.
+ * @param BCD_Number The BCD number to convert to binary.
+ * @return The corresponding binary number.
+ */
+static unsigned char MainConvertBCDToBinary(unsigned char BCD_Number)
+{
+	unsigned char Tens, Units;
+	
+	// Extract tens and units
+	Tens = BCD_Number >> 4;
+	Units = BCD_Number & 0x0F;
+	
+	return (Tens * 10) + Units;
+}
+
 /** Allow to select a precise number in a specified interval using the menu buttons.
  * @param Pointer_String_View_Title The view title, displayed on the first display line.
  * @param Pointer_String_Text The text displayed before the number to select.
@@ -229,6 +244,7 @@ static void MainShowConfigurationMenu(void)
 {
 	unsigned char Selected_Menu_Index = 0;
 	TRTCTime Time;
+	TRTCDate Date;
 	
 	while (1)
 	{
@@ -276,6 +292,9 @@ static void MainShowConfigurationMenu(void)
 				{
 					// Retrieve current time values
 					RTCGetTime(&Time);
+					Time.Hours = MainConvertBCDToBinary(Time.Hours);
+					Time.Minutes = MainConvertBCDToBinary(Time.Minutes);
+					Time.Seconds = MainConvertBCDToBinary(Time.Seconds);
 					
 					// Configure hours
 					Time.Hours = MainShowNumberSelectionView("--- REGLER HEURE ---", " Heure : ", 0, 23, Time.Hours);
@@ -289,6 +308,28 @@ static void MainShowConfigurationMenu(void)
 					
 					// Configure RTC
 					RTCSetTime(&Time);
+				}
+				// Configure date
+				else if (Selected_Menu_Index == 2)
+				{
+					// Retrieve current date values
+					RTCGetDate(&Date);
+					Date.Day = MainConvertBCDToBinary(Date.Day);
+					Date.Month = MainConvertBCDToBinary(Date.Month);
+					Date.Year = MainConvertBCDToBinary(Date.Year);
+					
+					// Configure day
+					Date.Day = MainShowNumberSelectionView("--- REGLER JOUR ----", " Jour : ", 1, 31, Date.Day);
+					Date.Day = MainConvertBinaryToBCD(Date.Day);
+					// Configure month
+					Date.Month = MainShowNumberSelectionView("--- REGLER MOIS ----", " Mois : ", 1, 12, Date.Month);
+					Date.Month = MainConvertBinaryToBCD(Date.Month);
+					// Configure year
+					Date.Year = MainShowNumberSelectionView("--- REGLER ANNEE ---", " Ann\001e : 20", 20, 99, Date.Year);
+					Date.Year = MainConvertBinaryToBCD(Date.Year);
+					
+					// Configure RTC
+					RTCSetDate(&Date);
 				}
 				// Exit configuration menu
 				else if (Selected_Menu_Index == 3)

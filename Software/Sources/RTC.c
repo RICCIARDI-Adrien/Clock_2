@@ -157,6 +157,20 @@ void RTCGetDate(TRTCDate *Pointer_Date)
 	RTCReadBuffer((unsigned char *) Pointer_Date, 4);
 }
 
+void RTCSetDate(TRTCDate *Pointer_Date)
+{
+	// Clear "century" flag
+	Pointer_Date->Month &= 0x1F;
+	
+	// TODO Determine day of week
+	
+	// Write new date values
+	RTCWriteByte(3, Pointer_Date->Day_Of_Week);
+	RTCWriteByte(4, Pointer_Date->Day);
+	RTCWriteByte(5, Pointer_Date->Month);
+	RTCWriteByte(6, Pointer_Date->Year);
+}
+
 void RTCGetTime(TRTCTime *Pointer_Time)
 {
 	// Set first time register address
