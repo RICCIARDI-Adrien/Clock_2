@@ -69,22 +69,6 @@ static void MainConvertBCDToASCII(unsigned char BCD_Number, unsigned char *Point
 	*Pointer_Units_Character = (BCD_Number & 0x0F) + '0';
 }
 
-/** Convert a binary number (in range 0 to 99) to its Binary Coded Decimal representation.
- * @param Number The number to convert. Make sure it is in range [0; 99] or the BCD representation will be wrong.
- * @return The corresponding BCD number.
- */
-static unsigned char MainConvertBinaryToBCD(unsigned char Number)
-{
-	unsigned char Tens, Units;
-	
-	// Extract tens
-	Tens = Number / 10;
-	// Extract units
-	Units = Number - (Tens * 10);
-	
-	return (Tens << 4) | Units;
-}
-
 /** Convert a BCD-encoded number into its binary representation.
  * @param BCD_Number The BCD number to convert to binary.
  * @return The corresponding binary number.
@@ -301,13 +285,10 @@ static void MainShowConfigurationMenu(void)
 					
 					// Configure hours
 					Time.Hours = MainShowNumberSelectionView("--- REGLER HEURE ---", " Heure : ", 0, 23, Time.Hours);
-					Time.Hours = MainConvertBinaryToBCD(Time.Hours);
 					// Configure minutes
 					Time.Minutes = MainShowNumberSelectionView("-- REGLER MINUTES --", " Minutes : ", 0, 59, Time.Minutes);
-					Time.Minutes = MainConvertBinaryToBCD(Time.Minutes);
 					// Configure seconds
 					Time.Seconds = MainShowNumberSelectionView("- REGLER SECONDES --", " Secondes : ", 0, 59, Time.Seconds);
-					Time.Seconds = MainConvertBinaryToBCD(Time.Seconds);
 					
 					// Configure RTC
 					RTCSetTime(&Time);
@@ -323,13 +304,10 @@ static void MainShowConfigurationMenu(void)
 					
 					// Configure day
 					Date.Day = MainShowNumberSelectionView("--- REGLER JOUR ----", " Jour : ", 1, 31, Date.Day);
-					Date.Day = MainConvertBinaryToBCD(Date.Day);
 					// Configure month
 					Date.Month = MainShowNumberSelectionView("--- REGLER MOIS ----", " Mois : ", 1, 12, Date.Month);
-					Date.Month = MainConvertBinaryToBCD(Date.Month);
 					// Configure year
 					Date.Year = MainShowNumberSelectionView("--- REGLER ANNEE ---", " Ann\001e : 20", 20, 99, Date.Year);
-					Date.Year = MainConvertBinaryToBCD(Date.Year);
 					
 					// Configure RTC
 					RTCSetDate(&Date);

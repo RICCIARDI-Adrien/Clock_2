@@ -128,6 +128,22 @@ static void RTCWriteByte(unsigned char Address, unsigned char Byte)
 	__delay_us(3);
 }
 
+/** Convert a binary number (in range 0 to 99) to its Binary Coded Decimal representation.
+ * @param Number The number to convert. Make sure it is in range [0; 99] or the BCD representation will be wrong.
+ * @return The corresponding BCD number.
+ */
+static unsigned char RTCConvertBinaryToBCD(unsigned char Number)
+{
+	unsigned char Tens, Units;
+	
+	// Extract tens
+	Tens = Number / 10;
+	// Extract units
+	Units = Number - (Tens * 10);
+	
+	return (Tens << 4) | Units;
+}
+
 //--------------------------------------------------------------------------------------------------
 // Public functions
 //--------------------------------------------------------------------------------------------------
@@ -159,10 +175,22 @@ void RTCGetDate(TRTCDate *Pointer_Date)
 
 void RTCSetDate(TRTCDate *Pointer_Date)
 {
+	static unsigned char Month_Codes[] = { 0, 3, 2, 5, 0, 3, 5, 1, 4, 6, 2, 4 };
+	unsigned long Year;
+	
+	// Determine day of week using Sakamoto's formula
+	Year = Pointer_Date->Year + 2000;
+	if (Pointer_Date->Month < 3) Year--;
+	Pointer_Date->Day_Of_Week = (Year + (Year / 4) - (Year / 100) + (Year / 400) + Month_Codes[Pointer_Date->Month - 1] + Pointer_Date->Day) % 7;
+	Pointer_Date->Day_Of_Week++; // Day of week starts from 1 in the RTC chip
+	
+	// Convert to BCD as RTC handles only BCD numbers (no need to convert day of week value as its value is between 1 and 7)
+	Pointer_Date->Day = RTCConvertBinaryToBCD(Pointer_Date->Day);
+	Pointer_Date->Month = RTCConvertBinaryToBCD(Pointer_Date->Month);
+	Pointer_Date->Year = RTCConvertBinaryToBCD(Pointer_Date->Year);
+	
 	// Clear "century" flag
 	Pointer_Date->Month &= 0x1F;
-	
-	// TODO Determine day of week
 	
 	// Write new date values
 	RTCWriteByte(3, Pointer_Date->Day_Of_Week);
@@ -185,6 +213,11 @@ void RTCGetTime(TRTCTime *Pointer_Time)
 
 void RTCSetTime(TRTCTime *Pointer_Time)
 {
+	// Convert all fields to BCD (RTC expects BCD)
+	Pointer_Time->Hours = RTCConvertBinaryToBCD(Pointer_Time->Hours);
+	Pointer_Time->Minutes = RTCConvertBinaryToBCD(Pointer_Time->Minutes);
+	Pointer_Time->Seconds = RTCConvertBinaryToBCD(Pointer_Time->Seconds);
+	
 	// Configure hours to be in 24-hour format
 	Pointer_Time->Hours &= 0x3F;
 	

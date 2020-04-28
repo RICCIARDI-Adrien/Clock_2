@@ -45,7 +45,7 @@ void RTCInitialize(void);
 void RTCGetDate(TRTCDate *Pointer_Date);
 
 /** Configure date in RTC chip registers.
- * @param Pointer_Date Contain the date to set. Each field must be encoded in BCD format.
+ * @param Pointer_Date Contain the date to set. Each field must be encoded in normal binary, not BCD format.
  * @note Day_Of_Week field value is ignored because it is automatically computed.
  */
 void RTCSetDate(TRTCDate *Pointer_Date);
@@ -56,7 +56,7 @@ void RTCSetDate(TRTCDate *Pointer_Date);
 void RTCGetTime(TRTCTime *Pointer_Time);
 
 /** Configure time in RTC chip registers.
- * @param Pointer_Time Contain the time to set. Each field must be encoded in BCD format.
+ * @param Pointer_Time Contain the time to set. Each field must be encoded in normal binary, not BCD format.
  */
 void RTCSetTime(TRTCTime *Pointer_Time);
 
