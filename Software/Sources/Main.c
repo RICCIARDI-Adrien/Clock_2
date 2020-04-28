@@ -125,6 +125,9 @@ static unsigned short MainShowNumberSelectionView(char *Pointer_String_View_Titl
 	DisplaySetCursorLocation(DISPLAY_LOCATION_LINE_4 + 1);
 	DisplayWriteString("SET pour continuer");
 	
+	// Make sure current value is in allowed range
+	if ((Current_Value < Minimum_Value) || (Current_Value > Maximum_Value)) Current_Value = Minimum_Value;
+	
 	// Handle number selection
 	Text_Length = strlen(Pointer_String_Text); // Cache text string length
 	while (1)
