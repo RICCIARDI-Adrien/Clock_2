@@ -59,13 +59,4 @@ void RTCGetTime(TRTCTime *Pointer_Time);
  */
 void RTCSetTime(TRTCTime *Pointer_Time);
 
-// TEST
-unsigned char RTCReadByte(void);
-
-/** Write a byte of data to the RTC memory.
- * @param Address The register address.
- * @param Byte The byte to write.
- */
-void RTCWriteByte(unsigned char Address, unsigned char Byte);
-
 #endif

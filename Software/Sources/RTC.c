@@ -98,48 +98,11 @@ static void RTCReadBuffer(unsigned char *Pointer_Buffer, unsigned char Bytes_Cou
 	RTC_I2C_WAIT_OPERATION_END();
 }
 
-//--------------------------------------------------------------------------------------------------
-// Public functions
-//--------------------------------------------------------------------------------------------------
-void RTCInitialize(void)
-{
-	// Configure pins as inputs
-	ANSELD &= 0xF8; // Set pins as digital
-	TRISD |= 0x07;
-	
-	// Initialize the I2C module at 100KHz
-	SSP2ADD = 159; // Set a 100KHz clock with a 64MHz system clock
-	SSP2STAT = 0x80; // Disable slew rate control as required for 100KHz speed mode, disable SMbus levels detection
-	SSP2CON2 = 0; // Reset communication flags
-	SSP2CON3 = 0; // Disable interrupts generation on specific I2C events
-	SSP2CON1 = 0x38; // Enable I2C module, enable I2C clock generation, set I2C master mode
-	
-	// Enable 1Hz signal generation
-	RTCWriteByte(0x0E, 0x18); // Set default boot values and enable 1Hz square-wave
-}
-
-void RTCGetTime(TRTCTime *Pointer_Time)
-{
-	// Set first time register address
-	RTCSetReadAddress(0);
-	
-	// Read all needed registers, the TRTCTime fields are in the same order than the RTC registers
-	RTCReadBuffer((unsigned char *) Pointer_Time, 3);
-	
-	// Discard control bits from hour value
-	Pointer_Time->Hours &= 0x3F;
-}
-
-void RTCGetDate(TRTCDate *Pointer_Date)
-{
-	// Set first date register address
-	RTCSetReadAddress(0x03);
-	
-	// Read all needed registers, the TRTCDate fields are in the same order than the RTC registers
-	RTCReadBuffer((unsigned char *) Pointer_Date, 4);
-}
-
-void RTCWriteByte(unsigned char Address, unsigned char Byte)
+/** Write a byte of data to the RTC memory.
+ * @param Address The register address.
+ * @param Byte The byte to write.
+ */
+static void RTCWriteByte(unsigned char Address, unsigned char Byte)
 {
 	// Send an I2C START
 	RTC_I2C_SEND_START();
@@ -163,4 +126,56 @@ void RTCWriteByte(unsigned char Address, unsigned char Byte)
 	
 	// The minimum bus free time between a STOP and a START must be at least 1.3µs
 	__delay_us(3);
+}
+
+//--------------------------------------------------------------------------------------------------
+// Public functions
+//--------------------------------------------------------------------------------------------------
+void RTCInitialize(void)
+{
+	// Configure pins as inputs
+	ANSELD &= 0xF8; // Set pins as digital
+	TRISD |= 0x07;
+	
+	// Initialize the I2C module at 100KHz
+	SSP2ADD = 159; // Set a 100KHz clock with a 64MHz system clock
+	SSP2STAT = 0x80; // Disable slew rate control as required for 100KHz speed mode, disable SMbus levels detection
+	SSP2CON2 = 0; // Reset communication flags
+	SSP2CON3 = 0; // Disable interrupts generation on specific I2C events
+	SSP2CON1 = 0x38; // Enable I2C module, enable I2C clock generation, set I2C master mode
+	
+	// Enable 1Hz signal generation
+	RTCWriteByte(0x0E, 0x18); // Set default boot values and enable 1Hz square-wave
+}
+
+void RTCGetDate(TRTCDate *Pointer_Date)
+{
+	// Set first date register address
+	RTCSetReadAddress(0x03);
+	
+	// Read all needed registers, the TRTCDate fields are in the same order than the RTC registers
+	RTCReadBuffer((unsigned char *) Pointer_Date, 4);
+}
+
+void RTCGetTime(TRTCTime *Pointer_Time)
+{
+	// Set first time register address
+	RTCSetReadAddress(0);
+	
+	// Read all needed registers, the TRTCTime fields are in the same order than the RTC registers
+	RTCReadBuffer((unsigned char *) Pointer_Time, 3);
+	
+	// Discard control bits from hour value
+	Pointer_Time->Hours &= 0x3F;
+}
+
+void RTCSetTime(TRTCTime *Pointer_Time)
+{
+	// Configure hours to be in 24-hour format
+	Pointer_Time->Hours &= 0x3F;
+	
+	// Set time starting by seconds, so counting mechanism is blocked for 1 second to let the time to write all needed registers (see datasheet for more information)
+	RTCWriteByte(0, Pointer_Time->Seconds);
+	RTCWriteByte(1, Pointer_Time->Minutes);
+	RTCWriteByte(2, Pointer_Time->Hours);
 }

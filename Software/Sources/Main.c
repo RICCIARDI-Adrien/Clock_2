@@ -63,10 +63,26 @@ static char *Pointer_Main_String_Day_Names[] =
  * @param Pointer_Tens_Character On output, contain the binary value of the number's tens.
  * @param Pointer_Units_Character On output, contain the binary value of the number's units.
  */
-static inline void MainConvertBCDToASCII(unsigned char BCD_Number, unsigned char *Pointer_Tens_Character, unsigned char *Pointer_Units_Character)
+static void MainConvertBCDToASCII(unsigned char BCD_Number, unsigned char *Pointer_Tens_Character, unsigned char *Pointer_Units_Character)
 {
 	*Pointer_Tens_Character = (BCD_Number >> 4) + '0';
 	*Pointer_Units_Character = (BCD_Number & 0x0F) + '0';
+}
+
+/** Convert a binary number (in range 0 to 99) to its Binary Coded Decimal representation.
+ * @param Number The number to convert. Make sure it is in range [0; 99] or the BCD representation will be wrong.
+ * @return The corresponding BCD number.
+ */
+static unsigned char MainConvertBinaryToBCD(unsigned char Number)
+{
+	unsigned char Tens, Units;
+	
+	// Extract tens
+	Tens = Number / 10;
+	// Extract units
+	Units = Number - (Tens * 10);
+	
+	return (Tens << 4) | Units;
 }
 
 /** Allow to select a precise number in a specified interval using the menu buttons.
@@ -263,12 +279,16 @@ static void MainShowConfigurationMenu(void)
 					
 					// Configure hours
 					Time.Hours = MainShowNumberSelectionView("--- REGLER HEURE ---", " Heure : ", 0, 23, Time.Hours);
+					Time.Hours = MainConvertBinaryToBCD(Time.Hours);
 					// Configure minutes
 					Time.Minutes = MainShowNumberSelectionView("-- REGLER MINUTES --", " Minutes : ", 0, 59, Time.Minutes);
+					Time.Minutes = MainConvertBinaryToBCD(Time.Minutes);
 					// Configure seconds
 					Time.Seconds = MainShowNumberSelectionView("- REGLER SECONDES --", " Secondes : ", 0, 59, Time.Seconds);
+					Time.Seconds = MainConvertBinaryToBCD(Time.Seconds);
 					
-					// TODO configure RTC
+					// Configure RTC
+					RTCSetTime(&Time);
 				}
 				// Exit configuration menu
 				else if (Selected_Menu_Index == 3)
