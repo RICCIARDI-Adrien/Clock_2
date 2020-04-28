@@ -17,6 +17,12 @@
 #define DISPLAY_SIGNAL_E LATBbits.LATB5
 
 //--------------------------------------------------------------------------------------------------
+// Private variables
+//--------------------------------------------------------------------------------------------------
+/** Count how many seconds the backlight is being lighted. */
+static unsigned char Display_Backlight_Seconds_Counter; // The timer counts at 1.05Hz
+
+//--------------------------------------------------------------------------------------------------
 // Private functions
 //--------------------------------------------------------------------------------------------------
 /** Write a byte of command or data to the display.
@@ -48,7 +54,7 @@ void DisplayInitialize(void)
 	// Configure pins
 	// Display backlight
 	ANSELCbits.ANSC2 = 0; // Set pin as digital
-	LATCbits.LATC2 = 0;
+	LATCbits.LATC2 = 0; // Make sure it is off on boot
 	TRISCbits.TRISC2 = 0;
 	// Data port
 	ANSELA = 0; // Set all pins as digital
@@ -90,6 +96,11 @@ void DisplayInitialize(void)
 	
 	// Write to DDRAM address, so the next written data will be understood as a character code
 	DisplaySetCursorLocation(0);
+	
+	// Configure timer 0 to generate an interrupt at approximately 1Hz
+	T0CON = 0x07; // Do not enable timer, configure it as a 16-bit timer, use Fosc/4 as clock source
+	INTCON2bits.TMR0IP = 0; // Set as low priority
+	INTCONbits.TMR0IE = 1; // Enable interrupt
 }
 
 void DisplayWriteCharacter(unsigned char Character)
@@ -128,4 +139,39 @@ void DisplayClear(void)
 {
 	DisplayWrite(0x01, 0);
 	__delay_ms(2); // Wait at least 1.53ms
+}
+
+void DisplayTurnBacklightOn(void)
+{
+	// Light backlight
+	LATCbits.LATC2 = 1;
+	
+	// Reset seconds counter
+	Display_Backlight_Seconds_Counter = DISPLAY_BACKLIGHT_ON_DELAY;
+	
+	// Restart timer
+	// Turn timer off in case it was already running
+	T0CONbits.TMR0ON = 0;
+	// Clear timer
+	TMR0H = 0;
+	TMR0L = 0;
+	// Start timer
+	T0CONbits.TMR0ON = 1;
+}
+
+void DisplayInterruptHandler(void)
+{
+	// Is the required time elapsed ?
+	Display_Backlight_Seconds_Counter--;
+	if (Display_Backlight_Seconds_Counter == 0)
+	{
+		// Turn backlight off
+		LATCbits.LATC2 = 0;
+		
+		// Turn timer off
+		T0CONbits.TMR0ON = 0;
+	}
+	
+	// Clear interrupt flag
+	INTCONbits.TMR0IF = 0;
 }

@@ -5,6 +5,8 @@
 #ifndef H_DISPLAY_H
 #define H_DISPLAY_H
 
+#include <xc.h>
+
 //--------------------------------------------------------------------------------------------------
 // Constants
 //--------------------------------------------------------------------------------------------------
@@ -16,6 +18,12 @@
 #define DISPLAY_LOCATION_LINE_3 0x14
 /** Location of the first character of the fourth line in the display data RAM. */
 #define DISPLAY_LOCATION_LINE_4 0x54
+
+/** How many seconds the backlight will remain lighted. */
+#define DISPLAY_BACKLIGHT_ON_DELAY 6
+
+/** Tell whether the display timer interrupt fired or not. */
+#define DISPLAY_HAS_INTERRUPT_FIRED() (INTCONbits.TMR0IF)
 
 //--------------------------------------------------------------------------------------------------
 // Functions
@@ -45,5 +53,11 @@ void DisplaySetCursorLocation(unsigned char Location);
 
 /** Clear the whole display an return the cursor to the beginning of the first line. */
 void DisplayClear(void);
+
+/** Light the display backlight for DISPLAY_BACKLIGHT_ON_DELAY seconds. */
+void DisplayTurnBacklightOn(void);
+
+/** Handle the backlight timer. */
+void DisplayInterruptHandler(void);
 
 #endif
