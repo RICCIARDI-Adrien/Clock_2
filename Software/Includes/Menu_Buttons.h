@@ -13,9 +13,9 @@
 /** The pin the "set" button is connected to. This is an active-low button. */
 #define MENU_BUTTONS_PIN_SET PORTBbits.RB2
 /** The pin the "plus" button is connected to. This is an active-low button. */
-#define MENU_BUTTONS_PIN_PLUS PORTCbits.RC7
+#define MENU_BUTTONS_PIN_PLUS PORTDbits.RD4
 /** The pin the "minus" button is connected to. This is an active-low button. */
-#define MENU_BUTTONS_PIN_MINUS PORTDbits.RD4
+#define MENU_BUTTONS_PIN_MINUS PORTCbits.RC7
 
 /** The button pin value when it is pressed. */
 #define MENU_BUTTONS_STATE_PRESSED 0
@@ -37,9 +37,9 @@
 /** All menu button identifiers. */
 typedef enum
 {
-	MENU_BUTTONS_ID_SET,
+	MENU_BUTTONS_ID_MINUS,
 	MENU_BUTTONS_ID_PLUS,
-	MENU_BUTTONS_ID_MINUS
+	MENU_BUTTONS_ID_SET
 } TMenuButtonsID;
 
 //--------------------------------------------------------------------------------------------------
