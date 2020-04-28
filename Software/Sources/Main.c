@@ -58,6 +58,20 @@ static char *Pointer_Main_String_Day_Names[] =
 //-------------------------------------------------------------------------------------------------
 // Private functions
 //-------------------------------------------------------------------------------------------------
+/** Entry point for all low priority interrupts. */
+static void __interrupt(low_priority) MainInterruptHandlerLowPriority(void)
+{
+	// Detect backlight button press
+	if (INTCON3bits.INT1IF)
+	{
+		DisplayTurnBacklightOn();
+		INTCON3bits.INT1IF = 0; // Clear interrupt flag
+	}
+	
+	// Turn display backlight off
+	if (DISPLAY_HAS_INTERRUPT_FIRED()) DisplayInterruptHandler();
+}
+
 /** Convert a one-byte Binary Coded Decimal number to two ASCII characters.
  * @param BCD_Number The BCD number to convert.
  * @param Pointer_Tens_Character On output, contain the binary value of the number's tens.
@@ -127,15 +141,15 @@ static unsigned short MainShowNumberSelectionView(char *Pointer_String_View_Titl
 		// Handle user inputs
 		switch (MenuButtonsWaitButtonPress())
 		{
+			case MENU_BUTTONS_ID_MINUS:
+				if (Current_Value == Minimum_Value) Current_Value = Maximum_Value;
+				else Current_Value--;
+				break;
+			
 			// Increase number
 			case MENU_BUTTONS_ID_PLUS:
 				if (Current_Value >= Maximum_Value) Current_Value = Minimum_Value;
 				else Current_Value++;
-				break;
-				
-			case MENU_BUTTONS_ID_MINUS:
-				if (Current_Value == Minimum_Value) Current_Value = Maximum_Value;
-				else Current_Value--;
 				break;
 				
 			case MENU_BUTTONS_ID_SET:
@@ -323,6 +337,21 @@ static void MainShowConfigurationMenu(void)
 	}
 }
 
+/** Configure backlight and alarm buttons. */
+static void MainButtonsInitialize(void)
+{
+	// Configure pins
+	// Set pins as digital
+	ANSELB &= 0xFC;
+	// Make sure pins are configured as inputs
+	TRISB |= 0x03;
+	
+	// Configure backlight button interrupt
+	INTCON2bits.INTEDG1 = 0; // Trigger interrupt on falling edge
+	INTCON3bits.INT1IP = 0; // Set as low priority
+	INTCON3bits.INT1IE = 1; // Enable interrupt
+}
+
 //-------------------------------------------------------------------------------------------------
 // Entry point
 //-------------------------------------------------------------------------------------------------
@@ -347,7 +376,14 @@ void main(void)
 		while (1);
 	}
 	MenuButtonsInitialize();
+	MainButtonsInitialize();
 	
+	// Enable interrupts
+	RCONbits.IPEN = 1; // Enable interrupt priorities
+	INTCONbits.GIE = 1; // Enable high priority interrupts
+	INTCONbits.PEIE = 1; // Enable low priority interrupts
+	
+	// Main loop
 	while (1)
 	{
 		// Wait for a new tick to begin
