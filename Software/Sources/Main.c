@@ -6,6 +6,7 @@
 #include <Menu_Buttons.h>
 #include <RTC.h>
 #include <Sensors.h>
+#include <string.h>
 #include <xc.h>
 
 //-------------------------------------------------------------------------------------------------
@@ -66,6 +67,63 @@ static inline void MainConvertBCDToASCII(unsigned char BCD_Number, unsigned char
 {
 	*Pointer_Tens_Character = (BCD_Number >> 4) + '0';
 	*Pointer_Units_Character = (BCD_Number & 0x0F) + '0';
+}
+
+/** Allow to select a precise number in a specified interval using the menu buttons.
+ * @param Pointer_String_View_Title The view title, displayed on the first display line.
+ * @param Pointer_String_Text The text displayed before the number to select.
+ * @param Minimum_Value The minimum allowed value (included). When a lower value is requested, the selected number wraps to its maximum value.
+ * @param Maximum_Value The maximum allowed value (included). When a higher value is requested, the selected number wraps to its minimum value.
+ * @param Current_Value The value to display when entering the view.
+ * @return The selected number.
+ */
+static unsigned short MainShowNumberSelectionView(char *Pointer_String_View_Title, char *Pointer_String_Text, unsigned short Minimum_Value, unsigned short Maximum_Value, unsigned short Current_Value)
+{
+	unsigned char Text_Length;
+	
+	// Display strings that won't change
+	DisplayClear();
+	// Title
+	DisplayWriteString(Pointer_String_View_Title);
+	// Text
+	DisplaySetCursorLocation(DISPLAY_LOCATION_LINE_2);
+	DisplayWriteString(Pointer_String_Text);
+	// Help
+	DisplaySetCursorLocation(DISPLAY_LOCATION_LINE_3 + 1);
+	DisplayWriteString("+ et - pour r\001gler");
+	DisplaySetCursorLocation(DISPLAY_LOCATION_LINE_4 + 1);
+	DisplayWriteString("SET pour continuer");
+	
+	// Handle number selection
+	Text_Length = strlen(Pointer_String_Text); // Cache text string length
+	while (1)
+	{
+		// Clear number previous trace
+		DisplaySetCursorLocation(DISPLAY_LOCATION_LINE_2 + Text_Length);
+		DisplayWriteString("     "); // There are up to 5 digits in a 16-bit number
+		
+		// Display number
+		DisplaySetCursorLocation(DISPLAY_LOCATION_LINE_2 + Text_Length);
+		DisplayWriteNumber(Current_Value);
+		
+		// Handle user inputs
+		switch (MenuButtonsWaitButtonPress())
+		{
+			// Increase number
+			case MENU_BUTTONS_ID_PLUS:
+				if (Current_Value >= Maximum_Value) Current_Value = Minimum_Value;
+				else Current_Value++;
+				break;
+				
+			case MENU_BUTTONS_ID_MINUS:
+				if (Current_Value == Minimum_Value) Current_Value = Maximum_Value;
+				else Current_Value--;
+				break;
+				
+			case MENU_BUTTONS_ID_SET:
+				return Current_Value;
+		}
+	}
 }
 
 /** Default view, displays time, date and sensors measures. */
@@ -154,6 +212,7 @@ static inline void MainShowDefaultView(void)
 static void MainShowConfigurationMenu(void)
 {
 	unsigned char Selected_Menu_Index = 0;
+	TRTCTime Time;
 	
 	while (1)
 	{
@@ -196,8 +255,23 @@ static void MainShowConfigurationMenu(void)
 				
 			case MENU_BUTTONS_ID_SET:
 				// TODO
+				// Configure time
+				if (Selected_Menu_Index == 1)
+				{
+					// Retrieve current time values
+					RTCGetTime(&Time);
+					
+					// Configure hours
+					Time.Hours = MainShowNumberSelectionView("--- REGLER HEURE ---", " Heure : ", 0, 23, Time.Hours);
+					// Configure minutes
+					Time.Minutes = MainShowNumberSelectionView("-- REGLER MINUTES --", " Minutes : ", 0, 59, Time.Minutes);
+					// Configure seconds
+					Time.Seconds = MainShowNumberSelectionView("- REGLER SECONDES --", " Secondes : ", 0, 59, Time.Seconds);
+					
+					// TODO configure RTC
+				}
 				// Exit configuration menu
-				if (Selected_Menu_Index == 3)
+				else if (Selected_Menu_Index == 3)
 				{
 					DisplayClear();
 					return;
