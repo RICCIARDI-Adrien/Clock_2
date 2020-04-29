@@ -4,6 +4,7 @@
  */
 #include <Display.h>
 #include <Menu_Buttons.h>
+#include <Ring.h>
 #include <RTC.h>
 #include <Sensors.h>
 #include <string.h>
@@ -58,6 +59,12 @@ static char *Pointer_Main_String_Day_Names[] =
 //-------------------------------------------------------------------------------------------------
 // Private functions
 //-------------------------------------------------------------------------------------------------
+/** Entry point for all high priority interrupts. */
+static void __interrupt(high_priority) MainInterruptHandlerHighPriority(void)
+{
+	if (RING_HAS_INTERRUPT_FIRED()) RingInterruptHandler();
+}
+
 /** Entry point for all low priority interrupts. */
 static void __interrupt(low_priority) MainInterruptHandlerLowPriority(void)
 {
@@ -65,7 +72,10 @@ static void __interrupt(low_priority) MainInterruptHandlerLowPriority(void)
 	if (INTCON3bits.INT1IF)
 	{
 		DisplayTurnBacklightOn();
-		INTCON3bits.INT1IF = 0; // Clear interrupt flag
+		RingStop();
+		
+		// Clear interrupt flag
+		INTCON3bits.INT1IF = 0;
 	}
 	
 	// Turn display backlight off
@@ -377,6 +387,7 @@ void main(void)
 	}
 	MenuButtonsInitialize();
 	MainButtonsInitialize();
+	RingInitialize();
 	
 	// Enable interrupts
 	RCONbits.IPEN = 1; // Enable interrupt priorities
