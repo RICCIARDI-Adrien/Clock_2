@@ -291,9 +291,24 @@ static void MainShowConfigurationMenu(void)
 				break;
 				
 			case BUTTONS_MENU_ID_SET:
-				// TODO
+				// Configure alarm
+				if (Selected_Menu_Index == 0)
+				{
+					// Retrieve current alarm values
+					RTCGetAlarm(&Time);
+					Time.Hours = MainConvertBCDToBinary(Time.Hours);
+					Time.Minutes = MainConvertBCDToBinary(Time.Minutes);
+					
+					// Configure hour
+					Time.Hours = MainShowNumberSelectionView("--- HEURE ALARME ---", " Heure : ", 0, 23, Time.Hours);
+					// Configure minutes
+					Time.Minutes = MainShowNumberSelectionView("-- MINUTES ALARME --", " Minutes : ", 0, 59, Time.Minutes);
+					
+					// Configure RTC
+					RTCSetAlarm(&Time);
+				}
 				// Configure time
-				if (Selected_Menu_Index == 1)
+				else if (Selected_Menu_Index == 1)
 				{
 					// Retrieve current time values
 					RTCGetTime(&Time);
