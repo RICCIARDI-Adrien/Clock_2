@@ -11,13 +11,13 @@
 // Constants
 //--------------------------------------------------------------------------------------------------
 /** Location of the first character of the first line in the display data RAM. */
-#define DISPLAY_LOCATION_LINE_1 0
+#define DISPLAY_CURSOR_LOCATION_LINE_1 0
 /** Location of the first character of the second line in the display data RAM. */
-#define DISPLAY_LOCATION_LINE_2 0x40
+#define DISPLAY_CURSOR_LOCATION_LINE_2 0x40
 /** Location of the first character of the third line in the display data RAM. */
-#define DISPLAY_LOCATION_LINE_3 0x14
+#define DISPLAY_CURSOR_LOCATION_LINE_3 0x14
 /** Location of the first character of the fourth line in the display data RAM. */
-#define DISPLAY_LOCATION_LINE_4 0x54
+#define DISPLAY_CURSOR_LOCATION_LINE_4 0x54
 
 /** How many seconds the backlight will remain lighted. */
 #define DISPLAY_BACKLIGHT_ON_DELAY 6

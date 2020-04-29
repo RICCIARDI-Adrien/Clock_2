@@ -119,12 +119,12 @@ static unsigned short MainShowNumberSelectionView(char *Pointer_String_View_Titl
 	// Title
 	DisplayWriteString(Pointer_String_View_Title);
 	// Text
-	DisplaySetCursorLocation(DISPLAY_LOCATION_LINE_2);
+	DisplaySetCursorLocation(DISPLAY_CURSOR_LOCATION_LINE_2);
 	DisplayWriteString(Pointer_String_Text);
 	// Help
-	DisplaySetCursorLocation(DISPLAY_LOCATION_LINE_3 + 1);
+	DisplaySetCursorLocation(DISPLAY_CURSOR_LOCATION_LINE_3 + 1);
 	DisplayWriteString("+ et - pour r\001gler");
-	DisplaySetCursorLocation(DISPLAY_LOCATION_LINE_4 + 1);
+	DisplaySetCursorLocation(DISPLAY_CURSOR_LOCATION_LINE_4 + 1);
 	DisplayWriteString("SET pour continuer");
 	
 	// Make sure current value is in allowed range
@@ -135,11 +135,11 @@ static unsigned short MainShowNumberSelectionView(char *Pointer_String_View_Titl
 	while (1)
 	{
 		// Clear number previous trace
-		DisplaySetCursorLocation(DISPLAY_LOCATION_LINE_2 + Text_Length);
+		DisplaySetCursorLocation(DISPLAY_CURSOR_LOCATION_LINE_2 + Text_Length);
 		DisplayWriteString("     "); // There are up to 5 digits in a 16-bit number
 		
 		// Display number
-		DisplaySetCursorLocation(DISPLAY_LOCATION_LINE_2 + Text_Length);
+		DisplaySetCursorLocation(DISPLAY_CURSOR_LOCATION_LINE_2 + Text_Length);
 		DisplayWriteNumber(Current_Value);
 		
 		// Handle user inputs
@@ -191,7 +191,7 @@ static inline void MainShowDefaultView(void)
 	
 	// Display date
 	RTCGetDate(&Date);
-	DisplaySetCursorLocation(DISPLAY_LOCATION_LINE_2);
+	DisplaySetCursorLocation(DISPLAY_CURSOR_LOCATION_LINE_2);
 	// Display the day name (all names are padded with spaces to be sure to erase a previous name that was longer)
 	DisplayWriteString(Pointer_Main_String_Day_Names[Date.Day_Of_Week]);
 	DisplayWriteCharacter(' ');
@@ -216,29 +216,29 @@ static inline void MainShowDefaultView(void)
 	SensorsGetMeasures(&Measures);
 	
 	// Clear temperature field last characters in case the previously displayed string was longer than the current one
-	DisplaySetCursorLocation(DISPLAY_LOCATION_LINE_3 + 6);
+	DisplaySetCursorLocation(DISPLAY_CURSOR_LOCATION_LINE_3 + 6);
 	DisplayWriteString("  ");
 	// Display temperature
-	DisplaySetCursorLocation(DISPLAY_LOCATION_LINE_3 + 1);
+	DisplaySetCursorLocation(DISPLAY_CURSOR_LOCATION_LINE_3 + 1);
 	DisplayWriteString("T:");
 	DisplayWriteNumber(Measures.Temperature);
 	DisplayWriteCharacter(0xDF); // A japanese character that looks like "degree" sign (DisplayWriteString() was not used because XC8 is not able to recognize \337 sequence)
 	DisplayWriteCharacter('C');
 	
 	// Clear pressure field last characters in case the previously displayed string was longer than the current one
-	DisplaySetCursorLocation(DISPLAY_LOCATION_LINE_3 + 18);
+	DisplaySetCursorLocation(DISPLAY_CURSOR_LOCATION_LINE_3 + 18);
 	DisplayWriteCharacter(' ');
 	// Display pressure
-	DisplaySetCursorLocation(DISPLAY_LOCATION_LINE_3 + 9);
+	DisplaySetCursorLocation(DISPLAY_CURSOR_LOCATION_LINE_3 + 9);
 	DisplayWriteString("P:");
 	DisplayWriteNumber(Measures.Pressure);
 	DisplayWriteString("mbar");
 	
 	// Clear humidity field last character in case the previously displayed string was longer than the current one
-	DisplaySetCursorLocation(DISPLAY_LOCATION_LINE_4 + 6);
+	DisplaySetCursorLocation(DISPLAY_CURSOR_LOCATION_LINE_4 + 6);
 	DisplayWriteString("  ");
 	// Display humidity
-	DisplaySetCursorLocation(DISPLAY_LOCATION_LINE_4 + 1);
+	DisplaySetCursorLocation(DISPLAY_CURSOR_LOCATION_LINE_4 + 1);
 	DisplayWriteString("H:");
 	DisplayWriteNumber(Measures.Humidity);
 	DisplayWriteCharacter('%');
@@ -264,17 +264,17 @@ static void MainShowConfigurationMenu(void)
 		else DisplayWriteString("   ");
 		DisplayWriteString("R\001gler alarme");
 		// Set time
-		DisplaySetCursorLocation(DISPLAY_LOCATION_LINE_2);
+		DisplaySetCursorLocation(DISPLAY_CURSOR_LOCATION_LINE_2);
 		if (Selected_Menu_Index == 1) DisplayWriteString("-> ");
 		else DisplayWriteString("   ");
 		DisplayWriteString("R\001gler heure");
 		// Set date
-		DisplaySetCursorLocation(DISPLAY_LOCATION_LINE_3);
+		DisplaySetCursorLocation(DISPLAY_CURSOR_LOCATION_LINE_3);
 		if (Selected_Menu_Index == 2) DisplayWriteString("-> ");
 		else DisplayWriteString("   ");
 		DisplayWriteString("R\001gler date");
 		// Go back
-		DisplaySetCursorLocation(DISPLAY_LOCATION_LINE_4);
+		DisplaySetCursorLocation(DISPLAY_CURSOR_LOCATION_LINE_4);
 		if (Selected_Menu_Index == 3) DisplayWriteString("-> ");
 		else DisplayWriteString("   ");
 		DisplayWriteString("    Retour");
@@ -379,7 +379,7 @@ void main(void)
 	if (SensorsInitialize() != 0)
 	{
 		DisplayWriteString("BME680 error.");
-		DisplaySetCursorLocation(DISPLAY_LOCATION_LINE_2);
+		DisplaySetCursorLocation(DISPLAY_CURSOR_LOCATION_LINE_2);
 		DisplayWriteString("Please reboot.");
 		while (1);
 	}
