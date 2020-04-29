@@ -56,6 +56,11 @@ void ButtonsInitialize(void);
  */
 TButtonsMenuID ButtonsWaitMenuButtonPress(void);
 
+/** Tell whether alarm lever switch is open or closed.
+ * @return 0 if alarm is disabled, 1 if alarm is enabled.
+ */
+unsigned char ButtonsIsAlarmEnabled(void);
+
 /** Must be called when the buttons interrupt fires. */
 void ButtonsInterruptHandler(void);
 

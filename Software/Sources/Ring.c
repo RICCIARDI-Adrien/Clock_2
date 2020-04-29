@@ -2,6 +2,7 @@
  * See Ring.h for description.
  * @author Adrien RICCIARDI
  */
+#include <Buttons.h>
 #include <Ring.h>
 #include <xc.h>
 
@@ -17,10 +18,10 @@
 /** The ring "melody". */
 static unsigned char Ring_Tone[] =
 {
-	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 };
 
 /** The ring "note" index. */
@@ -75,7 +76,7 @@ void RingStop(void)
 void RingInterruptHandler(void)
 {
 	// Stop the alarm if the alarm button is switched to "disabled", or if the alarm rang too long
-	if (/*(!ButtonIsAlarmEnabled()) ||*/0) RingStop();
+	if (!ButtonsIsAlarmEnabled()) RingStop();
 	else
 	{
 		// Make sure timer is cleared

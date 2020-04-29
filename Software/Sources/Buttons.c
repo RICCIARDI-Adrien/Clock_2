@@ -69,6 +69,12 @@ TButtonsMenuID ButtonsWaitMenuButtonPress(void)
 	return Pressed_Button;
 }
 
+unsigned char ButtonsIsAlarmEnabled(void)
+{
+	if (!PORTBbits.RB0) return 1;
+	return 0;
+}
+
 void ButtonsInterruptHandler(void)
 {
 	DisplayTurnBacklightOn();

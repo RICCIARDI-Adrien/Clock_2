@@ -165,7 +165,7 @@ static unsigned short MainShowNumberSelectionView(char *Pointer_String_View_Titl
 /** Default view, displays time, date and sensors measures. */
 static inline void MainShowDefaultView(void)
 {
-	TRTCTime Time;
+	TRTCTime Time, Time_Alarm;
 	TRTCDate Date;
 	TSensorsMeasures Measures;
 	unsigned char Tens_Character, Units_Character;
@@ -242,6 +242,10 @@ static inline void MainShowDefaultView(void)
 	DisplayWriteString("H:");
 	DisplayWriteNumber(Measures.Humidity);
 	DisplayWriteCharacter('%');
+	
+	// Is it time to ring ?
+	RTCGetAlarm(&Time_Alarm);
+	if (ButtonsIsAlarmEnabled() && (Time.Hours == Time_Alarm.Hours) && (Time.Minutes == Time_Alarm.Minutes) && (Time.Seconds == 0x00)) RingStart();
 }
 
 /** Display a menu allowing to choose which clock parameter to configure. */
