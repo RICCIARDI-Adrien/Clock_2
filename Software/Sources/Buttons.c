@@ -3,6 +3,8 @@
  * @author Adrien RICCIARDI
  */
 #include <Buttons.h>
+#include <Display.h>
+#include <Ring.h>
 
 //--------------------------------------------------------------------------------------------------
 // Functions
@@ -10,14 +12,19 @@
 void ButtonsInitialize(void)
 {
 	// Set pins as digital
-	ANSELBbits.ANSB2 = 0;
+	ANSELB &= 0xF8;
 	ANSELCbits.ANSC7 = 0;
 	ANSELDbits.ANSD4 = 0;
 	
 	// Make sure pins are configured as inputs
-	TRISBbits.TRISB2 = 1;
+	TRISB |= 0x07;
 	TRISCbits.TRISC7 = 1;
 	TRISDbits.TRISD4 = 1;
+	
+	// Configure backlight button interrupt
+	INTCON2bits.INTEDG1 = 0; // Trigger interrupt on falling edge
+	INTCON3bits.INT1IP = 0; // Set as low priority
+	INTCON3bits.INT1IE = 1; // Enable interrupt
 }
 
 TButtonsMenuID ButtonsWaitMenuButtonPress(void)
@@ -60,4 +67,13 @@ TButtonsMenuID ButtonsWaitMenuButtonPress(void)
 	__delay_ms(10);
 	
 	return Pressed_Button;
+}
+
+void ButtonsInterruptHandler(void)
+{
+	DisplayTurnBacklightOn();
+	RingStop();
+	
+	// Clear interrupt flag
+	INTCON3bits.INT1IF = 0;
 }

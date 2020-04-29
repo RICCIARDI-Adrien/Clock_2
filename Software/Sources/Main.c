@@ -62,6 +62,7 @@ static char *Pointer_Main_String_Day_Names[] =
 /** Entry point for all high priority interrupts. */
 static void __interrupt(high_priority) MainInterruptHandlerHighPriority(void)
 {
+	// Play ring melody
 	if (RING_HAS_INTERRUPT_FIRED()) RingInterruptHandler();
 }
 
@@ -69,15 +70,8 @@ static void __interrupt(high_priority) MainInterruptHandlerHighPriority(void)
 static void __interrupt(low_priority) MainInterruptHandlerLowPriority(void)
 {
 	// Detect backlight button press
-	if (INTCON3bits.INT1IF)
-	{
-		DisplayTurnBacklightOn();
-		RingStop();
-		
-		// Clear interrupt flag
-		INTCON3bits.INT1IF = 0;
-	}
-	
+	if (BUTTONS_HAS_INTERRUPT_FIRED()) ButtonsInterruptHandler();
+
 	// Turn display backlight off
 	if (DISPLAY_HAS_INTERRUPT_FIRED()) DisplayInterruptHandler();
 }
@@ -347,21 +341,6 @@ static void MainShowConfigurationMenu(void)
 	}
 }
 
-/** Configure backlight and alarm buttons. */
-static void MainButtonsInitialize(void)
-{
-	// Configure pins
-	// Set pins as digital
-	ANSELB &= 0xFC;
-	// Make sure pins are configured as inputs
-	TRISB |= 0x03;
-	
-	// Configure backlight button interrupt
-	INTCON2bits.INTEDG1 = 0; // Trigger interrupt on falling edge
-	INTCON3bits.INT1IP = 0; // Set as low priority
-	INTCON3bits.INT1IE = 1; // Enable interrupt
-}
-
 //-------------------------------------------------------------------------------------------------
 // Entry point
 //-------------------------------------------------------------------------------------------------
@@ -386,7 +365,6 @@ void main(void)
 		while (1);
 	}
 	ButtonsInitialize();
-	MainButtonsInitialize();
 	RingInitialize();
 	
 	// Enable interrupts

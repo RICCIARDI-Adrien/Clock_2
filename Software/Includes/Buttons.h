@@ -31,6 +31,9 @@
 	if (Button_Pin == BUTTONS_STATE_RELEASED) __delay_ms(10); \
 }
 
+/** Tell whether the backlight button interrupt fired. */
+#define BUTTONS_HAS_INTERRUPT_FIRED() (INTCON3bits.INT1IF)
+
 //--------------------------------------------------------------------------------------------------
 // Types
 //--------------------------------------------------------------------------------------------------
@@ -52,5 +55,8 @@ void ButtonsInitialize(void);
  * @return The pressed button ID.
  */
 TButtonsMenuID ButtonsWaitMenuButtonPress(void);
+
+/** Must be called when the buttons interrupt fires. */
+void ButtonsInterruptHandler(void);
 
 #endif
