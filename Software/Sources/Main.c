@@ -282,16 +282,16 @@ static void MainShowConfigurationMenu(void)
 		// Handle buttons
 		switch (ButtonsWaitMenuButtonPress())
 		{
-			// Select previous menu entry
-			case BUTTONS_MENU_ID_MINUS:
-				if (Selected_Menu_Index == 0) Selected_Menu_Index = 3; // Loop to menu last entry
-				else Selected_Menu_Index--;
-				break;
-			
 			// Select next menu entry
-			case BUTTONS_MENU_ID_PLUS:
+			case BUTTONS_MENU_ID_MINUS:
 				if (Selected_Menu_Index == 3) Selected_Menu_Index = 0; // Loop to menu first entry
 				else Selected_Menu_Index++;
+				break;
+			
+			// Select previous menu entry
+			case BUTTONS_MENU_ID_PLUS:
+				if (Selected_Menu_Index == 0) Selected_Menu_Index = 3; // Loop to menu last entry
+				else Selected_Menu_Index--;
 				break;
 				
 			case BUTTONS_MENU_ID_SET:
