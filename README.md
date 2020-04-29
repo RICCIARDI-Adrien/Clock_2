@@ -3,13 +3,12 @@
 Improved digital clock. First generation is [here](https://github.com/RICCIARDI-Adrien/Clock).  
 
 New features :
-* Improved temperature sensor
-* Humidity sensor
-* Pressure sensor
-* Air quality sensor
-* High accuracy RTC
-* More compact, more industrial and more robust casing
-* A really simple interface made of 3 buttons to configure all clock settings (no more configuration through USB)
+* Improved temperature sensor.
+* Humidity sensor.
+* Pressure sensor.
+* High accuracy temperature-compensated RTC.
+* More compact, more industrial and more robust casing.
+* A really simple interface made of 3 buttons to configure all clock settings (no more configuration through USB).
 
 ## Views
 
@@ -20,7 +19,7 @@ New features :
 |      11:16:23      |
 |   Jeu 19/03/2020   |
 | T:23°C  P:1112mBar |
-| H:68%   Air:6/7    |
+| H:68%   A:OFF      |
 +--------------------+
 ```
 
