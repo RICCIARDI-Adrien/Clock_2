@@ -1,13 +1,13 @@
-/** @file Menu_Buttons.c
- * See Menu_Buttons.h for description.
+/** @file Buttons.c
+ * See Buttons.h for description.
  * @author Adrien RICCIARDI
  */
-#include <Menu_Buttons.h>
+#include <Buttons.h>
 
 //--------------------------------------------------------------------------------------------------
 // Functions
 //--------------------------------------------------------------------------------------------------
-void MenuButtonsInitialize(void)
+void ButtonsInitialize(void)
 {
 	// Set pins as digital
 	ANSELBbits.ANSB2 = 0;
@@ -20,35 +20,35 @@ void MenuButtonsInitialize(void)
 	TRISDbits.TRISD4 = 1;
 }
 
-TMenuButtonsID MenuButtonsWaitButtonPress(void)
+TButtonsMenuID ButtonsWaitMenuButtonPress(void)
 {
-	TMenuButtonsID Pressed_Button;
+	TButtonsMenuID Pressed_Button;
 	
 	// Make sure all keys are released
-	MENU_BUTTONS_WAIT_FOR_BUTTON_RELEASE(MENU_BUTTONS_PIN_SET);
-	MENU_BUTTONS_WAIT_FOR_BUTTON_RELEASE(MENU_BUTTONS_PIN_PLUS);
-	MENU_BUTTONS_WAIT_FOR_BUTTON_RELEASE(MENU_BUTTONS_PIN_MINUS);
+	BUTTONS_WAIT_FOR_BUTTON_RELEASE(BUTTONS_PIN_SET);
+	BUTTONS_WAIT_FOR_BUTTON_RELEASE(BUTTONS_PIN_PLUS);
+	BUTTONS_WAIT_FOR_BUTTON_RELEASE(BUTTONS_PIN_MINUS);
 	
 	while (1)
 	{
 		// Is "set" button pressed ?
-		if (MENU_BUTTONS_PIN_SET == MENU_BUTTONS_STATE_PRESSED)
+		if (BUTTONS_PIN_SET == BUTTONS_STATE_PRESSED)
 		{
-			Pressed_Button = MENU_BUTTONS_ID_SET;
+			Pressed_Button = BUTTONS_MENU_ID_SET;
 			break;
 		}
 		
 		// Is "plus" button pressed ?
-		if (MENU_BUTTONS_PIN_PLUS == MENU_BUTTONS_STATE_PRESSED)
+		if (BUTTONS_PIN_PLUS == BUTTONS_STATE_PRESSED)
 		{
-			Pressed_Button = MENU_BUTTONS_ID_PLUS;
+			Pressed_Button = BUTTONS_MENU_ID_PLUS;
 			break;
 		}
 		
 		// Is "minus" button pressed ?
-		if (MENU_BUTTONS_PIN_MINUS == MENU_BUTTONS_STATE_PRESSED)
+		if (BUTTONS_PIN_MINUS == BUTTONS_STATE_PRESSED)
 		{
-			Pressed_Button = MENU_BUTTONS_ID_MINUS;
+			Pressed_Button = BUTTONS_MENU_ID_MINUS;
 			break;
 		}
 		

@@ -2,8 +2,8 @@
  * Clock entry point and main loop.
  * @author Adrien RICCIARDI
  */
+#include <Buttons.h>
 #include <Display.h>
-#include <Menu_Buttons.h>
 #include <Ring.h>
 #include <RTC.h>
 #include <Sensors.h>
@@ -149,20 +149,20 @@ static unsigned short MainShowNumberSelectionView(char *Pointer_String_View_Titl
 		DisplayWriteNumber(Current_Value);
 		
 		// Handle user inputs
-		switch (MenuButtonsWaitButtonPress())
+		switch (ButtonsWaitMenuButtonPress())
 		{
-			case MENU_BUTTONS_ID_MINUS:
+			case BUTTONS_MENU_ID_MINUS:
 				if (Current_Value == Minimum_Value) Current_Value = Maximum_Value;
 				else Current_Value--;
 				break;
 			
 			// Increase number
-			case MENU_BUTTONS_ID_PLUS:
+			case BUTTONS_MENU_ID_PLUS:
 				if (Current_Value >= Maximum_Value) Current_Value = Minimum_Value;
 				else Current_Value++;
 				break;
 				
-			case MENU_BUTTONS_ID_SET:
+			case BUTTONS_MENU_ID_SET:
 				return Current_Value;
 		}
 	}
@@ -282,21 +282,21 @@ static void MainShowConfigurationMenu(void)
 		DisplayWriteString("    Retour");
 		
 		// Handle buttons
-		switch (MenuButtonsWaitButtonPress())
+		switch (ButtonsWaitMenuButtonPress())
 		{
 			// Select previous menu entry
-			case MENU_BUTTONS_ID_MINUS:
+			case BUTTONS_MENU_ID_MINUS:
 				if (Selected_Menu_Index == 0) Selected_Menu_Index = 3; // Loop to menu last entry
 				else Selected_Menu_Index--;
 				break;
 			
 			// Select next menu entry
-			case MENU_BUTTONS_ID_PLUS:
+			case BUTTONS_MENU_ID_PLUS:
 				if (Selected_Menu_Index == 3) Selected_Menu_Index = 0; // Loop to menu first entry
 				else Selected_Menu_Index++;
 				break;
 				
-			case MENU_BUTTONS_ID_SET:
+			case BUTTONS_MENU_ID_SET:
 				// TODO
 				// Configure time
 				if (Selected_Menu_Index == 1)
@@ -385,7 +385,7 @@ void main(void)
 		DisplayWriteString("Please reboot.");
 		while (1);
 	}
-	MenuButtonsInitialize();
+	ButtonsInitialize();
 	MainButtonsInitialize();
 	RingInitialize();
 	
@@ -398,17 +398,17 @@ void main(void)
 	while (1)
 	{
 		// Wait for a new tick to begin
-		while ((RTC_TICK_PIN == 0) && (MENU_BUTTONS_PIN_SET == MENU_BUTTONS_STATE_RELEASED)); // Also exit if "set" button is pressed
+		while ((RTC_TICK_PIN == 0) && (BUTTONS_PIN_SET == BUTTONS_STATE_RELEASED)); // Also exit if "set" button is pressed
 		
 		// Display configuration menu if "set" button is pressed
-		if (MENU_BUTTONS_PIN_SET == MENU_BUTTONS_STATE_PRESSED)
+		if (BUTTONS_PIN_SET == BUTTONS_STATE_PRESSED)
 		{
 			MainShowConfigurationMenu();
 
 			// Make sure all keys are released
-			MENU_BUTTONS_WAIT_FOR_BUTTON_RELEASE(MENU_BUTTONS_PIN_SET);
-			MENU_BUTTONS_WAIT_FOR_BUTTON_RELEASE(MENU_BUTTONS_PIN_PLUS);
-			MENU_BUTTONS_WAIT_FOR_BUTTON_RELEASE(MENU_BUTTONS_PIN_MINUS);
+			BUTTONS_WAIT_FOR_BUTTON_RELEASE(BUTTONS_PIN_SET);
+			BUTTONS_WAIT_FOR_BUTTON_RELEASE(BUTTONS_PIN_PLUS);
+			BUTTONS_WAIT_FOR_BUTTON_RELEASE(BUTTONS_PIN_MINUS);
 		}
 		
 		// Always display time and date view, so they are immediately visible when exiting from configuration menu
@@ -423,6 +423,6 @@ void main(void)
 		}
 		
 		// Wait for tick end
-		while ((RTC_TICK_PIN == 1) && (MENU_BUTTONS_PIN_SET == MENU_BUTTONS_STATE_RELEASED)); // Also exit if "set" button is pressed
+		while ((RTC_TICK_PIN == 1) && (BUTTONS_PIN_SET == BUTTONS_STATE_RELEASED)); // Also exit if "set" button is pressed
 	}
 }
