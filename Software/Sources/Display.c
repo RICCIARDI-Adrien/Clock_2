@@ -94,6 +94,17 @@ void DisplayInitialize(void)
 	DisplayWrite(0x0E, 1);
 	DisplayWrite(0x00, 1);
 	
+	// Send "alarm" character graphics
+	DisplayWrite(0x40 | 0x10, 0); // Set CGRAM address to character index 2
+	DisplayWrite(0x00, 1);
+	DisplayWrite(0x04, 1);
+	DisplayWrite(0x0E, 1);
+	DisplayWrite(0x0E, 1);
+	DisplayWrite(0x0E, 1);
+	DisplayWrite(0x1F, 1);
+	DisplayWrite(0x00, 1);
+	DisplayWrite(0x04, 1);
+	
 	// Write to DDRAM address, so the next written data will be understood as a character code
 	DisplaySetCursorLocation(0);
 	

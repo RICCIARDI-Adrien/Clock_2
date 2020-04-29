@@ -243,6 +243,11 @@ static inline void MainShowDefaultView(void)
 	DisplayWriteNumber(Measures.Humidity);
 	DisplayWriteCharacter('%');
 	
+	// Display alarm enabling state
+	DisplaySetCursorLocation(DISPLAY_CURSOR_LOCATION_LINE_4 + 9);
+	if (ButtonsIsAlarmEnabled()) DisplayWriteString("\002:ON "); // Add an extra space to clear the "OFF" string, which is longer
+	else DisplayWriteString("\002:OFF");
+	
 	// Is it time to ring ?
 	RTCGetAlarm(&Time_Alarm);
 	if (ButtonsIsAlarmEnabled() && (Time.Hours == Time_Alarm.Hours) && (Time.Minutes == Time_Alarm.Minutes) && (Time.Seconds == 0x00)) RingStart();
