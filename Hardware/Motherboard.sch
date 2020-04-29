@@ -527,7 +527,7 @@ $EndSheet
 Wire Wire Line
 	4550 4500 3750 4500
 Text Label 3750 4500 0    50   ~ 0
-PLUS_BUTTON
+MINUS_BUTTON
 Wire Wire Line
 	2750 1650 3750 1650
 Text Label 3750 1650 2    50   ~ 0
@@ -535,7 +535,7 @@ PLUS_BUTTON
 Wire Wire Line
 	4550 3300 3750 3300
 Text Label 3750 3300 0    50   ~ 0
-MINUS_BUTTON
+PLUS_BUTTON
 Wire Wire Line
 	2750 1500 3750 1500
 Wire Wire Line

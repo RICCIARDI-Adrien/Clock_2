@@ -21,7 +21,7 @@ P 2400 1550
 AR Path="/5E7DE32A" Ref="SW?"  Part="1" 
 AR Path="/5E7CE147/5E7DE32A" Ref="SW2"  Part="1" 
 F 0 "SW2" V 2354 1698 50  0000 L CNN
-F 1 "Button_Minus" V 2445 1698 50  0000 L CNN
+F 1 "Button_Plus" V 2445 1698 50  0000 L CNN
 F 2 "Button_Switch_THT:SW_Tactile_SKHH_Angled" H 2400 1750 50  0001 C CNN
 F 3 "~" H 2400 1750 50  0001 C CNN
 	1    2400 1550
@@ -34,7 +34,7 @@ P 1700 1550
 AR Path="/5E7DE330" Ref="SW?"  Part="1" 
 AR Path="/5E7CE147/5E7DE330" Ref="SW1"  Part="1" 
 F 0 "SW1" V 1654 1698 50  0000 L CNN
-F 1 "Button_Plus" V 1745 1698 50  0000 L CNN
+F 1 "Button_Minus" V 1745 1698 50  0000 L CNN
 F 2 "Button_Switch_THT:SW_Tactile_SKHH_Angled" H 1700 1750 50  0001 C CNN
 F 3 "~" H 1700 1750 50  0001 C CNN
 	1    1700 1550
@@ -349,9 +349,9 @@ Wire Wire Line
 Wire Wire Line
 	3600 2350 4400 2350
 Text HLabel 4400 2350 2    50   Output ~ 0
-BUTTON_MINUS
-Text HLabel 4400 2450 2    50   Output ~ 0
 BUTTON_PLUS
+Text HLabel 4400 2450 2    50   Output ~ 0
+BUTTON_MINUS
 $Comp
 L Switch:SW_Push SW?
 U 1 1 5E7D585D
