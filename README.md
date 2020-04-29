@@ -123,3 +123,18 @@ Press `+` and `-` buttons to choose a month, then press `Set` button to continue
 +--------------------+
 ```
 Press `+` and `-` buttons to choose a year, then press `Set` button to return to settings menu.
+
+## Photo gallery
+
+### PCB
+
+![Naked PCB front](https://github.com/RICCIARDI-Adrien/Clock_2/blob/master/Resources/Pictures/Naked_PCB_Front.jpg)
+![Naked PCB back](https://github.com/RICCIARDI-Adrien/Clock_2/blob/master/Resources/Pictures/Naked_PCB_Back.jpg)
+
+![PCB front](https://github.com/RICCIARDI-Adrien/Clock_2/blob/master/Resources/Pictures/PCB_Front.jpg)
+![PCB back](https://github.com/RICCIARDI-Adrien/Clock_2/blob/master/Resources/Pictures/PCB_Back.jpg)
+
+### Display
+
+![Display front](https://github.com/RICCIARDI-Adrien/Clock_2/blob/master/Resources/Pictures/Display_Front.jpg)
+![Display back](https://github.com/RICCIARDI-Adrien/Clock_2/blob/master/Resources/Pictures/Display_Back.jpg)
