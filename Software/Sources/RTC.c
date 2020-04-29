@@ -226,3 +226,27 @@ void RTCSetTime(TRTCTime *Pointer_Time)
 	RTCWriteByte(1, Pointer_Time->Minutes);
 	RTCWriteByte(2, Pointer_Time->Hours);
 }
+
+void RTCGetAlarm(TRTCTime *Pointer_Alarm_Time)
+{
+	// Set "alarm 1 minutes" register address
+	RTCSetReadAddress(8);
+	
+	// Read minutes then hour, seconds are ignored
+	RTCReadBuffer(&Pointer_Alarm_Time->Minutes, 2);
+	
+	// Maker sure some control bits are not set
+	Pointer_Alarm_Time->Minutes &= 0x7F;
+	Pointer_Alarm_Time->Hours &= 0x1F;
+}
+
+void RTCSetAlarm(TRTCTime *Pointer_Alarm_Time)
+{
+	// Convert all relevant fields to BCD
+	Pointer_Alarm_Time->Hours = RTCConvertBinaryToBCD(Pointer_Alarm_Time->Hours);
+	Pointer_Alarm_Time->Minutes = RTCConvertBinaryToBCD(Pointer_Alarm_Time->Minutes);
+	
+	// Write them to alarm 1 registers
+	RTCWriteByte(8, Pointer_Alarm_Time->Minutes);
+	RTCWriteByte(9, Pointer_Alarm_Time->Hours);
+}

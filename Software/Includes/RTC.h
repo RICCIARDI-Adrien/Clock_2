@@ -60,4 +60,15 @@ void RTCGetTime(TRTCTime *Pointer_Time);
  */
 void RTCSetTime(TRTCTime *Pointer_Time);
 
+/** Retrieve alarm hour and minutes (seconds are ignored).
+ * @param Pointer_Alarm_Time On output, contain the alarm hour and minutes. Each field is encoded in BCD format.
+ */
+void RTCGetAlarm(TRTCTime *Pointer_Alarm_Time);
+
+/** Use RTC alarm 1 registers to store alarm values.
+ * @param Pointer_Alarm_Time Contain the alarm time to set. Each field must be encoded in normal binary, not BCD format.
+ * @warning Seconds are ignored, alarm is only triggered when hour and minutes match.
+ */
+void RTCSetAlarm(TRTCTime *Pointer_Alarm_Time);
+
 #endif
