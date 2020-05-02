@@ -149,6 +149,10 @@ static unsigned char RTCConvertBinaryToBCD(unsigned char Number)
 //--------------------------------------------------------------------------------------------------
 void RTCInitialize(void)
 {
+	unsigned char Status_Register;
+	TRTCDate Date;
+	TRTCTime Time;
+	
 	// Configure pins as inputs
 	ANSELD &= 0xF8; // Set pins as digital
 	TRISD |= 0x07;
@@ -162,6 +166,35 @@ void RTCInitialize(void)
 	
 	// Enable 1Hz signal generation
 	RTCWriteByte(0x0E, 0x18); // Set default boot values and enable 1Hz square-wave
+	
+	// Are the RTC data reliable ?
+	// Read status register
+	RTCSetReadAddress(0x0F);
+	RTCReadBuffer(&Status_Register, 1);
+	// Set a default date, time and alarm if RTC data are bad
+	if (Status_Register & 0x80)
+	{
+		// Configure January 1st, 2020 date
+		Date.Day = 1;
+		Date.Month = 1;
+		Date.Year = 20;
+		RTCSetDate(&Date);
+		
+		// Configure midnight time
+		Time.Hours = 0;
+		Time.Minutes = 0;
+		Time.Seconds = 0;
+		RTCSetTime(&Time);
+		
+		// Set alarm to 12:00 AM to avoid waking up the user if he does not configure it
+		Time.Hours = 12;
+		Time.Minutes = 0;
+		RTCSetAlarm(&Time);
+		
+		// Clear Oscillator Stop flag
+		Status_Register &= 0x7F;
+		RTCWriteByte(0x0F, Status_Register);
+	}
 }
 
 void RTCGetDate(TRTCDate *Pointer_Date)
