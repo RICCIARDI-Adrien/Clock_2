@@ -23,17 +23,17 @@ $INSBASE
   9
 $EXTMIN
  10
--260
+-3.25
  20
--48
+-1
  30
 0
   9
 $EXTMAX
  10
-214
+430
  20
-101
+203
  30
 0
   9
@@ -1115,9 +1115,9 @@ AcDbViewportTableRecord
  21
 1
  12
-198.9847820373795
+283.1317621110279
  22
-114.6505115340026
+169.5940252913372
  13
 0
  23
@@ -1143,7 +1143,7 @@ AcDbViewportTableRecord
  37
 0
  40
-303.8973494827569
+392.8690725936578
  41
 1.918984280532044
  42
@@ -2649,6 +2649,78 @@ Corner iron-3
 281
     0
   0
+BLOCK_RECORD
+  5
+5C
+330
+1
+100
+AcDbSymbolTableRecord
+100
+AcDbBlockTableRecord
+  2
+Corner iron-4
+ 70
+    0
+280
+    1
+281
+    0
+  0
+BLOCK_RECORD
+  5
+5F
+330
+1
+100
+AcDbSymbolTableRecord
+100
+AcDbBlockTableRecord
+  2
+Corner iron-5
+ 70
+    0
+280
+    1
+281
+    0
+  0
+BLOCK_RECORD
+  5
+62
+330
+1
+100
+AcDbSymbolTableRecord
+100
+AcDbBlockTableRecord
+  2
+Display
+ 70
+    0
+280
+    1
+281
+    0
+  0
+BLOCK_RECORD
+  5
+65
+330
+1
+100
+AcDbSymbolTableRecord
+100
+AcDbBlockTableRecord
+  2
+Corner iron-6
+ 70
+    0
+280
+    1
+281
+    0
+  0
 ENDTAB
   0
 ENDSEC
@@ -2759,7 +2831,7 @@ Corner iron
   0
 LWPOLYLINE
   5
-5C
+68
 100
 AcDbEntity
   8
@@ -2797,7 +2869,7 @@ AcDbPolyline
   0
 CIRCLE
   5
-5D
+69
 100
 AcDbEntity
   8
@@ -2819,7 +2891,7 @@ AcDbCircle
   0
 CIRCLE
   5
-5E
+6A
 100
 AcDbEntity
   8
@@ -2841,7 +2913,7 @@ AcDbCircle
   0
 CIRCLE
   5
-5F
+6B
 100
 AcDbEntity
   8
@@ -2863,7 +2935,7 @@ AcDbCircle
   0
 CIRCLE
   5
-60
+6C
 100
 AcDbEntity
   8
@@ -2921,7 +2993,7 @@ Corner iron-0
   0
 LWPOLYLINE
   5
-61
+6D
 100
 AcDbEntity
   8
@@ -2959,7 +3031,7 @@ AcDbPolyline
   0
 CIRCLE
   5
-62
+6E
 100
 AcDbEntity
   8
@@ -2981,7 +3053,7 @@ AcDbCircle
   0
 CIRCLE
   5
-63
+6F
 100
 AcDbEntity
   8
@@ -3003,7 +3075,7 @@ AcDbCircle
   0
 CIRCLE
   5
-64
+70
 100
 AcDbEntity
   8
@@ -3025,7 +3097,7 @@ AcDbCircle
   0
 CIRCLE
   5
-65
+71
 100
 AcDbEntity
   8
@@ -3083,7 +3155,7 @@ Corner iron-1
   0
 LWPOLYLINE
   5
-66
+72
 100
 AcDbEntity
   8
@@ -3121,7 +3193,7 @@ AcDbPolyline
   0
 CIRCLE
   5
-67
+73
 100
 AcDbEntity
   8
@@ -3143,7 +3215,7 @@ AcDbCircle
   0
 CIRCLE
   5
-68
+74
 100
 AcDbEntity
   8
@@ -3165,7 +3237,7 @@ AcDbCircle
   0
 CIRCLE
   5
-69
+75
 100
 AcDbEntity
   8
@@ -3187,7 +3259,7 @@ AcDbCircle
   0
 CIRCLE
   5
-6A
+76
 100
 AcDbEntity
   8
@@ -3245,7 +3317,7 @@ Corner iron-2
   0
 LWPOLYLINE
   5
-6B
+77
 100
 AcDbEntity
   8
@@ -3283,7 +3355,7 @@ AcDbPolyline
   0
 CIRCLE
   5
-6C
+78
 100
 AcDbEntity
   8
@@ -3305,7 +3377,7 @@ AcDbCircle
   0
 CIRCLE
   5
-6D
+79
 100
 AcDbEntity
   8
@@ -3327,7 +3399,7 @@ AcDbCircle
   0
 CIRCLE
   5
-6E
+7A
 100
 AcDbEntity
   8
@@ -3349,7 +3421,7 @@ AcDbCircle
   0
 CIRCLE
   5
-6F
+7B
 100
 AcDbEntity
   8
@@ -3407,7 +3479,7 @@ Corner iron-3
   0
 LWPOLYLINE
   5
-70
+7C
 100
 AcDbEntity
   8
@@ -3445,7 +3517,7 @@ AcDbPolyline
   0
 CIRCLE
   5
-71
+7D
 100
 AcDbEntity
   8
@@ -3467,7 +3539,7 @@ AcDbCircle
   0
 CIRCLE
   5
-72
+7E
 100
 AcDbEntity
   8
@@ -3489,7 +3561,7 @@ AcDbCircle
   0
 CIRCLE
   5
-73
+7F
 100
 AcDbEntity
   8
@@ -3511,7 +3583,7 @@ AcDbCircle
   0
 CIRCLE
   5
-74
+80
 100
 AcDbEntity
   8
@@ -3543,6 +3615,654 @@ AcDbEntity
 100
 AcDbBlockEnd
   0
+BLOCK
+  5
+5D
+330
+5C
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockBegin
+  2
+Corner iron-4
+ 70
+    0
+ 10
+0
+ 20
+0
+  3
+Corner iron-4
+  1
+
+  0
+LWPOLYLINE
+  5
+81
+100
+AcDbEntity
+  8
+0
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbPolyline
+ 90
+    4
+ 70
+    1
+ 43
+0
+ 10
+0
+ 20
+0
+ 10
+40
+ 20
+0
+ 10
+40
+ 20
+48
+ 10
+0
+ 20
+48
+  0
+CIRCLE
+  5
+82
+100
+AcDbEntity
+  8
+0
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbCircle
+ 10
+10
+ 20
+20
+ 40
+2.25
+  0
+CIRCLE
+  5
+83
+100
+AcDbEntity
+  8
+0
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbCircle
+ 10
+10
+ 20
+38
+ 40
+2.25
+  0
+CIRCLE
+  5
+84
+100
+AcDbEntity
+  8
+0
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbCircle
+ 10
+30
+ 20
+20
+ 40
+2.25
+  0
+CIRCLE
+  5
+85
+100
+AcDbEntity
+  8
+0
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbCircle
+ 10
+30
+ 20
+38
+ 40
+2.25
+  0
+ENDBLK
+  5
+5E
+330
+5C
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockEnd
+  0
+BLOCK
+  5
+60
+330
+5F
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockBegin
+  2
+Corner iron-5
+ 70
+    0
+ 10
+0
+ 20
+0
+  3
+Corner iron-5
+  1
+
+  0
+LWPOLYLINE
+  5
+86
+100
+AcDbEntity
+  8
+0
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbPolyline
+ 90
+    4
+ 70
+    1
+ 43
+0
+ 10
+0
+ 20
+0
+ 10
+40
+ 20
+0
+ 10
+40
+ 20
+48
+ 10
+0
+ 20
+48
+  0
+CIRCLE
+  5
+87
+100
+AcDbEntity
+  8
+0
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbCircle
+ 10
+10
+ 20
+20
+ 40
+2.25
+  0
+CIRCLE
+  5
+88
+100
+AcDbEntity
+  8
+0
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbCircle
+ 10
+10
+ 20
+38
+ 40
+2.25
+  0
+CIRCLE
+  5
+89
+100
+AcDbEntity
+  8
+0
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbCircle
+ 10
+30
+ 20
+20
+ 40
+2.25
+  0
+CIRCLE
+  5
+8A
+100
+AcDbEntity
+  8
+0
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbCircle
+ 10
+30
+ 20
+38
+ 40
+2.25
+  0
+ENDBLK
+  5
+61
+330
+5F
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockEnd
+  0
+BLOCK
+  5
+63
+330
+62
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockBegin
+  2
+Display
+ 70
+    0
+ 10
+0
+ 20
+0
+  3
+Display
+  1
+
+  0
+CIRCLE
+  5
+8B
+100
+AcDbEntity
+  8
+0
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbCircle
+ 10
+2.75
+ 20
+57.5
+ 40
+1.75
+  0
+CIRCLE
+  5
+8C
+100
+AcDbEntity
+  8
+0
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbCircle
+ 10
+2.75
+ 20
+2.5
+ 40
+1.75
+  0
+CIRCLE
+  5
+8D
+100
+AcDbEntity
+  8
+0
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbCircle
+ 10
+95.75
+ 20
+2.5
+ 40
+1.75
+  0
+CIRCLE
+  5
+8E
+100
+AcDbEntity
+  8
+0
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbCircle
+ 10
+95.75
+ 20
+57.5
+ 40
+1.75
+  0
+LWPOLYLINE
+  5
+8F
+100
+AcDbEntity
+  8
+0
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbPolyline
+ 90
+    4
+ 70
+    1
+ 43
+0
+ 10
+-0.2999999999999999
+ 20
+10
+ 10
+98.3
+ 20
+10
+ 10
+98.3
+ 20
+51
+ 10
+-0.2999999999999999
+ 20
+51
+  0
+ENDBLK
+  5
+64
+330
+62
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockEnd
+  0
+BLOCK
+  5
+66
+330
+65
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockBegin
+  2
+Corner iron-6
+ 70
+    0
+ 10
+0
+ 20
+0
+  3
+Corner iron-6
+  1
+
+  0
+LWPOLYLINE
+  5
+90
+100
+AcDbEntity
+  8
+0
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbPolyline
+ 90
+    4
+ 70
+    1
+ 43
+0
+ 10
+0
+ 20
+0
+ 10
+40
+ 20
+0
+ 10
+40
+ 20
+48
+ 10
+0
+ 20
+48
+  0
+CIRCLE
+  5
+91
+100
+AcDbEntity
+  8
+0
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbCircle
+ 10
+10
+ 20
+20
+ 40
+2.25
+  0
+CIRCLE
+  5
+92
+100
+AcDbEntity
+  8
+0
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbCircle
+ 10
+10
+ 20
+38
+ 40
+2.25
+  0
+CIRCLE
+  5
+93
+100
+AcDbEntity
+  8
+0
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbCircle
+ 10
+30
+ 20
+20
+ 40
+2.25
+  0
+CIRCLE
+  5
+94
+100
+AcDbEntity
+  8
+0
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbCircle
+ 10
+30
+ 20
+38
+ 40
+2.25
+  0
+ENDBLK
+  5
+67
+330
+65
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockEnd
+  0
 ENDSEC
   0
 SECTION
@@ -3551,7 +4271,7 @@ ENTITIES
   0
 LWPOLYLINE
   5
-75
+95
 100
 AcDbEntity
   8
@@ -3571,25 +4291,25 @@ AcDbPolyline
  43
 0
  10
-0
+216
  20
 0
  10
-214
+430
  20
 0
  10
-214
+430
  20
 100
  10
-0
+216
  20
 100
   0
 LWPOLYLINE
   5
-76
+96
 100
 AcDbEntity
   8
@@ -3609,25 +4329,25 @@ AcDbPolyline
  43
 0
  10
-42
+258
  20
 10
  10
-172
+388
  20
 10
  10
-172
+388
  20
 90
  10
-42
+258
  20
 90
   0
 INSERT
   5
-77
+97
 100
 AcDbEntity
   8
@@ -3642,6 +4362,732 @@ ByLayer
 AcDbBlockReference
   2
 Corner iron
+ 10
+217
+ 20
+-1
+ 30
+0
+ 41
+1
+ 42
+1
+ 43
+0
+ 50
+0
+ 70
+    1
+ 71
+    1
+ 44
+0
+ 45
+0
+  0
+INSERT
+  5
+98
+100
+AcDbEntity
+  8
+0
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbBlockReference
+  2
+Corner iron-0
+ 10
+389
+ 20
+-1
+ 30
+0
+ 41
+1
+ 42
+1
+ 43
+0
+ 50
+0
+ 70
+    1
+ 71
+    1
+ 44
+0
+ 45
+0
+  0
+INSERT
+  5
+99
+100
+AcDbEntity
+  8
+0
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbBlockReference
+  2
+Corner iron
+ 10
+257
+ 20
+101
+ 30
+0
+ 41
+1
+ 42
+1
+ 43
+0
+ 50
+180
+ 70
+    1
+ 71
+    1
+ 44
+0
+ 45
+0
+  0
+INSERT
+  5
+9A
+100
+AcDbEntity
+  8
+0
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbBlockReference
+  2
+Corner iron-3
+ 10
+429
+ 20
+101
+ 30
+0
+ 41
+1
+ 42
+1
+ 43
+0
+ 50
+180
+ 70
+    1
+ 71
+    1
+ 44
+0
+ 45
+0
+  0
+CIRCLE
+  5
+9B
+100
+AcDbEntity
+  8
+0
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbCircle
+ 10
+266
+ 20
+18
+ 40
+2.25
+  0
+CIRCLE
+  5
+9C
+100
+AcDbEntity
+  8
+0
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbCircle
+ 10
+266
+ 20
+82
+ 40
+2.25
+  0
+CIRCLE
+  5
+9D
+100
+AcDbEntity
+  8
+0
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbCircle
+ 10
+380
+ 20
+18
+ 40
+2.25
+  0
+CIRCLE
+  5
+9E
+100
+AcDbEntity
+  8
+0
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbCircle
+ 10
+380
+ 20
+82
+ 40
+2.25
+  0
+LWPOLYLINE
+  5
+9F
+100
+AcDbEntity
+  8
+0
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbPolyline
+ 90
+    4
+ 70
+    1
+ 43
+0
+ 10
+216
+ 20
+102
+ 10
+430
+ 20
+102
+ 10
+430
+ 20
+202
+ 10
+216
+ 20
+202
+  0
+INSERT
+  5
+A0
+100
+AcDbEntity
+  8
+0
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbBlockReference
+  2
+Corner iron-4
+ 10
+217
+ 20
+101
+ 30
+0
+ 41
+1
+ 42
+1
+ 43
+0
+ 50
+0
+ 70
+    1
+ 71
+    1
+ 44
+0
+ 45
+0
+  0
+INSERT
+  5
+A1
+100
+AcDbEntity
+  8
+0
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbBlockReference
+  2
+Corner iron-0
+ 10
+389
+ 20
+101
+ 30
+0
+ 41
+1
+ 42
+1
+ 43
+0
+ 50
+0
+ 70
+    1
+ 71
+    1
+ 44
+0
+ 45
+0
+  0
+INSERT
+  5
+A2
+100
+AcDbEntity
+  8
+0
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbBlockReference
+  2
+Corner iron-4
+ 10
+257
+ 20
+203
+ 30
+0
+ 41
+1
+ 42
+1
+ 43
+0
+ 50
+180
+ 70
+    1
+ 71
+    1
+ 44
+0
+ 45
+0
+  0
+INSERT
+  5
+A3
+100
+AcDbEntity
+  8
+0
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbBlockReference
+  2
+Corner iron-3
+ 10
+429
+ 20
+203
+ 30
+0
+ 41
+1
+ 42
+1
+ 43
+0
+ 50
+180
+ 70
+    1
+ 71
+    1
+ 44
+0
+ 45
+0
+  0
+CIRCLE
+  5
+A4
+100
+AcDbEntity
+  8
+0
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbCircle
+ 10
+323
+ 20
+152
+ 40
+9.75
+  0
+LWPOLYLINE
+  5
+A5
+100
+AcDbEntity
+  8
+0
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbPolyline
+ 90
+    4
+ 70
+    1
+ 43
+0
+ 10
+0
+ 20
+102
+ 10
+214
+ 20
+102
+ 10
+214
+ 20
+202
+ 10
+0
+ 20
+202
+  0
+INSERT
+  5
+A6
+100
+AcDbEntity
+  8
+0
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbBlockReference
+  2
+Corner iron
+ 10
+1
+ 20
+101
+ 30
+0
+ 41
+1
+ 42
+1
+ 43
+0
+ 50
+0
+ 70
+    1
+ 71
+    1
+ 44
+0
+ 45
+0
+  0
+INSERT
+  5
+A7
+100
+AcDbEntity
+  8
+0
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbBlockReference
+  2
+Corner iron-0
+ 10
+173
+ 20
+101
+ 30
+0
+ 41
+1
+ 42
+1
+ 43
+0
+ 50
+0
+ 70
+    1
+ 71
+    1
+ 44
+0
+ 45
+0
+  0
+INSERT
+  5
+A8
+100
+AcDbEntity
+  8
+0
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbBlockReference
+  2
+Corner iron
+ 10
+41
+ 20
+203
+ 30
+0
+ 41
+1
+ 42
+1
+ 43
+0
+ 50
+180
+ 70
+    1
+ 71
+    1
+ 44
+0
+ 45
+0
+  0
+INSERT
+  5
+A9
+100
+AcDbEntity
+  8
+0
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbBlockReference
+  2
+Corner iron-3
+ 10
+213
+ 20
+203
+ 30
+0
+ 41
+1
+ 42
+1
+ 43
+0
+ 50
+180
+ 70
+    1
+ 71
+    1
+ 44
+0
+ 45
+0
+  0
+CIRCLE
+  5
+AA
+100
+AcDbEntity
+  8
+0
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbCircle
+ 10
+107
+ 20
+152
+ 40
+6.1
+  0
+LWPOLYLINE
+  5
+AB
+100
+AcDbEntity
+  8
+0
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbPolyline
+ 90
+    4
+ 70
+    1
+ 43
+0
+ 10
+0
+ 20
+0
+ 10
+214
+ 20
+0
+ 10
+214
+ 20
+100
+ 10
+0
+ 20
+100
+  0
+INSERT
+  5
+AC
+100
+AcDbEntity
+  8
+0
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbBlockReference
+  2
+Corner iron-6
  10
 1
  20
@@ -3667,7 +5113,7 @@ Corner iron
   0
 INSERT
   5
-78
+AD
 100
 AcDbEntity
   8
@@ -3707,7 +5153,7 @@ Corner iron-0
   0
 INSERT
   5
-79
+AE
 100
 AcDbEntity
   8
@@ -3721,7 +5167,7 @@ ByLayer
 100
 AcDbBlockReference
   2
-Corner iron
+Corner iron-6
  10
 41
  20
@@ -3747,7 +5193,7 @@ Corner iron
   0
 INSERT
   5
-7A
+AF
 100
 AcDbEntity
   8
@@ -3785,9 +5231,49 @@ Corner iron-3
  45
 0
   0
+INSERT
+  5
+B0
+100
+AcDbEntity
+  8
+0
+  6
+ByLayer
+ 62
+  256
+370
+   -1
+100
+AcDbBlockReference
+  2
+Display
+ 10
+69.7
+ 20
+19.5
+ 30
+0
+ 41
+1
+ 42
+1
+ 43
+0
+ 50
+0
+ 70
+    1
+ 71
+    1
+ 44
+0
+ 45
+0
+  0
 CIRCLE
   5
-7B
+B1
 100
 AcDbEntity
   8
@@ -3801,77 +5287,11 @@ ByLayer
 100
 AcDbCircle
  10
+55.2
+ 20
 50
- 20
-18
  40
-2.25
-  0
-CIRCLE
-  5
-7C
-100
-AcDbEntity
-  8
-0
-  6
-ByLayer
- 62
-  256
-370
-   -1
-100
-AcDbCircle
- 10
-50
- 20
-82
- 40
-2.25
-  0
-CIRCLE
-  5
-7D
-100
-AcDbEntity
-  8
-0
-  6
-ByLayer
- 62
-  256
-370
-   -1
-100
-AcDbCircle
- 10
-164
- 20
-18
- 40
-2.25
-  0
-CIRCLE
-  5
-7E
-100
-AcDbEntity
-  8
-0
-  6
-ByLayer
- 62
-  256
-370
-   -1
-100
-AcDbCircle
- 10
-164
- 20
-82
- 40
-2.25
+3.25
   0
 ENDSEC
   0
