@@ -137,3 +137,7 @@ Press `+` and `-` buttons to choose a year, then press `Set` button to return to
 
 ![Display front](https://github.com/RICCIARDI-Adrien/Clock_2/blob/master/Resources/Pictures/Display_Front.jpg)
 ![Display back](https://github.com/RICCIARDI-Adrien/Clock_2/blob/master/Resources/Pictures/Display_Back.jpg)
+
+### Casing
+
+![Casing steel plates](https://github.com/RICCIARDI-Adrien/Clock_2/blob/master/Resources/Pictures/Casing_Steel_Plates.jpg)
