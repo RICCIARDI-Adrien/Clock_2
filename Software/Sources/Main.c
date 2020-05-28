@@ -36,10 +36,6 @@
 // CONFIG7H register
 #pragma config EBTRB = OFF // Disable boot block table read protection
 
-//-------------------------------------------------------------------------------------------------
-// Private constants and macros
-//-------------------------------------------------------------------------------------------------
-
 //--------------------------------------------------------------------------------------------------
 // Private variables
 //--------------------------------------------------------------------------------------------------
@@ -54,6 +50,25 @@ static char *Pointer_Main_String_Day_Names[] =
 	"Jeudi   ",
 	"Vendredi",
 	"Samedi  "
+};
+
+/** Hold the least sampled values since clock power on. */
+static TSensorsMeasures Main_Minimum_Measures = // Initialize each value with the biggest impossible value, so any sampled value will be lesser
+{
+	127,
+	32767,
+	101
+};
+
+/** Hold the last currently sampled values. */
+static TSensorsMeasures Main_Current_Measures;
+
+/** Hold the greatest sampled values since clock power on. */
+static TSensorsMeasures Main_Maximum_Measures = // Initialize each value with the smallest impossible value, so any sampled value will be greater
+{
+	-128,
+	-32768,
+	0
 };
 
 //-------------------------------------------------------------------------------------------------
@@ -167,7 +182,6 @@ static inline void MainShowDefaultView(void)
 {
 	TRTCTime Time, Time_Alarm;
 	TRTCDate Date;
-	TSensorsMeasures Measures;
 	unsigned char Tens_Character, Units_Character;
 	
 	// Display time
@@ -212,16 +226,13 @@ static inline void MainShowDefaultView(void)
 	DisplayWriteCharacter(Tens_Character);
 	DisplayWriteCharacter(Units_Character);
 	
-	// Retrieve sensors data
-	SensorsGetMeasures(&Measures);
-	
 	// Clear temperature field last characters in case the previously displayed string was longer than the current one
 	DisplaySetCursorLocation(DISPLAY_CURSOR_LOCATION_LINE_3 + 6);
 	DisplayWriteString("  ");
 	// Display temperature
 	DisplaySetCursorLocation(DISPLAY_CURSOR_LOCATION_LINE_3 + 1);
 	DisplayWriteString("T:");
-	DisplayWriteNumber(Measures.Temperature);
+	DisplayWriteNumber(Main_Current_Measures.Temperature);
 	DisplayWriteCharacter(0xDF); // A japanese character that looks like "degree" sign (DisplayWriteString() was not used because XC8 is not able to recognize \337 sequence)
 	DisplayWriteCharacter('C');
 	
@@ -231,7 +242,7 @@ static inline void MainShowDefaultView(void)
 	// Display pressure
 	DisplaySetCursorLocation(DISPLAY_CURSOR_LOCATION_LINE_3 + 9);
 	DisplayWriteString("P:");
-	DisplayWriteNumber(Measures.Pressure);
+	DisplayWriteNumber(Main_Current_Measures.Pressure);
 	DisplayWriteString("mbar");
 	
 	// Clear humidity field last character in case the previously displayed string was longer than the current one
@@ -240,7 +251,7 @@ static inline void MainShowDefaultView(void)
 	// Display humidity
 	DisplaySetCursorLocation(DISPLAY_CURSOR_LOCATION_LINE_4 + 1);
 	DisplayWriteString("H:");
-	DisplayWriteNumber(Measures.Humidity);
+	DisplayWriteNumber(Main_Current_Measures.Humidity);
 	DisplayWriteCharacter('%');
 	
 	// Display alarm enabling state
@@ -365,6 +376,113 @@ static void MainShowConfigurationMenu(void)
 	}
 }
 
+/** Show minimum and maximum values of a specific measure.
+ * @param Pointer_String_View_Title The measure name. It will be displayed on the first display line.
+ * @param Pointer_String_Unit This string will be appended right after a measure value is displayed.
+ * @param Minimum_Value Will be displayed after the text "minimum".
+ * @param Maximum_Value Will be displayed after the text "maximum".
+ */
+static void MainShowMeasureValuesView(char *Pointer_String_View_Title, char *Pointer_String_Unit, signed short Minimum_Value, signed short Maximum_Value)
+{
+	// Display view title
+	DisplayClear();
+	DisplayWriteString(Pointer_String_View_Title);
+	
+	// Display minimum value
+	DisplaySetCursorLocation(DISPLAY_CURSOR_LOCATION_LINE_2);
+	DisplayWriteString("Minimum : ");
+	DisplayWriteNumber(Minimum_Value);
+	DisplayWriteString(Pointer_String_Unit);
+	
+	// Display maximum value
+	DisplaySetCursorLocation(DISPLAY_CURSOR_LOCATION_LINE_3);
+	DisplayWriteString("Maximum : ");
+	DisplayWriteNumber(Maximum_Value);
+	DisplayWriteString(Pointer_String_Unit);
+}
+
+/** Display minimum and maximum values for each measure.
+ * @param Is_First_Measure_Shown Set to 0 to start displaying from the last view, set to 1 to start displaying from the first view.
+ */
+static void MainShowMeasuresView(unsigned char Is_First_Measure_Shown)
+{
+	unsigned char Selected_View_Index;
+	
+	// Determine the first measure to display (i.e. start from beginning or from end of available measures)
+	if (Is_First_Measure_Shown) Selected_View_Index = 0;
+	else Selected_View_Index = 2;
+	
+	while (1)
+	{
+		// Display selected view
+		switch (Selected_View_Index)
+		{
+			// Temperature
+			case 0:
+			{
+				MainShowMeasureValuesView("---- TEMPERATURE ---", "\337C", Main_Minimum_Measures.Temperature, Main_Maximum_Measures.Temperature);
+				
+				// Handle buttons
+				switch (ButtonsWaitMenuButtonPress())
+				{
+					// Return to default view
+					case BUTTONS_MENU_ID_MINUS:
+					case BUTTONS_MENU_ID_SET:
+						return;
+					
+					// Select pressure view
+					case BUTTONS_MENU_ID_PLUS:
+						Selected_View_Index = 1;
+						break;
+				}
+				break;
+			}
+			
+			// Pressure
+			case 1:
+				MainShowMeasureValuesView("----- PRESSION -----", "mbar", Main_Minimum_Measures.Pressure, Main_Maximum_Measures.Pressure);
+				
+				// Handle buttons
+				switch (ButtonsWaitMenuButtonPress())
+				{
+					// Select temperature view
+					case BUTTONS_MENU_ID_MINUS:
+						Selected_View_Index = 0;
+						break;
+					
+					// Select humidity view
+					case BUTTONS_MENU_ID_PLUS:
+						Selected_View_Index = 2;
+						break;
+						
+					// Return to default view
+					case BUTTONS_MENU_ID_SET:
+						return;
+				}
+				break;
+				
+			// Humidity
+			case 2:
+				MainShowMeasureValuesView("----- HUMIDITE -----", "%", Main_Minimum_Measures.Humidity, Main_Maximum_Measures.Humidity);
+				
+				// Handle buttons
+				switch (ButtonsWaitMenuButtonPress())
+				{
+					// Select pressure view
+					case BUTTONS_MENU_ID_MINUS:
+						Selected_View_Index = 1;
+						break;
+					
+					// Return to default view
+					case BUTTONS_MENU_ID_PLUS:
+					case BUTTONS_MENU_ID_SET:
+						return;
+				}
+				break;
+		}
+	}
+}
+
 //-------------------------------------------------------------------------------------------------
 // Entry point
 //-------------------------------------------------------------------------------------------------
@@ -400,7 +518,20 @@ void main(void)
 	while (1)
 	{
 		// Wait for a new tick to begin
-		while ((RTC_TICK_PIN == 0) && (BUTTONS_PIN_SET == BUTTONS_STATE_RELEASED)); // Also exit if "set" button is pressed
+		while ((RTC_TICK_PIN == 0) && (BUTTONS_PIN_SET == BUTTONS_STATE_RELEASED) && (BUTTONS_PIN_PLUS == BUTTONS_STATE_RELEASED) && (BUTTONS_PIN_MINUS == BUTTONS_STATE_RELEASED)); // Stop waiting if a button is pressed
+		
+		// Sample values once and make them available to all views
+		SensorsGetMeasures(&Main_Current_Measures);
+		
+		// Determine minimum values
+		if (Main_Current_Measures.Temperature < Main_Minimum_Measures.Temperature) Main_Minimum_Measures.Temperature = Main_Current_Measures.Temperature;
+		if (Main_Current_Measures.Pressure < Main_Minimum_Measures.Pressure) Main_Minimum_Measures.Pressure = Main_Current_Measures.Pressure;
+		if (Main_Current_Measures.Humidity < Main_Minimum_Measures.Humidity) Main_Minimum_Measures.Humidity = Main_Current_Measures.Humidity;
+		
+		// Determine maximum values
+		if (Main_Current_Measures.Temperature > Main_Maximum_Measures.Temperature) Main_Maximum_Measures.Temperature = Main_Current_Measures.Temperature;
+		if (Main_Current_Measures.Pressure > Main_Maximum_Measures.Pressure) Main_Maximum_Measures.Pressure = Main_Current_Measures.Pressure;
+		if (Main_Current_Measures.Humidity > Main_Maximum_Measures.Humidity) Main_Maximum_Measures.Humidity = Main_Current_Measures.Humidity;
 		
 		// Display configuration menu if "set" button is pressed
 		if (BUTTONS_PIN_SET == BUTTONS_STATE_PRESSED)
@@ -411,6 +542,21 @@ void main(void)
 			BUTTONS_WAIT_FOR_BUTTON_RELEASE(BUTTONS_PIN_SET);
 			BUTTONS_WAIT_FOR_BUTTON_RELEASE(BUTTONS_PIN_PLUS);
 			BUTTONS_WAIT_FOR_BUTTON_RELEASE(BUTTONS_PIN_MINUS);
+		}
+		// Display statistics views if "plus" or "minus" buttons are pressed
+		else if ((BUTTONS_PIN_MINUS == BUTTONS_STATE_PRESSED) || (BUTTONS_PIN_PLUS == BUTTONS_STATE_PRESSED))
+		{
+			// Display first or last measures view according to pressed button
+			if (BUTTONS_PIN_MINUS == BUTTONS_STATE_PRESSED) MainShowMeasuresView(0);
+			else MainShowMeasuresView(1);
+			
+			// Make sure all keys are released
+			BUTTONS_WAIT_FOR_BUTTON_RELEASE(BUTTONS_PIN_SET);
+			BUTTONS_WAIT_FOR_BUTTON_RELEASE(BUTTONS_PIN_PLUS);
+			BUTTONS_WAIT_FOR_BUTTON_RELEASE(BUTTONS_PIN_MINUS);
+			
+			// Clean any remaining trace
+			DisplayClear();
 		}
 		
 		// Always display time and date view, so they are immediately visible when exiting from configuration menu
@@ -425,6 +571,6 @@ void main(void)
 		}
 		
 		// Wait for tick end
-		while ((RTC_TICK_PIN == 1) && (BUTTONS_PIN_SET == BUTTONS_STATE_RELEASED)); // Also exit if "set" button is pressed
+		while ((RTC_TICK_PIN == 1) && (BUTTONS_PIN_SET == BUTTONS_STATE_RELEASED) && (BUTTONS_PIN_PLUS == BUTTONS_STATE_RELEASED) && (BUTTONS_PIN_MINUS == BUTTONS_STATE_RELEASED)); // Stop waiting if a button is pressed
 	}
 }
