@@ -233,8 +233,7 @@ static inline void MainShowDefaultView(void)
 	DisplaySetCursorLocation(DISPLAY_CURSOR_LOCATION_LINE_3 + 1);
 	DisplayWriteString("T:");
 	DisplayWriteNumber(Main_Current_Measures.Temperature);
-	DisplayWriteCharacter(0xDF); // A japanese character that looks like "degree" sign (DisplayWriteString() was not used because XC8 is not able to recognize \337 sequence)
-	DisplayWriteCharacter('C');
+	DisplayWriteString("\337C");
 	
 	// Clear pressure field last characters in case the previously displayed string was longer than the current one
 	DisplaySetCursorLocation(DISPLAY_CURSOR_LOCATION_LINE_3 + 18);
