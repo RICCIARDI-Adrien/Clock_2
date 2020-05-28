@@ -10,6 +10,18 @@ New features :
 * More compact, more industrial and more robust casing.
 * A really simple interface made of 3 buttons to configure all clock settings (no more configuration through USB).
 
+## Firmware
+
+Microchip XC8 version 2.20 or above is required to build the firmware. Previous XC8 versions will work but the Celsius degree unit won't be displayed. This is due to a bug in XC8 escaped string characters parsing.
+
+On a Linux system with XC8 installed and added to `PATH`, enter the following lines :
+```
+cd <repository directory>/Software
+make
+```
+
+Resulting firmware file is `Firmware.hex`.
+
 ## Views
 
 ### Main
