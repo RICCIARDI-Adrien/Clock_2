@@ -142,7 +142,7 @@ unsigned char SensorsInitialize(void)
 	
 	// Configure sensor settings
 	// Set humidity oversampling
-	Sensors_BME680_Device.tph_sett.os_hum = BME680_OS_2X; // Use 2x oversampling
+	Sensors_BME680_Device.tph_sett.os_hum = BME680_OS_8X; // Use an high oversampling value to get more precise measures
 	// Set pressure oversampling
 	Sensors_BME680_Device.tph_sett.os_pres = BME680_OS_4X; // Use 4x oversampling
 	// Set temperature oversampling
@@ -150,7 +150,7 @@ unsigned char SensorsInitialize(void)
 	// Configure low pass digital filter that is available for temperature and pressure data
 	Sensors_BME680_Device.tph_sett.filter = BME680_FILTER_SIZE_3; // Enable IIR filter with a coefficient of 3
 	// Disable gas sensor for now
-	Sensors_BME680_Device.gas_sett.run_gas = BME680_DISABLE_GAS_MEAS; // Enable it
+	Sensors_BME680_Device.gas_sett.run_gas = BME680_DISABLE_GAS_MEAS;
 	
 	// Turn sensor on (this must be set before writing the sensor configuration)
 	Sensors_BME680_Device.power_mode = BME680_FORCED_MODE;
