@@ -266,7 +266,14 @@ static inline void MainShowDefaultView(void)
 /** Display a menu allowing to choose which clock parameter to configure. */
 static void MainShowConfigurationMenu(void)
 {
-	unsigned char Selected_Menu_Index = 0;
+	typedef enum
+	{
+		MENU_ID_SET_ALARM,
+		MENU_ID_SET_TIME,
+		MENU_ID_SET_DATE,
+		MENU_ID_EXIT
+	} TMenuID;
+	TMenuID Selected_Menu_ID = MENU_ID_SET_ALARM;
 	TRTCTime Time;
 	TRTCDate Date;
 	
@@ -275,22 +282,22 @@ static void MainShowConfigurationMenu(void)
 		// Display menu
 		DisplayClear();
 		// Set alarm
-		if (Selected_Menu_Index == 0) DisplayWriteString("-> ");
+		if (Selected_Menu_ID == MENU_ID_SET_ALARM) DisplayWriteString("-> ");
 		else DisplayWriteString("   ");
 		DisplayWriteString("R\001gler alarme");
 		// Set time
 		DisplaySetCursorLocation(DISPLAY_CURSOR_LOCATION_LINE_2);
-		if (Selected_Menu_Index == 1) DisplayWriteString("-> ");
+		if (Selected_Menu_ID == MENU_ID_SET_TIME) DisplayWriteString("-> ");
 		else DisplayWriteString("   ");
 		DisplayWriteString("R\001gler heure");
 		// Set date
 		DisplaySetCursorLocation(DISPLAY_CURSOR_LOCATION_LINE_3);
-		if (Selected_Menu_Index == 2) DisplayWriteString("-> ");
+		if (Selected_Menu_ID == MENU_ID_SET_DATE) DisplayWriteString("-> ");
 		else DisplayWriteString("   ");
 		DisplayWriteString("R\001gler date");
 		// Go back
 		DisplaySetCursorLocation(DISPLAY_CURSOR_LOCATION_LINE_4);
-		if (Selected_Menu_Index == 3) DisplayWriteString("-> ");
+		if (Selected_Menu_ID == MENU_ID_EXIT) DisplayWriteString("-> ");
 		else DisplayWriteString("   ");
 		DisplayWriteString("    Retour");
 		
@@ -299,19 +306,19 @@ static void MainShowConfigurationMenu(void)
 		{
 			// Select next menu entry
 			case BUTTONS_MENU_ID_MINUS:
-				if (Selected_Menu_Index == 3) Selected_Menu_Index = 0; // Loop to menu first entry
-				else Selected_Menu_Index++;
+				if (Selected_Menu_ID == MENU_ID_EXIT) Selected_Menu_ID = MENU_ID_SET_ALARM; // Loop to menu first entry
+				else Selected_Menu_ID++;
 				break;
 			
 			// Select previous menu entry
 			case BUTTONS_MENU_ID_PLUS:
-				if (Selected_Menu_Index == 0) Selected_Menu_Index = 3; // Loop to menu last entry
-				else Selected_Menu_Index--;
+				if (Selected_Menu_ID == MENU_ID_SET_ALARM) Selected_Menu_ID = MENU_ID_EXIT; // Loop to menu last entry
+				else Selected_Menu_ID--;
 				break;
 				
 			case BUTTONS_MENU_ID_SET:
 				// Configure alarm
-				if (Selected_Menu_Index == 0)
+				if (Selected_Menu_ID == MENU_ID_SET_ALARM)
 				{
 					// Retrieve current alarm values
 					RTCGetAlarm(&Time);
@@ -327,7 +334,7 @@ static void MainShowConfigurationMenu(void)
 					RTCSetAlarm(&Time);
 				}
 				// Configure time
-				else if (Selected_Menu_Index == 1)
+				else if (Selected_Menu_ID == MENU_ID_SET_TIME)
 				{
 					// Retrieve current time values
 					RTCGetTime(&Time);
@@ -346,7 +353,7 @@ static void MainShowConfigurationMenu(void)
 					RTCSetTime(&Time);
 				}
 				// Configure date
-				else if (Selected_Menu_Index == 2)
+				else if (Selected_Menu_ID == MENU_ID_SET_DATE)
 				{
 					// Retrieve current date values
 					RTCGetDate(&Date);
@@ -365,7 +372,7 @@ static void MainShowConfigurationMenu(void)
 					RTCSetDate(&Date);
 				}
 				// Exit configuration menu
-				else if (Selected_Menu_Index == 3)
+				else if (Selected_Menu_ID == MENU_ID_EXIT)
 				{
 					DisplayClear();
 					return;
