@@ -405,19 +405,25 @@ static void MainShowMeasureValuesView(char *Pointer_String_View_Title, char *Poi
  */
 static void MainShowMeasuresView(unsigned char Is_First_Measure_Shown)
 {
-	unsigned char Selected_View_Index;
+	typedef enum
+	{
+		VIEW_ID_TEMPERATURE,
+		VIEW_ID_PRESSURE,
+		VIEW_ID_HUMIDITY
+	} TViewID;
+	TViewID Selected_View_ID;
 	
 	// Determine the first measure to display (i.e. start from beginning or from end of available measures)
-	if (Is_First_Measure_Shown) Selected_View_Index = 0;
-	else Selected_View_Index = 2;
+	if (Is_First_Measure_Shown) Selected_View_ID = VIEW_ID_TEMPERATURE;
+	else Selected_View_ID = VIEW_ID_HUMIDITY;
 	
 	while (1)
 	{
 		// Display selected view
-		switch (Selected_View_Index)
+		switch (Selected_View_ID)
 		{
 			// Temperature
-			case 0:
+			case VIEW_ID_TEMPERATURE:
 			{
 				MainShowMeasureValuesView("---- TEMPERATURE ---", "\337C", Main_Minimum_Measures.Temperature, Main_Maximum_Measures.Temperature);
 				
@@ -431,14 +437,14 @@ static void MainShowMeasuresView(unsigned char Is_First_Measure_Shown)
 					
 					// Select pressure view
 					case BUTTONS_MENU_ID_PLUS:
-						Selected_View_Index = 1;
+						Selected_View_ID = VIEW_ID_PRESSURE;
 						break;
 				}
 				break;
 			}
 			
 			// Pressure
-			case 1:
+			case VIEW_ID_PRESSURE:
 				MainShowMeasureValuesView("----- PRESSION -----", "mbar", Main_Minimum_Measures.Pressure, Main_Maximum_Measures.Pressure);
 				
 				// Handle buttons
@@ -446,12 +452,12 @@ static void MainShowMeasuresView(unsigned char Is_First_Measure_Shown)
 				{
 					// Select temperature view
 					case BUTTONS_MENU_ID_MINUS:
-						Selected_View_Index = 0;
+						Selected_View_ID = VIEW_ID_TEMPERATURE;
 						break;
 					
 					// Select humidity view
 					case BUTTONS_MENU_ID_PLUS:
-						Selected_View_Index = 2;
+						Selected_View_ID = VIEW_ID_HUMIDITY;
 						break;
 						
 					// Return to default view
@@ -461,7 +467,7 @@ static void MainShowMeasuresView(unsigned char Is_First_Measure_Shown)
 				break;
 				
 			// Humidity
-			case 2:
+			case VIEW_ID_HUMIDITY:
 				MainShowMeasureValuesView("----- HUMIDITE -----", "%", Main_Minimum_Measures.Humidity, Main_Maximum_Measures.Humidity);
 				
 				// Handle buttons
@@ -469,7 +475,7 @@ static void MainShowMeasuresView(unsigned char Is_First_Measure_Shown)
 				{
 					// Select pressure view
 					case BUTTONS_MENU_ID_MINUS:
-						Selected_View_Index = 1;
+						Selected_View_ID = VIEW_ID_PRESSURE;
 						break;
 					
 					// Return to default view
