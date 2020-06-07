@@ -1,5 +1,7 @@
 # Clock 2
 
+![Clock 2](https://github.com/RICCIARDI-Adrien/Clock_2/blob/master/Resources/Pictures/Clock_Front_View.jpg)
+
 Improved digital clock. First generation is [here](https://github.com/RICCIARDI-Adrien/Clock).  
 
 New features :
@@ -153,3 +155,19 @@ Press `+` and `-` buttons to choose a year, then press `Set` button to return to
 ### Casing
 
 ![Casing steel plates](https://github.com/RICCIARDI-Adrien/Clock_2/blob/master/Resources/Pictures/Casing_Steel_Plates.jpg)
+
+### Finished clock
+
+![Clock front view](https://github.com/RICCIARDI-Adrien/Clock_2/blob/master/Resources/Pictures/Clock_Front_View.jpg)
+
+Alarm stopping and display backlight button :
+![Clock top view](https://github.com/RICCIARDI-Adrien/Clock_2/blob/master/Resources/Pictures/Clock_Top_View.jpg)
+
+Power supply USB connector :
+![Clock back view](https://github.com/RICCIARDI-Adrien/Clock_2/blob/master/Resources/Pictures/Clock_Back_View.jpg)
+
+Bottom protection pads :
+![Clock bottom view](https://github.com/RICCIARDI-Adrien/Clock_2/blob/master/Resources/Pictures/Clock_Bottom_View.jpg)
+
+Internal view (backup battery not yet fitted) :
+![Clock internal view](https://github.com/RICCIARDI-Adrien/Clock_2/blob/master/Resources/Pictures/Clock_Internal_View.jpg)
