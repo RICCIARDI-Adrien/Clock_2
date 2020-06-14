@@ -72,6 +72,50 @@ Internal view (backup battery not yet fitted) :
 +--------------------+
 ```
 
+'A' stands for a bell symbol representing the current alarm state (enabled or disabled).
+
+### Statistics
+
+Press `+` button to reach temperature view.  
+Press `-` button to reach humidity view (these views can be accessed in reverse order).
+
+```
++--------------------+
+|---- TEMPERATURE ---|
+|Minimum : 23°C      |
+|Maximum : 15°C      |
+|                    |
++--------------------+
+```
+
+Press `Set` or `-` button to return to main view.  
+Press `+` button to go to pressure view.
+
+```
++--------------------+
+|----- PRESSION -----|
+|Minimum : 980mbar   |
+|Maximum : 1002mbar  |
+|                    |
++--------------------+
+```
+
+Press `Set` to immediately return to main view.  
+Press `-` button to return to temperature view.  
+Press `+` button to go to humidity view.
+
+```
++--------------------+
+|----- HUMIDITE -----|
+|Minimum : 57%       |
+|Maximum : 59%       |
+|                    |
++--------------------+
+```
+
+Press `Set` or `+` button to return to main view.  
+Press `-` button to return to pression view.
+
 ### Settings
 
 Press `Set` button to reach this view.
