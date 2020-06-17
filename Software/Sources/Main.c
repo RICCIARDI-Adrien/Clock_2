@@ -260,7 +260,11 @@ static inline void MainShowDefaultView(void)
 	
 	// Is it time to ring ?
 	RTCGetAlarm(&Time_Alarm);
-	if (ButtonsIsAlarmEnabled() && (Time.Hours == Time_Alarm.Hours) && (Time.Minutes == Time_Alarm.Minutes) && (Time.Seconds == 0x00)) RingStart();
+	if (ButtonsIsAlarmEnabled() && (Time.Hours == Time_Alarm.Hours) && (Time.Minutes == Time_Alarm.Minutes) && (Time.Seconds == 0x00))
+	{
+		RingStart();
+		DisplayTurnBacklightOn(); // Also light display
+	}
 }
 
 /** Display a menu allowing to choose which clock parameter to configure. */
