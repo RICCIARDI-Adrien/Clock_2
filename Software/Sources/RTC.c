@@ -270,7 +270,7 @@ void RTCGetAlarm(TRTCTime *Pointer_Alarm_Time)
 	
 	// Maker sure some control bits are not set
 	Pointer_Alarm_Time->Minutes &= 0x7F;
-	Pointer_Alarm_Time->Hours &= 0x1F;
+	Pointer_Alarm_Time->Hours &= 0x3F;
 }
 
 void RTCSetAlarm(TRTCTime *Pointer_Alarm_Time)
