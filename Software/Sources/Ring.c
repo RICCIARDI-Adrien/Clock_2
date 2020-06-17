@@ -18,10 +18,10 @@
 /** The ring "melody". */
 static unsigned char Ring_Tone[] =
 {
-	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+	1, 1, 1, 1, 1,
+	0, 0, 0, 0, 0,
+	1, 1, 1, 1, 1,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 };
 
 /** The ring "note" index. */
@@ -41,7 +41,7 @@ void RingInitialize(void)
 	TRISCbits.TRISC1 = 0; // Configure pin as output
 	
 	// Configure the timer 1 module to trigger an interrupt at 30.5Hz (the lowest frequency that can be reached with this timer clocked by Fosc = 64MHz)
-	T1CON = 0x72; // Use Fosc/4 as clock source, enable 1:8 prescaler, enable 16-bit timer mode, do not start timer
+	T1CON = 0x32; // Use Fosc/4 as clock source, enable 1:8 prescaler, enable 16-bit timer mode, do not start timer
 	T1GCON = 0; // Disable all gate-related features
 	
 	// Configure timer 1 interrupt
