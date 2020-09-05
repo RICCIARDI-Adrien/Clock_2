@@ -254,12 +254,29 @@ static inline void MainShowDefaultView(void)
 	DisplayWriteCharacter('%');
 	
 	// Display alarm enabling state
+	RTCGetAlarm(&Time_Alarm);
 	DisplaySetCursorLocation(DISPLAY_CURSOR_LOCATION_LINE_4 + 9);
-	if (ButtonsIsAlarmEnabled()) DisplayWriteString("\002:ON "); // Add an extra space to clear the "OFF" string, which is longer
-	else DisplayWriteString("\002:OFF");
+	if (ButtonsIsAlarmEnabled())
+	{
+		// Also display programmed alarm time
+		DisplayWriteString("\002:ON(");
+		
+		// Hour
+		MainConvertBCDToASCII(Time_Alarm.Hours, &Tens_Character, &Units_Character);
+		DisplayWriteCharacter(Tens_Character);
+		DisplayWriteCharacter(Units_Character);
+		DisplayWriteCharacter(':');
+		
+		// Minutes
+		MainConvertBCDToASCII(Time_Alarm.Minutes, &Tens_Character, &Units_Character);
+		DisplayWriteCharacter(Tens_Character);
+		DisplayWriteCharacter(Units_Character);
+		DisplayWriteCharacter(')');
+	}
+	else DisplayWriteString("\002:OFF       "); // Add extra spaces to clear previous "ON" string
 	
 	// Is it time to ring ?
-	RTCGetAlarm(&Time_Alarm);
+	
 	if (ButtonsIsAlarmEnabled() && (Time.Hours == Time_Alarm.Hours) && (Time.Minutes == Time_Alarm.Minutes) && (Time.Seconds == 0x00))
 	{
 		RingStart();
